@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://blog.equanimity.nl/sitemap.xml 
+Sitemap: http://wardbekker.github.io/sitemap.xml 

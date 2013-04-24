@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Ward Bekker]]></title>
-  <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
-  <link href="http://blog.equanimity.nl/"/>
-  <updated>2013-04-24T16:17:28+02:00</updated>
-  <id>http://blog.equanimity.nl/</id>
+  <link href="http://wardbekker.github.io/atom.xml" rel="self"/>
+  <link href="http://wardbekker.github.io/"/>
+  <updated>2013-04-24T16:26:11+02:00</updated>
+  <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[foobar]]></title>
-    <link href="http://blog.equanimity.nl/blog/2013/04/24/foobar/"/>
+    <link href="http://wardbekker.github.io/blog/2013/04/24/foobar/"/>
     <updated>2013-04-24T16:13:00+02:00</updated>
-    <id>http://blog.equanimity.nl/blog/2013/04/24/foobar</id>
+    <id>http://wardbekker.github.io/blog/2013/04/24/foobar</id>
     <content type="html"><![CDATA[
 ]]></content>
   </entry>
