@@ -161,17 +161,12 @@ article {
 
 figure.code {
 	.highlight {
-		background: #fafafa !important;
-
 		.gutter {
 			display: none;
 		}
 	}
 }
 
-.pre-code, html .gist .gist-file .gist-syntax .highlight pre, .highlight code {
-	background: #fafafa !important;
-}
 
 aside {
 	display: none;
