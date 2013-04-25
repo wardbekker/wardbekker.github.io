@@ -28,7 +28,7 @@ sample of an actual fprof trace.
 analyse result with sorting, a fancy call graph view, callee map and
 more. 
 
-{% img  /images/qcachegrind.png 750 750 'image' 'images' %}
+{% img  /images/qcachegrind.png 750 750 'Qcachegrind screenshot' 'images' %}
 
 As KCachegrind can't read fprof analysis output directly, you need to
 convert it first to the callgrind format with the [Erlgrind](https://github.com/isacssouza/erlgrind) script by [Isac Sacchi e Souza](https://twitter.com/isacssouza). 
