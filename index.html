@@ -9,11 +9,11 @@
   <meta name="author" content="Ward Bekker">
 
   
-  <meta name="description" content="You&#8217;re erlang application is slow. To find the bottleneck, you profile
-the code with fprof. 1
+  <meta name="description" content="Your Erlang code is perfect, but to find out why other peoples
+code runs dog slow you probably profile the code with fprof like this: 1
 2
 3
-(node@host)1> fprof:apply(module, function, [ &hellip;">
+(node@ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,7 +71,7 @@ the code with fprof. 1
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2013/04/24/valgrind-callgrind/">Better Visualisation of Erlang Fprof Traces With Kcachegrind</a></h1>
+      <h1 class="entry-title"><a href="/blog/2013/04/24/valgrind-callgrind/">Erlang Fprof Output Confusing? Try KCachegrind.</a></h1>
     
     
       <p class="meta">
@@ -94,8 +94,8 @@ the code with fprof. 1
   </header>
 
 
-  <div class="entry-content"><p>You&#8217;re erlang application is slow. To find the bottleneck, you profile
-the code with fprof.</p>
+  <div class="entry-content"><p>Your Erlang code is perfect, but to find out why other peoples
+code runs dog slow you probably profile the code with <a href="http://www.erlang.org/doc/man/fprof.html">fprof</a> like this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -105,28 +105,36 @@ the code with fprof.</p>
 </span><span class='line'>(node@host)1> fprof:analyse({dest, "outfile.fprof"}).</span></code></pre></td></tr></table></div></figure>
 
 
-<p>The printout of fprof analyse is a text dump of the result, which I
-find quite hard to parse and detect the bottlenecks in your code because of all the
-noise. Below a truncated sample.</p>
+<p>The printout of fprof analyse is a text dump of the result, which can
+grow over 1000 lines and contains a lot of noise which makes it hard
+to locate the bottlenecks. Below a truncated
+sample of an actual fprof trace.</p>
 
 <div><script src='https://gist.github.com/5458222.js'></script>
 <noscript><pre><code></code></pre></noscript></div>
 
 
-<p><a href="KCachegrind">http://kcachegrind.sourceforge.net</a> to the rescue! With this tool you can visually inspect the fprof
-analyse result with sorting, a fancy call graph view, callee map and more.</p>
+<h2>KCachegrind</h2>
+
+<p><a href="http://kcachegrind.sourceforge.net">KCachegrind</a> to the rescue! With this tool you can visually inspect the fprof
+analyse result with sorting, a fancy call graph view, callee map and
+more.</p>
 
 <p><img src="/images/qcachegrind.png" width="750" height="750" title="image" alt="images"></p>
 
 <p>As KCachegrind can&#8217;t read fprof analysis output directly, you need to
-convert it first with the Erlgrind script.
-<a href="download%20here">https://github.com/isacssouza/erlgrind</a>.</p>
+convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>./erlgrind_script outfile.fprof callgrind.001</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Installation of KCachegrind on a mac (using homebrew) :</p>
+<h2>KCachegrind &amp; Erlgrind Installation</h2>
+
+<p>For installation of KCachegrind on my Mac I use
+<a href="http://mxcl.github.io/homebrew/">Homebrew</a>, a package manager for OSX. Notice that you
+install <em>qcachegrind</em>, the <a href="http://qt-project.org">QT</a> version of
+KCachegrind.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -136,7 +144,23 @@ convert it first with the Erlgrind script.
 </span><span class='line'>$ sudo ln -s /usr/local/bin/dot /usr/bin/dot</span></code></pre></td></tr></table></div></figure>
 
 
+<p>Installing the Erlgrind (<a href="https://github.com/isacssouza/erlgrind">Github</a>) script:</p>
 
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl -O "https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind"
+</span><span class='line'>$ chmod +x erlgrind
+</span><span class='line'>$ mv erlgrind /usr/local/bin/</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And open qcachegrind:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ open ~/Applications/qcachegrind.app</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enjoy!</p>
 </div>
   
   
@@ -157,7 +181,7 @@ convert it first with the Erlgrind script.
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/04/24/valgrind-callgrind/">Better visualisation of Erlang fprof traces with kcachegrind</a>
+        <a href="/blog/2013/04/24/valgrind-callgrind/">Erlang Fprof output confusing? Try KCachegrind.</a>
       </li>
     
   </ul>
