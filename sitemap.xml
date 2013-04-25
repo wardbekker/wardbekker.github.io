@@ -16,7 +16,11 @@
         <loc>
             http://wardbekker.github.io/blog/2013/04/25/enable-spdy-for-your-erlang-website/
         </loc>
-        <lastmod>2013-04-25T15:01:25+02:00</lastmod>
+        <lastmod>2013-04-25T15:04:24+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://wardbekker.github.io/blog/2013/04/25/scrum-2009-not-scrum-2012/</loc>
+        <lastmod>2013-04-25T15:09:28+02:00</lastmod>
     </url>
     <url>
         <loc>http://wardbekker.github.io/about/</loc>
@@ -24,11 +28,11 @@
     </url>
     <url>
         <loc>http://wardbekker.github.io/blog/archives/</loc>
-        <lastmod>2013-04-25T15:01:50+02:00</lastmod>
+        <lastmod>2013-04-25T15:09:28+02:00</lastmod>
     </url>
     <url>
         <loc>http://wardbekker.github.io/</loc>
-        <lastmod>2013-04-25T15:01:50+02:00</lastmod>
+        <lastmod>2013-04-25T15:09:28+02:00</lastmod>
     </url>
     <url>
         <loc>http://wardbekker.github.io/robots.txt</loc>
