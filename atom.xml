@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://wardbekker.github.io/atom.xml" rel="self"/>
   <link href="http://wardbekker.github.io/"/>
-  <updated>2013-04-25T10:43:06+02:00</updated>
+  <updated>2013-04-25T10:44:59+02:00</updated>
   <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Erlang Fprof output confusing? Try KCachegrind.]]></title>
-    <link href="http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind/"/>
+    <link href="http://wardbekker.github.io/blog/2013/04/24/fprof-kcachegrind/"/>
     <updated>2013-04-24T16:13:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind</id>
+    <id>http://wardbekker.github.io/blog/2013/04/24/fprof-kcachegrind</id>
     <content type="html"><![CDATA[<p>Your Erlang code is perfect, but to find out why other peoples
 code runs dog slow you probably profile the code with <a href="http://www.erlang.org/doc/man/fprof.html">fprof</a> like this:</p>
 
