@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://wardbekker.github.io/atom.xml" rel="self"/>
   <link href="http://wardbekker.github.io/"/>
-  <updated>2013-04-25T12:16:25+02:00</updated>
+  <updated>2013-04-25T13:00:01+02:00</updated>
   <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -44,7 +44,7 @@ sample of an actual fprof trace.</p>
 analyse result with sorting, a fancy call graph view, callee map and
 more.</p>
 
-<p><img src="http://wardbekker.github.io/images/qcachegrind.png" width="750" height="750" title="image" alt="images"></p>
+<p><img src="http://wardbekker.github.io/images/qcachegrind.png" width="750" height="750" title="Qcachegrind screenshot" alt="images"></p>
 
 <p>As KCachegrind can&#8217;t read fprof analysis output directly, you need to
 convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.</p>
