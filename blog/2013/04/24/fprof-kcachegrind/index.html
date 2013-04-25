@@ -133,8 +133,9 @@ more.</p>
 <p>As KCachegrind can&#8217;t read fprof analysis output directly, you need to
 convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>./erlgrind_script outfile.fprof callgrind.001</span></code></pre></td></tr></table></div></figure>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>./erlgrind_script outfile.fprof callgrind.001
+</span></code></pre></td></tr></table></div></figure>
 
 
 <h2>KCachegrind &amp; Erlgrind Installation</h2>
@@ -144,28 +145,31 @@ convert it first to the callgrind format with the <a href="https://github.com/is
 install <em>qcachegrind</em>, the <a href="http://qt-project.org">QT</a> version of
 KCachegrind.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install qcachegrind
-</span><span class='line'>$ brew instal graphviz
-</span><span class='line'>$ sudo ln -s /usr/local/bin/dot /usr/bin/dot</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>brew install qcachegrind
+</span><span class='line'><span class="nv">$ </span>brew instal graphviz
+</span><span class='line'><span class="nv">$ </span>sudo ln -s /usr/local/bin/dot /usr/bin/dot
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Installing the Erlgrind (<a href="https://github.com/isacssouza/erlgrind">Github</a>) script:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl -O "https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind"
-</span><span class='line'>$ chmod +x erlgrind
-</span><span class='line'>$ mv erlgrind /usr/local/bin/</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>curl -O <span class="s2">&quot;https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind&quot;</span>
+</span><span class='line'><span class="nv">$ </span>chmod +x erlgrind
+</span><span class='line'><span class="nv">$ </span>mv erlgrind /usr/local/bin/
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>And open qcachegrind:</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ open ~/Applications/qcachegrind.app</span></code></pre></td></tr></table></div></figure>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>open ~/Applications/qcachegrind.app
+</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Enjoy!</p>
