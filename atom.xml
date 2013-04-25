@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://wardbekker.github.io/atom.xml" rel="self"/>
   <link href="http://wardbekker.github.io/"/>
-  <updated>2013-04-25T15:00:32+02:00</updated>
+  <updated>2013-04-25T15:03:35+02:00</updated>
   <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -14,7 +14,230 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.]]></title>
+    <title type="html"><![CDATA[Enable SPDY for your Erlang website]]></title>
+    <link href="http://wardbekker.github.io/blog/2013/04/25/enable-spdy-for-your-erlang-website/"/>
+    <updated>2013-04-25T15:01:00+02:00</updated>
+    <id>http://wardbekker.github.io/blog/2013/04/25/enable-spdy-for-your-erlang-website</id>
+    <content type="html"><![CDATA[<p>Google&#8217;s <a href="https://thestrangeloop.com">Strange Loop</a> presentation <a href="https://docs.google.com/presentation/d/1dPbm1lKjVqdYq3_z3Dgp4ChPNZuMyrL9uLWGL40HBhI/edit#slide=id.p19">Making the Web Faster</a> inspired me to enable SPDY on one of my side projects <a href="https://www.zininsushi.nl">Zin In Sushi</a>. This simple sushi restaurant review site is build in Erlang using <a href="http://wiki.basho.com/Webmachine.html">Basho&#8217;s Webmachine</a> in combination with <a href="http://code.google.com/p/erlydtl/">Erlydtl</a>.</p>
+
+<p>Below is a quick writeup of the steps needed.</p>
+
+<p><em>Assumptions:</em></p>
+
+<ul>
+<li>Your Erlang powered website is running on port 3000 (Substitute this with your own magic value) on HTTP.</li>
+<li>You are running a recent version of Ubuntu (I&#8217;m running 12.04 LTS).</li>
+<li>Your domain is <code>www.example.org</code>.</li>
+</ul>
+
+
+<p><em>The steps in summary</em>:</p>
+
+<ul>
+<li>Reverse proxy setup with Apache 2</li>
+<li>SSL Setup with Apache 2</li>
+<li>Installation of <code>mod_spdy</code></li>
+<li><code>$ sudo service apache restart</code>, and you&#8217;re done!</li>
+</ul>
+
+
+<h2>Reverse proxy setup with Apache 2</h2>
+
+<p>First install Apache 2 if not already present:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo apt-get install apache2
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enable the <code>proxy_http</code> Apache module to get reverse proxy support:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo a2enmod proxy_http
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Add a new site to Apache&#8217;s <code>available-sites</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/sites-available/reverse_proxy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And past in the following contents (and replace the domain name and ports if needed):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+</span><span class='line'>     <span class="nb">ServerName</span> www.example.org
+</span><span class='line'>
+</span><span class='line'>     <span class="nb">ProxyPreserveHost</span> <span class="k">On</span>
+</span><span class='line'>     <span class="nb">ProxyRequests</span> <span class="k">Off</span>
+</span><span class='line'>     <span class="nb">ProxyPass</span> / http://localhost:3000/
+</span><span class='line'>     <span class="nb">ProxyPassReverse</span> / http://localhost:3000/
+</span><span class='line'><span class="nt">&lt;/VirtualHost&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Enable the site by executing:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo a2ensite reverse_proxy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next up; SSL support!</p>
+
+<h2>SSL Setup with Apache 2</h2>
+
+<p>Enable the <code>ssl</code> Apache module to enable SSL:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo a2enmod ssl
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>SSL certificates are not free, so in this article we generate a self signed SSL certificate to keep moving:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo mkdir /etc/apache2/ssl
+</span><span class='line'><span class="nv">$ </span>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><em>Important!</em> When generating the key, make sure the FQDN matches your domain name:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>You are about to be asked to enter information that will be incorporated
+</span><span class='line'>into your certificate request.
+</span><span class='line'>What you are about to enter is what is called a Distinguished Name or a DN.
+</span><span class='line'>There are quite a few fields but you can leave some blank
+</span><span class='line'>For some fields there will be a default value,
+</span><span class='line'>If you enter <span class="s1">&#39;.&#39;</span>, the field will be left blank.
+</span><span class='line'>-----
+</span><span class='line'>Country Name <span class="o">(</span>2 letter code<span class="o">)</span> <span class="o">[</span>AU<span class="o">]</span>:US
+</span><span class='line'>State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:New York
+</span><span class='line'>Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:NYC
+</span><span class='line'>Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty Ltd<span class="o">]</span>:Awesome Inc
+</span><span class='line'>Organizational Unit Name <span class="o">(</span>eg, section<span class="o">)</span> <span class="o">[]</span>:Dept of Merriment
+</span><span class='line'>Common Name <span class="o">(</span>e.g. server FQDN or YOUR name<span class="o">)</span> <span class="o">[]</span>:example.org
+</span><span class='line'>Email Address <span class="o">[]</span>:webmaster@example.org
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After generating the required encryption keys, we re-edit the <code>reverse_proxy</code> site:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/sites-available/reverse_proxy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And append the following configuration code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'><span class="nt">&lt;VirtualHost</span> <span class="s">*:443</span><span class="nt">&gt;</span>
+</span><span class='line'>     <span class="nb">ServerName</span> www.example.org
+</span><span class='line'>
+</span><span class='line'>     <span class="nb">SSLEngine</span> <span class="k">on</span>
+</span><span class='line'>     <span class="nb">SSLCertificateFile</span> <span class="sx">/etc/apache2/ssl/apache.crt</span>
+</span><span class='line'>     <span class="nb">SSLCertificateKeyFile</span> <span class="sx">/etc/apache2/ssl/apache.key</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="nb">SSLProxyEngine</span> <span class="k">on</span>
+</span><span class='line'>     <span class="nb">ProxyPreserveHost</span> <span class="k">On</span>
+</span><span class='line'>     <span class="nb">ProxyRequests</span> <span class="k">Off</span>
+</span><span class='line'>     <span class="nb">ProxyPass</span> / http://localhost:3000/
+</span><span class='line'>     <span class="nb">ProxyPassReverse</span> / http://localhost:3000/
+</span><span class='line'><span class="nt">&lt;/VirtualHost&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Important! We need to check if Apache is listening on port 443 (SSL) and virtualhost support is enabled for this. <code>/etc/apache2/ports.conf</code> should have the following lines enabled:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'><span class="nt">&lt;IfModule</span> <span class="s">mod_ssl.c</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nb">NameVirtualHost</span> *:443
+</span><span class='line'>    <span class="nb">Listen</span> <span class="m">443</span>
+</span><span class='line'><span class="nt">&lt;/IfModule&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now we&#8217;re in a good shape to add SPDY support</p>
+
+<h2>Installation of <code>mod_spdy</code></h2>
+
+<p>You need to fetch the latest <code>mod_spdy</code> package from Google:</p>
+
+<ul>
+<li><a href="https://dl-ssl.google.com/dl/linux/direct/mod-spdy-beta_current_i386.deb">mod_spdy 32-bit .deb (Debian/Ubuntu)</a></li>
+<li><a href="https://dl-ssl.google.com/dl/linux/direct/mod-spdy-beta_current_amd64.deb">mod_spdy 64-bit .deb (Debian/Ubuntu)</a></li>
+</ul>
+
+
+<p>Check the architecture of your system by running <code>uname -m</code>.</p>
+
+<p>Install the package by running the following commands:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo dpkg -i mod-spdy-*.deb
+</span><span class='line'><span class="nv">$ </span>sudo apt-get -f install
+</span><span class='line'><span class="nv">$ </span>sudo a2enmod spdy
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Le moment suprême</h2>
+
+<p>Restart Apache to power up the new configuration:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo service apache2 restart
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And browse to your website <code>https://www.example.org</code> in <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a>.</p>
+
+<p>To verify <code>mod_spdy</code> is working, open <code>chrome://net-internals/#spd</code> just after the first page load. Your server&#8217;s domain should be listed in the table under the <em>SPDY sessions</em> heading.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.]]></title>
     <link href="http://wardbekker.github.io/blog/2013/04/25/geautomatiseerd-testen-met-erlang/"/>
     <updated>2013-04-25T14:58:00+02:00</updated>
     <id>http://wardbekker.github.io/blog/2013/04/25/geautomatiseerd-testen-met-erlang</id>

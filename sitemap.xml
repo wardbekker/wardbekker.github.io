@@ -10,7 +10,13 @@
     </url>
     <url>
         <loc>http://wardbekker.github.io/blog/2013/04/25/geautomatiseerd-testen-met-erlang/</loc>
-        <lastmod>2013-04-25T14:59:15+02:00</lastmod>
+        <lastmod>2013-04-25T15:01:50+02:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://wardbekker.github.io/blog/2013/04/25/enable-spdy-for-your-erlang-website/
+        </loc>
+        <lastmod>2013-04-25T15:01:25+02:00</lastmod>
     </url>
     <url>
         <loc>http://wardbekker.github.io/about/</loc>
@@ -18,11 +24,11 @@
     </url>
     <url>
         <loc>http://wardbekker.github.io/blog/archives/</loc>
-        <lastmod>2013-04-25T14:59:15+02:00</lastmod>
+        <lastmod>2013-04-25T15:01:50+02:00</lastmod>
     </url>
     <url>
         <loc>http://wardbekker.github.io/</loc>
-        <lastmod>2013-04-25T14:59:15+02:00</lastmod>
+        <lastmod>2013-04-25T15:01:50+02:00</lastmod>
     </url>
     <url>
         <loc>http://wardbekker.github.io/robots.txt</loc>
