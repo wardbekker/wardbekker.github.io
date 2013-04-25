@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://wardbekker.github.io/atom.xml" rel="self"/>
   <link href="http://wardbekker.github.io/"/>
-  <updated>2013-04-25T09:50:14+02:00</updated>
+  <updated>2013-04-25T10:11:27+02:00</updated>
   <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -18,30 +18,32 @@
     <link href="http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind/"/>
     <updated>2013-04-24T16:13:00+02:00</updated>
     <id>http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind</id>
-    <content type="html"><![CDATA[<p>Problem:</p>
-
-<p>You&#8217;re erlang application is slow. To find the bottleneck, you profile
+    <content type="html"><![CDATA[<p>You&#8217;re erlang application is slow. To find the bottleneck, you profile
 the code with fprof.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Put fprof apply, profile, analyze here</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>(node@host)1> fprof:apply(module, function, [arguments]).
+</span><span class='line'>(node@host)1> fprof:profile().
+</span><span class='line'>(node@host)1> fprof:analyse({dest, "outfile.fprof"}).</span></code></pre></td></tr></table></div></figure>
 
 
 <p>The printout of fprof analyse is a text dump of the result, which I
-find quite hard to read and detect the hotspots because of all the noise. Below a sample.</p>
+find quite hard to parse and detect the bottlenecks in your code because of all the
+noise. Below a truncated sample.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>fprof analuze output here</span></code></pre></td></tr></table></div></figure>
+<div><script src='https://gist.github.com/5458222.js'></script>
+<noscript><pre><code></code></pre></noscript></div>
 
 
-<p>KCachegrind to the rescue! With this tool you can visually inspect the fprof
-analyse result with sorting, call graph view, callee map and more.</p>
+<p><a href="KCachegrind">http://kcachegrind.sourceforge.net</a> to the rescue! With this tool you can visually inspect the fprof
+analyse result with sorting, a fancy call graph view, callee map and more.</p>
 
-<p><img src="http://wardbekker.github.io/images/qcachegrind.png" width="350" height="350" title="image" alt="images"></p>
+<p><img src="http://wardbekker.github.io/images/qcachegrind.png" width="750" height="750" title="image" alt="images"></p>
 
 <p>As KCachegrind can&#8217;t read fprof analysis output directly, you need to
-convert it first with the Erlgrind script. Not all Kcachegrind
-features are yet supported, like source code and coverage views.
+convert it first with the Erlgrind script.
 <a href="download%20here">https://github.com/isacssouza/erlgrind</a>.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
