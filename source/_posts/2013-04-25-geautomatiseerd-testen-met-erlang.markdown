@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie."
+title: "[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie."
 date: 2013-04-25 14:58
 comments: true
 categories: 
