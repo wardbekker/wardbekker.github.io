@@ -1,7 +1,0 @@
----
-layout: post
-title: "foobar"
-date: 2013-04-24 16:13
-comments: true
-categories: 
----
