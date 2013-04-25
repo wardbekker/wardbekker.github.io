@@ -1,0 +1,33 @@
+---
+layout: post
+title: "[Dutch] Scrum 2009 ≠ Scrum 2012"
+date: 2013-04-25 15:05
+comments: true
+categories: 
+---
+
+Tijdens de recent bezochte Scrum Product Owner cursus werd duidelijk dat Scrum is veranderd. Mijn begrip van Scrum, zoals geleerd tijdens de Scrum Master training van [Jeff Sutherland](http://en.wikipedia.org/wiki/Jeff_Sutherland) in 2009, was aan herziening toe. Hieronder mijn bevindingen:
+
+## Scrum in 2009
+
+Jeff Sutherland, één van de bedenkers van scrum, legde in de 2009 training de nadruk op de volgende concepten:
+
+- *Hyperproductive teams.* Dit zijn teams met een hoge mate van plichtsbesef, samenwerking en eigenaarschap (ownership), met een enorme productiviteit tot gevolg.
+- *Velocity.* Velocity druk uit hoeveel functionaliteit, eventueel in abstracte story points, er ontwikkeld is per sprint. Naast feedback voor voor het team werd velocity gebracht als een belangrijke metriek voor performance en planning rapportage voor het management.
+- *Definition of done.* Bij voorkeur gehanteerd als een Oost-Duitste grensovergang ten tijde van de DDR. Vanaf de eerste sprint dient de product increment production-ready opgeleverd te worden.
+
+## Scrum in 2012
+
+In de recente Scrum Product Owner cursus door [Roman Pichler](http://www.romanpichler.com/), bleek dat in de afgelopen drie jaar het belang en toepassing van deze concepten sterk zijn veranderd:
+
+- *Hyperproductivity* is niet één maal genoemd in de Product Owner cursus. Productiviteit is niet (meer?) het doel van Scrum. Het doel van Scrum is de effectieve realisatie van nieuwe, succesvolle en innovatieve producten met enthousiaste eindgebruikers.
+- *Velocity als rapportagemiddel* wordt sterk afgeraden. Het is één van de hulpmiddel voor de product owner om de verwachte release planning bij te werken, maar niet meer. De echte waarde van product increments is het verifiëren van aannamens en het ontdekken van belangrijke functionaliteit. Negatieve feedback en sprint/story mislukkingen zijn net zo waardevol. Een sprint met zero velocity geeft derhalve zéér waardevolle feedback. Ik kan uit ervaring spreken dat het zeer verleidelijk is voor management om velocity te misbruiken als rapportagemetriek van de team prestaties.
+- *Definition of Done (DoD).* Uiteraard moet er in de loop van de ontwikkeling production-ready software worden opgeleverd, maar in de eerste fase van het project is experimenteren veel belangrijker. Uitvinden wat werkt, en wat niet werkt. Hierdoor is de mate van verandering hoog. Een veeleisende DoD werkt dan als een verlammende bureaucratie. Pas wanneer de basis functionaliteit van het product stabiliseert, is het aan te raden om de DoD aan te scherpen.
+
+## Niet efficient
+
+In mijn optiek benadrukken de veranderingen de sweet spot van Scrum; ontwikkeling van nieuwe features of geheel nieuwe producten met een hoge mate van innovatie. Innovatie is een proces van vallen en opstaan. Ontdekken wat werkt, en vooral ook wat niet werkt. Dit leerproces is derhalve per definitie niet efficient. Scrum is wel een heel erg effectieve manier van innoveren. Veel ruimte voor waardevolle feedback en multidisciplinaire samenwerking waardoor het team snel leert. In [deze blog post](http://www.romanpichler.com/blog/agile-product-innovation/choosing-the-right-lean-and-agile-innovation-practices/) gaat Roman Pichler dieper in op de toepasbaarheid van Scrum in de verschillende fases van product innovatie
+
+## Waar is het changelog?
+
+Gezien de grote veranderingen was ik benieuwd of er een officiële Scrum changelog is. Zijn de veranderingen een verschil in interpretatie tussen de verschillende trainers, of zijn de spelregels veranderd. Helaas, er is geen changelog. Wel de Scrum Guide, de officiële gids met de actuele spelregels van Scrum. [De meest recente versie is uit october 2011](http://www.scrum.org/scrumguides/). Ik ga deze uitpluizen of er nog andere belangrijke veranderingen zijn. Wie weet materiaal voor een volgende blog post. Renee Troughton van het Agile Forest blog heeft reeds voorwerk gedaan in zijn serie artikelen [Scrum Evolution over Time](http://agileforest.com/2012/02/19/scrum-evolution-over-time-part-1/).

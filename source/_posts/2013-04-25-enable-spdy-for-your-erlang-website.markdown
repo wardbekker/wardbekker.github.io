@@ -157,4 +157,4 @@ $ sudo service apache2 restart
 
 And browse to your website `https://www.example.org` in [Google Chrome](https://www.google.com/intl/en/chrome/browser/).
 
-To verify `mod_spdy` is working, open `chrome://net-internals/#spd` just after the first page load. Your server's domain should be listed in the table under the *SPDY sessions* heading.
+To verify `mod_spdy` is working, open `chrome://net-internals/#spd` just after the first page load. Your server's domain should be listed in the table under the *SPDY sessions* heading.gs
