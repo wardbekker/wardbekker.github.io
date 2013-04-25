@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
+  <link href="http://wardbekker.github.io/blog/categories/erlang/atom.xml" rel="self"/>
+  <link href="http://wardbekker.github.io/"/>
+  <updated>2013-04-25T09:50:14+02:00</updated>
+  <id>http://wardbekker.github.io/</id>
+  <author>
+    <name><![CDATA[Ward Bekker]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Better visualisation of Erlang fprof traces with kcachegrind]]></title>
+    <link href="http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind/"/>
+    <updated>2013-04-24T16:13:00+02:00</updated>
+    <id>http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind</id>
+    <content type="html"><![CDATA[<p>Problem:</p>
+
+<p>You're erlang application is slow. To find the bottleneck, you profile
+the code with fprof.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Put fprof apply, profile, analyze here</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>The printout of fprof analyse is a text dump of the result, which I
+find quite hard to read and detect the hotspots because of all the noise. Below a sample.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fprof analuze output here</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>KCachegrind to the rescue! With this tool you can visually inspect the fprof
+analyse result with sorting, call graph view, callee map and more.</p>
+
+<p><img src="/images/qcachegrind.png" width="350" height="350" title="image" alt="images"></p>
+
+<p>As KCachegrind can't read fprof analysis output directly, you need to
+convert it first with the Erlgrind script. Not all Kcachegrind
+features are yet supported, like source code and coverage views.
+<a href="download%20here">https://github.com/isacssouza/erlgrind</a>.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./erlgrind_script outfile.fprof callgrind.001</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Installation of KCachegrind on a mac (using homebrew) :
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install qcachegrind
+</span><span class='line'>$ brew instal graphviz
+</span><span class='line'>$ sudo ln -s /usr/local/bin/dot /usr/bin/dot</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>

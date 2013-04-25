@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>foobar - Ward Bekker</title>
+  <title>Better visualisation of Erlang fprof traces with kcachegrind - Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
 
   
-  <meta name="description" content="
-">
+  <meta name="description" content="Problem: You&#8217;re erlang application is slow. To find the bottleneck, you profile
+the code with fprof. 1
+Put fprof apply, profile, analyze here &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://wardbekker.github.io/blog/2013/04/24/foobar">
+  <link rel="canonical" href="http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
@@ -65,7 +66,7 @@
   
   <header>
     
-      <h1 class="entry-title">Foobar</h1>
+      <h1 class="entry-title">Better Visualisation of Erlang Fprof Traces With Kcachegrind</h1>
     
     
       <p class="meta">
@@ -88,7 +89,47 @@
   </header>
 
 
-<div class="entry-content">
+<div class="entry-content"><p>Problem:</p>
+
+<p>You&#8217;re erlang application is slow. To find the bottleneck, you profile
+the code with fprof.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Put fprof apply, profile, analyze here</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The printout of fprof analyse is a text dump of the result, which I
+find quite hard to read and detect the hotspots because of all the noise. Below a sample.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>fprof analuze output here</span></code></pre></td></tr></table></div></figure>
+
+
+<p>KCachegrind to the rescue! With this tool you can visually inspect the fprof
+analyse result with sorting, call graph view, callee map and more.</p>
+
+<p><img src="/images/qcachegrind.png" width="350" height="350" title="image" alt="images"></p>
+
+<p>As KCachegrind can&#8217;t read fprof analysis output directly, you need to
+convert it first with the Erlgrind script. Not all Kcachegrind
+features are yet supported, like source code and coverage views.
+<a href="download%20here">https://github.com/isacssouza/erlgrind</a>.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./erlgrind_script outfile.fprof callgrind.001</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Installation of KCachegrind on a mac (using homebrew) :</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install qcachegrind
+</span><span class='line'>$ brew instal graphviz
+</span><span class='line'>$ sudo ln -s /usr/local/bin/dot /usr/bin/dot</span></code></pre></td></tr></table></div></figure>
+
+
+
 </div>
 
 
@@ -114,12 +155,18 @@
 <time datetime="2013-04-24T16:13:00+02:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time>
       
 
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/erlang/'>Erlang</a>
+  
+</span>
+
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://wardbekker.github.io/blog/2013/04/24/foobar/" data-via="wardbekker" data-counturl="http://wardbekker.github.io/blog/2013/04/24/foobar/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind/" data-via="wardbekker" data-counturl="http://wardbekker.github.io/blog/2013/04/24/valgrind-callgrind/" >Tweet</a>
   
   
   
@@ -142,7 +189,7 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/04/24/foobar/">foobar</a>
+        <a href="/blog/2013/04/24/valgrind-callgrind/">Better visualisation of Erlang fprof traces with kcachegrind</a>
       </li>
     
   </ul>
