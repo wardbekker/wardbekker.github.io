@@ -9,7 +9,7 @@ categories: Erlang
 Your Erlang code is perfect, but to find out why other peoples 
 code runs dog slow you probably profile the code with [fprof](http://www.erlang.org/doc/man/fprof.html) like this:
 
-{% codeblock%}
+{% codeblock %}
 (node@host)1> fprof:apply(module, function, [arguments]).
 (node@host)1> fprof:profile().
 (node@host)1> fprof:analyse({dest, "outfile.fprof"}).
@@ -32,8 +32,8 @@ more.
 
 As KCachegrind can't read fprof analysis output directly, you need to
 convert it first to the callgrind format with the [Erlgrind](https://github.com/isacssouza/erlgrind) script by [Isac Sacchi e Souza](https://twitter.com/isacssouza). 
-{% codeblock%}
-./erlgrind_script outfile.fprof callgrind.001
+{% codeblock lang:sh %}
+$ ./erlgrind outfile.fprof callgrind.001
 {% endcodeblock %}
 
 ## KCachegrind & Erlgrind Installation
@@ -43,7 +43,7 @@ For installation of KCachegrind on my Mac I use
 install *qcachegrind*, the [QT](http://qt-project.org) version of
 KCachegrind. 
 
-{% codeblock%}
+{% codeblock lang:sh %}
 $ brew install qcachegrind
 $ brew instal graphviz
 $ sudo ln -s /usr/local/bin/dot /usr/bin/dot
@@ -51,7 +51,7 @@ $ sudo ln -s /usr/local/bin/dot /usr/bin/dot
 
 Installing the Erlgrind ([Github](https://github.com/isacssouza/erlgrind)) script:
 
-{% codeblock %}
+{% codeblock lang:sh %}
 $ curl -O "https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind"
 $ chmod +x erlgrind
 $ mv erlgrind /usr/local/bin/
@@ -59,7 +59,7 @@ $ mv erlgrind /usr/local/bin/
 
 And open qcachegrind:
 
-{% codeblock %}
+{% codeblock lang:sh %}
 $ open ~/Applications/qcachegrind.app
 {% endcodeblock %}
 
