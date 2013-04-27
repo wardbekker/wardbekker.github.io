@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://wardbekker.github.io/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://wardbekker.github.io/"/>
-  <updated>2013-04-25T22:06:56+02:00</updated>
+  <updated>2013-04-27T19:55:49+02:00</updated>
   <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -48,7 +48,7 @@ more.</p>
 <p>As KCachegrind can't read fprof analysis output directly, you need to
 convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.
 <div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>./erlgrind_script outfile.fprof callgrind.001
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>./erlgrind outfile.fprof callgrind.001
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <h2>KCachegrind &amp; Erlgrind Installation</h2>
