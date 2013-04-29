@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://wardbekker.github.io/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://wardbekker.github.io/"/>
-  <updated>2013-04-27T19:55:49+02:00</updated>
+  <updated>2013-04-29T16:28:21+02:00</updated>
   <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,219 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.]]></title>
+    <link href="http://wardbekker.github.io/blog/2013/04/25/geautomatiseerd-testen-met-erlang/"/>
+    <updated>2013-04-25T14:58:00+02:00</updated>
+    <id>http://wardbekker.github.io/blog/2013/04/25/geautomatiseerd-testen-met-erlang</id>
+    <content type="html"><![CDATA[<p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
+
+<p>De drie belangrijkste methoden worden hier kort besproken aan de hand van een test project. De methoden zijn:</p>
+
+<ul>
+<li><a href="#unit-testing-met-eunit">Unit testing</a></li>
+<li><a href="#quickcheck">Quickcheck</a></li>
+<li><a href="#common-test">Common test</a></li>
+</ul>
+
+
+<p>Je <em>cloned</em> het project van Github met het volgende commando:</p>
+
+<p><code>sh
+$ git clone git@github.com:wardbekker/ci_quickstart.git
+</code></p>
+
+<p>Voor het compileren van het project en uitvoeren van de testen gebruik je <a href="https://github.com/basho/rebar">Rebar</a>, een <em>sophisticated build-tool for Erlang projects that follows OTP principles</em>.  Je bouwt Rebar als volgt:</p>
+
+<p><code>sh
+$ git clone git://github.com/basho/rebar.git
+$ cd rebar
+$ ./bootstrap
+Recompile: src/getopt
+...
+Recompile: src/rebar_utils
+==&gt; rebar (compile)
+Congratulations! You now have a self-contained script called "rebar" in
+your current working directory. Place this script anywhere in your path
+and you can use rebar to build OTP-compliant apps.
+</code></p>
+
+<h2>Unit testing met EUnit</h2>
+
+<p>Je begint met de eenvoudigste test methode; <a href="http://www.erlang.org/doc/apps/eunit/chapter.html">EUnit</a>. Dit is een unit testing bibliotheek voor Erlang. In een unit test controleer je of de functie goed werkt bij bekende input en resultaat. In dit voorbeeld heb je de functie <code>addition</code> geimplementeerd in de module <code>ci_quickstart_math</code> en twee <em>assertions</em>. (Je voert deze test uit op de commandline met: <code>rebar get-deps compile eunit</code>):</p>
+
+<p>```erlang
+-module(ci_quickstart_math).
+-export([addition/2]).</p>
+
+<p>-ifdef(TEST).
+-include_lib("eunit/include/eunit.hrl").
+-endif.</p>
+
+<p>addition(X, Y) -></p>
+
+<pre><code>X + Y.
+</code></pre>
+
+<p>-ifdef(TEST).</p>
+
+<p>simple_test() -></p>
+
+<pre><code>?assertEqual(4, addition(2,2)),
+?assertNotEqual(3, addition(1,1)).
+</code></pre>
+
+<p>-endif.
+```</p>
+
+<p>Het slechte nieuws is dat de waarde van deze test zeer laag is. Weet je nu zeker dat optelling goed gaat in alle gevallen? Het enige wat de test nu aantoont is dat:</p>
+
+<ul>
+<li><code>addition(2,2) == 4</code></li>
+<li><code>addition(1,1) /= 3</code></li>
+</ul>
+
+
+<p>Stel, je verandert de implementatie van de function <code>addition</code> in:</p>
+
+<p>```erlang
+ addition(X, Y) -></p>
+
+<pre><code>4.
+</code></pre>
+
+<p>```</p>
+
+<p>De testen slagen in dit geval, maar dit betekend niet dat de implementatie van <code>addition</code> correct is.</p>
+
+<p>Sterker nog; De argumenten zijn in dit geval <a href="http://www.erlang.org/doc/efficiency_guide/advanced.html">64-bit small integers</a>, en die hebben een bereik van -576460752303423489 t/m 576460752303423488. Met twee argumenten, betekend dit dat er enorm veel verschillende input mogelijk is. En in de unit test controleer je er maar 3!?!?  Ook al ben je een harde werker en test je wel 10! addities, in feite is de waarde van de unit test niet verbeterd en nog steeds erg laag.</p>
+
+<p>Wat nu?</p>
+
+<h2>QuickCheck</h2>
+
+<p>Wat je eigenlijk wil is een test methode dat alle mogelijke input variaties genereerd en de bijbehorende output controleert. Deze methode heet <a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a>. Voor Erlang zijn er een aantal QuickCheck frameworks beschikbaar:</p>
+
+<ul>
+<li><a href="http://www.quviq.com">Quvic QuickCheck</a></li>
+<li><a href="https://github.com/manopapad/proper">ProPEr</a></li>
+<li><a href="https://github.com/krestenkrab/triq">Triq</a></li>
+</ul>
+
+
+<p>Een Quickcheck test voor de <code>addition</code> functie:</p>
+
+<p>```erlang
+prop_sum() -></p>
+
+<pre><code>?FORALL(
+    {X, Y}, 
+    {int(), int()},
+    addition(X,Y) - Y == X
+).
+</code></pre>
+
+<p>```</p>
+
+<p>Voer de test uit door de Erlang Shell op te starten met <code>./shell.sh</code> en de volgende functie aanroep <code>proper:quickcheck(ci_quickstart_math:prop_sum()).</code></p>
+
+<p>Specifieke nummers worden niet getest. Je gaat nu controleren of de functie voldoet aan de eigenschap dat als je Y weer er afhaalt, je X overhoud.</p>
+
+<p><code>{int(), int()}</code> genereerd <em>tuples</em> met twee random integers. De <em>tuple</em> wordt gebonden aan <code>{X, Y}</code> door <em>pattern matching</em>.  Standaard worden er 100 combinaties getest, en dit aantal voer je op met de <code>numtests</code> optie: <code>proper:quickcheck(ci_quickstart_math:prop_sum(),[{numtests,10000}]).</code>.</p>
+
+<p>De uitdaging bij het werken met QuickCheck is het bedenken van de eigenschappen van de functie. Dit is lastiger dan het maken van een unit test. Sterker nog, het schrijven van de functie is vaak nog eenvoudiger dan het redeneren over de eigenschappen. Het positieve effect van QuickCheck op de kwaliteit van je code, en de manier waarop je als developer over je code nadenkt maakt deze tool een zeer waardevol onderdeel van je test gereedschapskist.</p>
+
+<!---
+[[Naast testen van functie eigenschappen is Quickcheck erg goed in het testen van zgn .State Machine. Een goed voorbeeld hiervan is de controle van de beloofde eventual consistency van Basho's Riak, een populair distribueerd database systeem gemaakt in Erlang. Zie hiervoor de slides van xxxxx. ]]
+-->
+
+
+<h2>Common Test</h2>
+
+<p>Zoals bekend is Erlang uitermate geschikt voor het bouwen van concurrent, distributed en fault tolerant systemen. Om te controleren of je systeem werkt zoals verwacht, is complex.</p>
+
+<p>Hiervoor is <a href="http://www.erlang.org/doc/apps/common_test/basics_chapter.html">Common Test</a> in het leven geroepen. Dit krachtige test framework is uitermate geschikt voor de ontwikkeling van pittige <a href="http://en.wikipedia.org/wiki/System_testing">systeem tests</a>. De inherente complexiteit van concurrent, distributed en fault tolerant systemen maakt Common Test complex. Hoe je een serieuze OTP applicatie op de pijnbank legt met CT valt derhalve buiten de scope van deze blogpost. Hier onder wel een minimaal Comment Test waarin de EUnit testen worden nagebootst door gebruik van pattern matching.</p>
+
+<p>```erlang
+-module(basic_SUITE).
+-include_lib("common_test/include/ct.hrl").</p>
+
+<p>-export([all/0]).
+-export([test1/1, test2/1]).</p>
+
+<p>all() -> [test1,test2].</p>
+
+<p>test1(_Config) -></p>
+
+<pre><code>3 = ci_quickstart_math:addition(1,2). %% validated using pattern matching
+</code></pre>
+
+<p>test2(_Config) -></p>
+
+<pre><code>2 = ci_quickstart_math:addition(1,1).  %% validated using pattern matching
+</code></pre>
+
+<p>```</p>
+
+<h2>Continuous integration met Travis-CI</h2>
+
+<p>Stel, je hebt een flinke hoeveelheid Eunit, Common Test en Quickcheck testen geïmplementeerd. Het uitvoeren van alle geavanceerde testen duurt lang en belast je systeem fors. Om deze, en <a href="http://en.wikipedia.org/wiki/Continuous_integration#Advantages_and_disadvantages">nog meer goede redenen</a>, is <a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a> aan te raden.</p>
+
+<p>Er zijn legio systemen waarmee het mogelijk is om continuous integration voor Erlang op te zetten. In dit voorbeeld gebruik je het hosted systeem <a href="http://travis-ci.org">Travis-CI</a>. Deze dienst ondersteunt Erlang, integreert met het populaire Github en zorgt voor een vliegende start. En het is gratis voor open source projecten.</p>
+
+<h3>Voorbereiding</h3>
+
+<p>Het build proces van Travis-CI configureer je via het <code>.travis.yml</code>-bestand in de <em>root</em> van je repository. Een voorbeeld:</p>
+
+<p><code>yaml
+language: erlang // De repository bevat een Erlang project
+notifications:
+  email: you@example.org // Build success en failures stuurt Travis-CI naar dit adres.
+otp_release: // Travis-CI test/bouwt je project voor meerdere Erlang/OTP versies.
+  - R15B01
+  - R15B
+  - R14B04
+</code></p>
+
+<h3>Travis-CI Setup</h3>
+
+<p>Deze video toont hoe je start met Travis-CI:</p>
+
+<ul>
+<li>Log in met je Github account.</li>
+<li>Ga naar de Travis-CI <em>profile</em> pagina.</li>
+<li>Schakel de gewenste Github <em>repository</em> in.</li>
+</ul>
+
+
+<p>That's it!</p>
+
+<p><a href="http://www.youtube.com/watch?v=YxJJu6mShiA&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/signing_and_switch.png" alt="Setup" /></a></p>
+
+<h3>Travis-CI Success Run</h3>
+
+<p>Deze video toont hoe Travis-CI een geslaagde <em>integration build</em>
+rapporteerd:</p>
+
+<p><a href="http://www.youtube.com/watch?v=rJWRY1Uf_qg&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/success.png" alt="Success" /></a></p>
+
+<h3>Travis-CI Failure Run</h3>
+
+<p>Deze video toont hoe Travis-CI een mislukte <em>integration build</em>
+rapporteerd:</p>
+
+<p><a href="http://www.youtube.com/watch?v=5u8Kpz3m8ho&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fail.png" alt="Fail" /></a></p>
+
+<p>Als je e-mail adres in <code>.travis.yml</code> staat, krijg je ook een e-mail notificatie dat de laatste <em>commit</em> de build gebroken heeft:</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/broken_email.png" width="400" height="200" alt="Broken build e-mail notification" /></p>
+
+<p>Als de fout verholpen is, krijg je de volgende e-mail als de build weer slaagt:</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Erlang Fprof output confusing? Try KCachegrind.]]></title>
@@ -83,6 +296,420 @@ KCachegrind.</p>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Enjoy!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A basic full text search server in Erlang]]></title>
+    <link href="http://wardbekker.github.io/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/"/>
+    <updated>2011-10-07T16:06:00+02:00</updated>
+    <id>http://wardbekker.github.io/blog/2011/10/07/a-basic-full-text-search-server-in-erlang</id>
+    <content type="html"><![CDATA[<p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner's Mind</cite></footer></blockquote></p>
+
+<p>This post explains how to build a basic full text search server in Erlang. The server has the following features:</p>
+
+
+
+
+<ul>
+<li>indexing</li>
+<li>stemming</li>
+<li>ranking</li>
+<li>faceting</li>
+<li>asynchronous search results</li>
+<li>web frontend using websockets</li>
+</ul>
+
+
+
+
+<p>Familiarity with the <a href="http://www.erlang.org/doc/design_principles/des_princ.html">OTP design principles</a> is recommended.</p>
+
+
+
+
+<p>The sample application (build with help from my colleague Michel Rijnders <code>mies@tty.nl</code>) uses the <a href="http://blog.stackoverflow.com/category/cc-wiki-dump/">Creative Commons Data Dump from StackExchange</a> as demo data.</p>
+
+
+
+
+<p>We cover the following subjects:</p>
+
+
+
+
+<ul>
+<li><a href="#sample_application">running the sample application</a></li>
+<li><a href="#otp_tree">OTP supervision tree</a></li>
+<li><a href="#data_import">importing demo data</a></li>
+<li><a href="#indexing">indexing</a></li>
+<li><a href="#stemming">stemming</a></li>
+<li><a href="#faceting">faceting</a></li>
+<li><a href="#query_and_ranking">querying and relevance ranking</a></li>
+<li><a href="#display_search">displaying search results</a></li>
+<li><a href="#improvements">improvements</a></li>
+</ul>
+
+
+
+
+<p><a name="sample_application"></a></p>
+
+
+
+
+<h2>Running the Sample Application</h2>
+
+
+
+
+<p>Clone the source from GitHub:</p>
+
+
+
+
+<pre><code> git clone git://github.com/tty/async_search.git
+</code></pre>
+
+
+
+
+<p>And start the application:</p>
+
+
+
+
+<pre><code>$ rebar get-deps compile &amp;&amp; erl -pa `pwd`/ebin `pwd`/deps/*/ebin +P 134217727
+Eshell&gt; application:start(async).
+Eshell&gt; stackoverflow_importer_ser:import().
+</code></pre>
+
+
+
+
+<p>Visit <a href="http://localhost:3000">http://localhost:3000</a>, you should see the following page:</p>
+
+
+
+
+<p><img src="https://img.skitch.com/20110909-f3i2aiuby9ht1sjh1j5yt42f7x.jpg" alt="http://localhost:3000/" /></p>
+
+
+
+
+<p>Sample ranked search output for the query <code>erlang armstrong</code>:</p>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/fas4h/http-localhost-3000"><img src="https://img.skitch.com/20110909-efekgnjk3hwuuhpea5dq5gi48m.preview.jpg" alt="http://localhost:3000/" /></a></div>
+
+
+
+
+<p>Sample tags facets output for the query <code>java</code>:</p>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/fas51/http-localhost-3000"><img src="https://img.skitch.com/20110909-ed4e8kcaenbn4bkh6ddt342ig2.preview.jpg" alt="http://localhost:3000/" /></a></div>
+
+
+
+
+<p><a name="otp_tree"></a></p>
+
+
+
+
+<h2>OTP Supervision Tree</h2>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/f2rki/supervisor-tree"><img src="https://img.skitch.com/20110911-kcd3i2gexishp7e92m3mcxpurn.medium.jpg" alt="supervisor tree" /></a></div>
+
+
+
+
+<p>Looking at the OTP application supervision tree is a good way to understand the architecture of an OTP application.</p>
+
+
+
+
+<p>The application supervisor <code>async_sup</code> starts up the following supervisors:</p>
+
+
+
+
+<ul>
+<li><code>keyword_sup</code>. A <code>keyword_ser</code> process is created for every unique word in the StackExchange posts. This <code>keyword_ser</code> is linked to the <code>keyword_sup</code> supervisor (a <code>simple_one_for_one</code> supervisor). The <code>keyword_ser</code> child process maintains a list of document positions of a keyword  (an <a href="http://en.wikipedia.org/wiki/Inverted_index">inverted index</a>).</li>
+<li><code>facet_sup</code>. A <code>keyword_ser</code> process is also created for every unique facet category in the StackExchange posts. This <code>keyword_ser</code> process is linked to the <code>facet_sup</code> supervisor (a <code>simple_one_for_one</code> supervisor as well). The <code>keyword_ser</code> child process maintains a list of facet values with the IDs of the documents the facets appear in.</li>
+</ul>
+
+
+
+
+<p>The application supervisor also start the following <code>gen_server</code> singleton processes:</p>
+
+
+
+
+<ul>
+<li><code>stackoverflow_importer_ser</code>. This server imports the demo Stack Overflow data.</li>
+<li><code>document_ser</code>. This server holds a copy of all documents, so it can return the original title and body of matching Stack Overflow posts in the results.</li>
+<li><code>query_ser</code>. This server's task is to run the actual query and return results.</li>
+<li><code>websocket_ser</code>. This server provides a HTTP frontend for the search engine.</li>
+</ul>
+
+
+
+
+<p>No attention is given to fault tolerance (apart from the basic restart strategies), thus parts of the search index are lost if a <code>keyword_ser</code> process terminates.</p>
+
+
+
+
+<p><a name="data_import"></a></p>
+
+
+
+
+<h2>Demo Data Import</h2>
+
+
+
+
+<p>The StackExchange data is provided as XML. Since some of the documents are quite large, it's not recommended to load the full XML documents in memory. The solution is to use a <a href="http://nl.wikipedia.org/wiki/Simple_API_for_XML">SAX parser</a> which treats a XML file as a stream, and triggers events when new elements are discovered. The search server uses the excellent SAX parser from the <a href="http://erlsom.sourceforge.net">Erlsom</a> library by Willem de Jong.</p>
+
+
+
+
+<p>In the example below <code>erlsom:parse_sax</code> reads the XML file from <code>FilePath</code> and calls the function <code>sax_event</code> if an XML element is found.</p>
+
+
+
+
+<p>When the element is a <code>row</code> element (i.e. a post element), attributes like <code>Id</code>, <code>Title</code> and <code>Body</code> are stored in a dictionary. For every post a copy of all the attributes in <code>document_ser</code> is saved. This is used for returning the actual posts for a query match.  After that the <code>add_attribute_tokens</code> function is called:</p>
+
+
+
+
+<p>The <code>add_attribute_tokens</code> function does two things. It calls <code>add_facet</code> (discussed later) and it creates a list of tuples with all the words and their position in the document. This process is called <a href="http://en.wikipedia.org/wiki/Tokenization">tokenization</a>. Each token/position tuple is then submitted to the <code>add_keyword_position</code> function of the <code>keyword_ser</code> for indexing.</p>
+
+
+
+
+<p><a name="indexing"></a></p>
+
+
+
+
+<h2>Indexing</h2>
+
+
+
+
+<p>Indexing of the tuples, or keywords, is handled by the <code>keyword_ser</code>. For every unique word a <code>keyword_ser</code> process is started if not already present. The state of a <code>keyword_ser</code> process is a dictionary with the document ID as key and a list of positions as value.  The document ID corresponds to the ID of the Stack Overflow post.</p>
+
+
+
+
+<p>The <code>keyword_server_name</code> function generates a unique name under which the <code>keyword_ser</code> process is registered, so the module can check if a keyword already has a process or a new process needs to be created.</p>
+
+
+
+
+<p><a name="stemming"></a></p>
+
+
+
+
+<h2>Stemming</h2>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Stemming">Stemming</a> is the process for reducing inflected words to their base form. <code>Computing</code> and <code>computer</code> both are stemmed to <code>comput</code>. So when a user searches on <code>computing</code>, it also matches text that contains <code>computer</code>.  This makes it possible to return results that are relevant, but do not exactly match the query.</p>
+
+
+
+
+<p>In our sample application all keywords are stemmed using the popular <a href="http://tartarus.org/~martin/PorterStemmer/">Porter Algorithm</a>. The <a href="http://tartarus.org/~martin/PorterStemmer/porter.erl">Erlang implementation</a> by Alden Dima is used in the application.</p>
+
+
+
+
+<p><code>erlang:phash2</code> is used to transform the stemmed name to a hash, to make sure the registered process name is valid.</p>
+
+
+
+
+<p><a name="faceting"></a></p>
+
+
+
+
+<h2>Faceting</h2>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Faceted_search">Faceted search</a> is an important navigation feature for search engines. A user can drill down the search results by filtering on pre-defined attributes, like in this example of a digital camera search on CNET:</p>
+
+
+
+
+<p><img src="http://weblogs.asp.net/blogs/drnetjes/CNET_faceted_search.jpg" alt="Faceted search example" /></p>
+
+
+
+
+<p>As mentioned above, the data import the function <code>add_attribute_tokens</code> also calls the <code>add_facet</code> function. Using pattern matching the <code>Tags</code> and the <code>Creationdate</code> attributes are selected for faceting. <code>Tags</code> is a so called multivalue facet, as a Stack Overflow post can have one or more tags assigned. For every tag and creation date the <code>facet_ser:add_facet_value</code> function is called.</p>
+
+
+
+
+<p><code>facet_ser</code> works very similar to <code>keyword_ser</code>. For every facet category, <code>Tag</code> or <code>Creationdate</code> in our case, a <code>facet_ser</code> processes is started. The state of a <code>facet_ser</code> is a dictionary with the <code>Tag</code> or <code>Creationdate</code> values as key and their document IDs as dictionary values.</p>
+
+
+
+
+<p><a name="query_and_ranking"></a></p>
+
+
+
+
+<h2>Querying and Relevance Ranking</h2>
+
+
+
+
+<p>In previous sections is shown:</p>
+
+
+
+
+<ul>
+<li>how the XML demo data is parsed.</li>
+<li>how this data is stemmed and indexed by creating a <code>keyword_ser</code> process for every unique keyword.</li>
+<li>how this data is indexed for faceted search by creating a <code>facet_ser</code> process for every facet category.</li>
+</ul>
+
+
+
+
+<p>With the function <code>stackoverflow_importer_ser:import()</code> these steps are executed, and your Erlang node is now ready for querying. So how does that work?</p>
+
+
+
+
+<h3>Querying</h3>
+
+
+
+
+<p>Querying is handled by passing the user's query terms to the function <code>do_async_query</code> of the singleton <code>query_ser</code> server.  When calling this function you need to specify the module, function and optional reference attribute which will be called when query results are available.</p>
+
+
+
+
+<p>In the <code>handle_cast</code> the following steps are executed:</p>
+
+
+
+
+<ul>
+<li><code>keyword_ser:do_query</code> return all document ids that contain one or more of the user's query terms, including the relevance ranking score, which will be discussed below.</li>
+<li>All original documents are stored during indexing in a <code>document_ser</code> process. All matching documents are collected.</li>
+<li>The callback function is invoked with the matching documents and their ranking scores as arguments.</li>
+<li>Facet results are retrieved for any <code>FacetCategories</code> that are specified by calling <code>facet_ser:get_facets</code>.</li>
+<li>And the callback function is invoked a second time with the facet results as arguments.</li>
+</ul>
+
+
+
+
+<h3>Relevance Ranking</h3>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Relevance_(information_retrieval)">Relevance</a> in this context denotes how well a retrieved document matches the user's search query. Most fulltext search-engines use the <a href="http://en.wikipedia.org/wiki/Okapi_BM25">BM25</a> algorithm to determine the ranking score of each document, so let's use that too.</p>
+
+
+
+
+<p>BM25 calculates a ranking score based on the query term frequency in each documents.</p>
+
+
+
+
+<p>See the <a href="https://github.com/tty/async_search/blob/master/src/async_bm25.erl">async_bm25.erl</a> for the implementation.</p>
+
+
+
+
+<p><a name="display_search"></a></p>
+
+
+
+
+<h2>Displaying the Search Results</h2>
+
+
+
+
+<p>As discussed, the <code>query_ser:do_async_query</code> can be called to query our full-text search engine. To allow users to send queries and see the result the <code>websocket_ser</code> module is created. This singleton <code>gen_server</code>starts up a <a href="https://github.com/ostinelli/misultin">Misultin HTTP server</a> on Port 3000. If you browse to <a href="http://localhost:3000">http://localhost:3000</a> you will see a search box. Communication with the search engine is done through websockets.</p>
+
+
+
+
+<p>So, when a user posts a query, this message is received by the <code>websockets_ser:handle_websocket</code> receive block.  The <code>query_ser:do_async_query</code> function is called and query results are expected on <code>websockets_ser:query_results</code> function.</p>
+
+
+
+
+<p>The <code>query_results</code> function formats the results as HTML and sends this through the websocket. When received, the HTML is appended to the user's page.</p>
+
+
+
+
+<p>A similar process is executed when the facet results are received:</p>
+
+
+
+
+<p><a name="improvements"></a></p>
+
+
+
+
+<h2>Improvements</h2>
+
+
+
+
+<p>Some obvious features that are lacking from this sample application:</p>
+
+
+
+
+<ul>
+<li>The author of this post is an Erlang newbie. Corrections/suggestions to the code are most welcome. You can send them to <code>&lt;ward@tty.nl&gt;</code></li>
+<li>Pretty much no attention is given to performance / memory usage.</li>
+<li>Fault tolerence for the index data. When a server containing index state dies, it will not be revived.</li>
+<li>Tuple structures passed between modules are not specified. Would be nice to use record syntax for it.</li>
+<li>No unit/quickcheck/common test added.</li>
+<li>No function/type specifications.</li>
+<li>etc..</li>
+</ul>
+
+
+
+
+<p>So, that why it's called a <em>sample</em> application ;-)</p>
+
 ]]></content>
   </entry>
   

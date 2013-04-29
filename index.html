@@ -96,6 +96,8 @@
 
 <time datetime="2013-04-25T15:05:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
         
+         | <a href="/blog/2013/04/25/scrum-2009-not-scrum-2012/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -161,6 +163,8 @@
 
 
 <time datetime="2013-04-25T15:01:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/25/enable-spdy-for-your-erlang-website/#disqus_thread">Comments</a>
         
       </p>
     
@@ -411,6 +415,8 @@
 
 
 <time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/#disqus_thread">Comments</a>
         
       </p>
     
@@ -693,6 +699,8 @@ rapporteerd:</p>
 
 <time datetime="2013-04-25T14:52:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
         
+         | <a href="/blog/2013/04/25/erlang-testing/#disqus_thread">Comments</a>
+        
       </p>
     
   </header>
@@ -736,6 +744,8 @@ allowFullScreen></iframe>
 
 
 <time datetime="2013-04-24T16:13:00+02:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/24/fprof-kcachegrind/#disqus_thread">Comments</a>
         
       </p>
     
@@ -813,6 +823,500 @@ KCachegrind.</p>
 
 
 <p>Enjoy!</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/12/inverted-index-compression-techniques/">Inverted Index Compression Techniques</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-12T15:55:00+02:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/07/12/inverted-index-compression-techniques/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I presented at at the Dutch Erlang Usergroup meeting, hosted by <a href="http://www.spilgames.com/">Spilgames</a>.</p>
+
+<p>In this presentation I explained:</p>
+
+<ul>
+<li>How to build a inverted index that supports boolean AND queries</li>
+<li>Elias Ɣ (gamma) encoding and Delta gap compression to reduce the size of inverted indexes</li>
+</ul>
+
+
+<p><a href="http://blog.tty.nl/files/2012/07/presentatie_search_compression.pdf">The Slides</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/">A Basic Full Text Search Server in Erlang</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-07T16:06:00+02:00" pubdate data-updated="true">Oct 7<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner&#8217;s Mind</cite></footer></blockquote>
+
+
+
+
+<p>This post explains how to build a basic full text search server in Erlang. The server has the following features:</p>
+
+
+
+
+<ul>
+<li>indexing</li>
+<li>stemming</li>
+<li>ranking</li>
+<li>faceting</li>
+<li>asynchronous search results</li>
+<li>web frontend using websockets</li>
+</ul>
+
+
+
+
+<p>Familiarity with the <a href="http://www.erlang.org/doc/design_principles/des_princ.html">OTP design principles</a> is recommended.</p>
+
+
+
+
+<p>The sample application (build with help from my colleague Michel Rijnders <code>mies@tty.nl</code>) uses the <a href="http://blog.stackoverflow.com/category/cc-wiki-dump/">Creative Commons Data Dump from StackExchange</a> as demo data.</p>
+
+
+
+
+<p>We cover the following subjects:</p>
+
+
+
+
+<ul>
+<li><a href="#sample_application">running the sample application</a></li>
+<li><a href="#otp_tree">OTP supervision tree</a></li>
+<li><a href="#data_import">importing demo data</a></li>
+<li><a href="#indexing">indexing</a></li>
+<li><a href="#stemming">stemming</a></li>
+<li><a href="#faceting">faceting</a></li>
+<li><a href="#query_and_ranking">querying and relevance ranking</a></li>
+<li><a href="#display_search">displaying search results</a></li>
+<li><a href="#improvements">improvements</a></li>
+</ul>
+
+
+
+
+<p><a name="sample_application"></a></p>
+
+
+
+
+<h2>Running the Sample Application</h2>
+
+
+
+
+<p>Clone the source from GitHub:</p>
+
+
+
+
+<pre><code> git clone git://github.com/tty/async_search.git
+</code></pre>
+
+
+
+
+<p>And start the application:</p>
+
+
+
+
+<pre><code>$ rebar get-deps compile &amp;&amp; erl -pa `pwd`/ebin `pwd`/deps/*/ebin +P 134217727
+Eshell&gt; application:start(async).
+Eshell&gt; stackoverflow_importer_ser:import().
+</code></pre>
+
+
+
+
+<p>Visit <a href="http://localhost:3000">http://localhost:3000</a>, you should see the following page:</p>
+
+
+
+
+<p><img src="https://img.skitch.com/20110909-f3i2aiuby9ht1sjh1j5yt42f7x.jpg" alt="http://localhost:3000/" /></p>
+
+
+
+
+<p>Sample ranked search output for the query <code>erlang armstrong</code>:</p>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/fas4h/http-localhost-3000"><img src="https://img.skitch.com/20110909-efekgnjk3hwuuhpea5dq5gi48m.preview.jpg" alt="http://localhost:3000/" /></a></div>
+
+
+
+
+<p>Sample tags facets output for the query <code>java</code>:</p>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/fas51/http-localhost-3000"><img src="https://img.skitch.com/20110909-ed4e8kcaenbn4bkh6ddt342ig2.preview.jpg" alt="http://localhost:3000/" /></a></div>
+
+
+
+
+<p><a name="otp_tree"></a></p>
+
+
+
+
+<h2>OTP Supervision Tree</h2>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/f2rki/supervisor-tree"><img src="https://img.skitch.com/20110911-kcd3i2gexishp7e92m3mcxpurn.medium.jpg" alt="supervisor tree" /></a></div>
+
+
+
+
+<p>Looking at the OTP application supervision tree is a good way to understand the architecture of an OTP application.</p>
+
+
+
+
+<p>The application supervisor <code>async_sup</code> starts up the following supervisors:</p>
+
+
+
+
+<ul>
+<li><code>keyword_sup</code>. A <code>keyword_ser</code> process is created for every unique word in the StackExchange posts. This <code>keyword_ser</code> is linked to the <code>keyword_sup</code> supervisor (a <code>simple_one_for_one</code> supervisor). The <code>keyword_ser</code> child process maintains a list of document positions of a keyword  (an <a href="http://en.wikipedia.org/wiki/Inverted_index">inverted index</a>).</li>
+<li><code>facet_sup</code>. A <code>keyword_ser</code> process is also created for every unique facet category in the StackExchange posts. This <code>keyword_ser</code> process is linked to the <code>facet_sup</code> supervisor (a <code>simple_one_for_one</code> supervisor as well). The <code>keyword_ser</code> child process maintains a list of facet values with the IDs of the documents the facets appear in.</li>
+</ul>
+
+
+
+
+<p>The application supervisor also start the following <code>gen_server</code> singleton processes:</p>
+
+
+
+
+<ul>
+<li><code>stackoverflow_importer_ser</code>. This server imports the demo Stack Overflow data.</li>
+<li><code>document_ser</code>. This server holds a copy of all documents, so it can return the original title and body of matching Stack Overflow posts in the results.</li>
+<li><code>query_ser</code>. This server&#8217;s task is to run the actual query and return results.</li>
+<li><code>websocket_ser</code>. This server provides a HTTP frontend for the search engine.</li>
+</ul>
+
+
+
+
+<p>No attention is given to fault tolerance (apart from the basic restart strategies), thus parts of the search index are lost if a <code>keyword_ser</code> process terminates.</p>
+
+
+
+
+<p><a name="data_import"></a></p>
+
+
+
+
+<h2>Demo Data Import</h2>
+
+
+
+
+<p>The StackExchange data is provided as XML. Since some of the documents are quite large, it&#8217;s not recommended to load the full XML documents in memory. The solution is to use a <a href="http://nl.wikipedia.org/wiki/Simple_API_for_XML">SAX parser</a> which treats a XML file as a stream, and triggers events when new elements are discovered. The search server uses the excellent SAX parser from the <a href="http://erlsom.sourceforge.net">Erlsom</a> library by Willem de Jong.</p>
+
+
+
+
+<p>In the example below <code>erlsom:parse_sax</code> reads the XML file from <code>FilePath</code> and calls the function <code>sax_event</code> if an XML element is found.</p>
+
+
+
+
+<p>When the element is a <code>row</code> element (i.e. a post element), attributes like <code>Id</code>, <code>Title</code> and <code>Body</code> are stored in a dictionary. For every post a copy of all the attributes in <code>document_ser</code> is saved. This is used for returning the actual posts for a query match.  After that the <code>add_attribute_tokens</code> function is called:</p>
+
+
+
+
+<p>The <code>add_attribute_tokens</code> function does two things. It calls <code>add_facet</code> (discussed later) and it creates a list of tuples with all the words and their position in the document. This process is called <a href="http://en.wikipedia.org/wiki/Tokenization">tokenization</a>. Each token/position tuple is then submitted to the <code>add_keyword_position</code> function of the <code>keyword_ser</code> for indexing.</p>
+
+
+
+
+<p><a name="indexing"></a></p>
+
+
+
+
+<h2>Indexing</h2>
+
+
+
+
+<p>Indexing of the tuples, or keywords, is handled by the <code>keyword_ser</code>. For every unique word a <code>keyword_ser</code> process is started if not already present. The state of a <code>keyword_ser</code> process is a dictionary with the document ID as key and a list of positions as value.  The document ID corresponds to the ID of the Stack Overflow post.</p>
+
+
+
+
+<p>The <code>keyword_server_name</code> function generates a unique name under which the <code>keyword_ser</code> process is registered, so the module can check if a keyword already has a process or a new process needs to be created.</p>
+
+
+
+
+<p><a name="stemming"></a></p>
+
+
+
+
+<h2>Stemming</h2>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Stemming">Stemming</a> is the process for reducing inflected words to their base form. <code>Computing</code> and <code>computer</code> both are stemmed to <code>comput</code>. So when a user searches on <code>computing</code>, it also matches text that contains <code>computer</code>.  This makes it possible to return results that are relevant, but do not exactly match the query.</p>
+
+
+
+
+<p>In our sample application all keywords are stemmed using the popular <a href="http://tartarus.org/~martin/PorterStemmer/">Porter Algorithm</a>. The <a href="http://tartarus.org/~martin/PorterStemmer/porter.erl">Erlang implementation</a> by Alden Dima is used in the application.</p>
+
+
+
+
+<p><code>erlang:phash2</code> is used to transform the stemmed name to a hash, to make sure the registered process name is valid.</p>
+
+
+
+
+<p><a name="faceting"></a></p>
+
+
+
+
+<h2>Faceting</h2>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Faceted_search">Faceted search</a> is an important navigation feature for search engines. A user can drill down the search results by filtering on pre-defined attributes, like in this example of a digital camera search on CNET:</p>
+
+
+
+
+<p><img src="http://weblogs.asp.net/blogs/drnetjes/CNET_faceted_search.jpg" alt="Faceted search example" /></p>
+
+
+
+
+<p>As mentioned above, the data import the function <code>add_attribute_tokens</code> also calls the <code>add_facet</code> function. Using pattern matching the <code>Tags</code> and the <code>Creationdate</code> attributes are selected for faceting. <code>Tags</code> is a so called multivalue facet, as a Stack Overflow post can have one or more tags assigned. For every tag and creation date the <code>facet_ser:add_facet_value</code> function is called.</p>
+
+
+
+
+<p><code>facet_ser</code> works very similar to <code>keyword_ser</code>. For every facet category, <code>Tag</code> or <code>Creationdate</code> in our case, a <code>facet_ser</code> processes is started. The state of a <code>facet_ser</code> is a dictionary with the <code>Tag</code> or <code>Creationdate</code> values as key and their document IDs as dictionary values.</p>
+
+
+
+
+<p><a name="query_and_ranking"></a></p>
+
+
+
+
+<h2>Querying and Relevance Ranking</h2>
+
+
+
+
+<p>In previous sections is shown:</p>
+
+
+
+
+<ul>
+<li>how the XML demo data is parsed.</li>
+<li>how this data is stemmed and indexed by creating a <code>keyword_ser</code> process for every unique keyword.</li>
+<li>how this data is indexed for faceted search by creating a <code>facet_ser</code> process for every facet category.</li>
+</ul>
+
+
+
+
+<p>With the function <code>stackoverflow_importer_ser:import()</code> these steps are executed, and your Erlang node is now ready for querying. So how does that work?</p>
+
+
+
+
+<h3>Querying</h3>
+
+
+
+
+<p>Querying is handled by passing the user&#8217;s query terms to the function <code>do_async_query</code> of the singleton <code>query_ser</code> server.  When calling this function you need to specify the module, function and optional reference attribute which will be called when query results are available.</p>
+
+
+
+
+<p>In the <code>handle_cast</code> the following steps are executed:</p>
+
+
+
+
+<ul>
+<li><code>keyword_ser:do_query</code> return all document ids that contain one or more of the user&#8217;s query terms, including the relevance ranking score, which will be discussed below.</li>
+<li>All original documents are stored during indexing in a <code>document_ser</code> process. All matching documents are collected.</li>
+<li>The callback function is invoked with the matching documents and their ranking scores as arguments.</li>
+<li>Facet results are retrieved for any <code>FacetCategories</code> that are specified by calling <code>facet_ser:get_facets</code>.</li>
+<li>And the callback function is invoked a second time with the facet results as arguments.</li>
+</ul>
+
+
+
+
+<h3>Relevance Ranking</h3>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Relevance_(information_retrieval)">Relevance</a> in this context denotes how well a retrieved document matches the user&#8217;s search query. Most fulltext search-engines use the <a href="http://en.wikipedia.org/wiki/Okapi_BM25">BM25</a> algorithm to determine the ranking score of each document, so let&#8217;s use that too.</p>
+
+
+
+
+<p>BM25 calculates a ranking score based on the query term frequency in each documents.</p>
+
+
+
+
+<p>See the <a href="https://github.com/tty/async_search/blob/master/src/async_bm25.erl">async_bm25.erl</a> for the implementation.</p>
+
+
+
+
+<p><a name="display_search"></a></p>
+
+
+
+
+<h2>Displaying the Search Results</h2>
+
+
+
+
+<p>As discussed, the <code>query_ser:do_async_query</code> can be called to query our full-text search engine. To allow users to send queries and see the result the <code>websocket_ser</code> module is created. This singleton <code>gen_server</code>starts up a <a href="https://github.com/ostinelli/misultin">Misultin HTTP server</a> on Port 3000. If you browse to <a href="http://localhost:3000">http://localhost:3000</a> you will see a search box. Communication with the search engine is done through websockets.</p>
+
+
+
+
+<p>So, when a user posts a query, this message is received by the <code>websockets_ser:handle_websocket</code> receive block.  The <code>query_ser:do_async_query</code> function is called and query results are expected on <code>websockets_ser:query_results</code> function.</p>
+
+
+
+
+<p>The <code>query_results</code> function formats the results as HTML and sends this through the websocket. When received, the HTML is appended to the user&#8217;s page.</p>
+
+
+
+
+<p>A similar process is executed when the facet results are received:</p>
+
+
+
+
+<p><a name="improvements"></a></p>
+
+
+
+
+<h2>Improvements</h2>
+
+
+
+
+<p>Some obvious features that are lacking from this sample application:</p>
+
+
+
+
+<ul>
+<li>The author of this post is an Erlang newbie. Corrections/suggestions to the code are most welcome. You can send them to <code>&lt;ward@tty.nl&gt;</code></li>
+<li>Pretty much no attention is given to performance / memory usage.</li>
+<li>Fault tolerence for the index data. When a server containing index state dies, it will not be revived.</li>
+<li>Tuple structures passed between modules are not specified. Would be nice to use record syntax for it.</li>
+<li>No unit/quickcheck/common test added.</li>
+<li>No function/type specifications.</li>
+<li>etc..</li>
+</ul>
+
+
+
+
+<p>So, that why it&#8217;s called a <em>sample</em> application ;-)</p>
+
 </div>
   
   
@@ -900,6 +1404,19 @@ KCachegrind.</p>
 
 </footer>
   
+
+<script type="text/javascript">
+      var disqus_shortname = 'wardbekkerblog';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
 
 
 
