@@ -2,7 +2,7 @@
 layout: post
 title: "Erlang Fprof output confusing? Try KCachegrind."
 date: 2013-04-24 16:13
-comments: false
+comments: true
 categories: Erlang
 ---
 
