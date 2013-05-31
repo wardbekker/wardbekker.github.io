@@ -22,9 +22,9 @@ I use [Aquamacs](http://aquamacs.org/), An Emacs for mac users, with the [Erlang
 
 ### Documentation
 
-The [official Erlang documentation](http://www.erlang.org/doc/) is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.
-
-I keep a local copy of [Erldocs](http://erldocs.com/) on my development machine for quick access. Unfortunatly it doesn't have an R16 copy and function signatures are not shown fully correct, but it works for me.
+- The [official Erlang documentation](http://www.erlang.org/doc/) is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.
+- I keep a local copy of [Erldocs](http://erldocs.com/) on my development machine for quick access. Unfortunatly it doesn't have an R16 copy and function signatures are not shown fully correct, but it works for me.
+- [Learn you some erlang](http://learnyousomeerlang.com/) is a free site and a book that's a very good intro for learning Erlang.
 
 ### Best places to ask for help
 
