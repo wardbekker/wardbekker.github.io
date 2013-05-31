@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: erlang | Ward Bekker]]></title>
-  <link href="http://wardbekker.github.io/blog/categories/erlang/atom.xml" rel="self"/>
-  <link href="http://wardbekker.github.io/"/>
-  <updated>2013-05-31T20:39:50+02:00</updated>
-  <id>http://wardbekker.github.io/</id>
+  <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
+  <link href="http://blog.equanimity.nl/"/>
+  <updated>2013-05-31T21:21:09+02:00</updated>
+  <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
     
@@ -15,10 +15,10 @@
   
   <entry>
     <title type="html"><![CDATA[A beginners guide to Erlang]]></title>
-    <link href="http://wardbekker.github.io/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
+    <link href="http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
     <updated>2013-05-29T22:14:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2013/05/29/a-beginners-guide-to-erlang</id>
-    <content type="html"><![CDATA[<p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner's Mind</cite></footer></blockquote></p>
+    <id>http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang</id>
+    <content type="html"><![CDATA[<p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner&rsquo;s Mind</cite></footer></blockquote></p>
 
 <p>These starting points helped me getting up to speed with <a href="http://www.erlang.org/">Erlang</a>. I hope this information helps you too.</p>
 
@@ -28,20 +28,20 @@
 
 <h3>Writing Erlang</h3>
 
-<p>I use <a href="http://aquamacs.org/">Aquamacs</a>, An Emacs for mac users, with the <a href="http://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html">Erlang mode</a> provided by Erlang/OTP.  Combined with Eric B Merritt's <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a> and Mochiweb <a href="https://github.com/oinksoft/reloader">reloader</a> this makes for a productive development environment.</p>
+<p>I use <a href="http://aquamacs.org/">Aquamacs</a>, An Emacs for mac users, with the <a href="http://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html">Erlang mode</a> provided by Erlang/OTP.  Combined with Eric B Merritt&rsquo;s <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a> and Mochiweb <a href="https://github.com/oinksoft/reloader">reloader</a> this makes for a productive development environment.</p>
 
 <h3>Documentation</h3>
 
 <ul>
 <li>The <a href="http://www.erlang.org/doc/">official Erlang documentation</a> is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.</li>
-<li>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn't have an R16 copy and function signatures are not shown fully correct, but it works for me.</li>
-<li><a href="http://learnyousomeerlang.com/">Learn you some erlang</a> is a free online guide (and available as a dead tree version). It's a very good intro for learning Erlang.</li>
+<li>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn&rsquo;t have an R16 copy and function signatures are not shown fully correct, but it works for me.</li>
+<li><a href="http://learnyousomeerlang.com/">Learn you some erlang</a> is a free online guide (and available as a dead tree version). It&rsquo;s a very good intro for learning Erlang.</li>
 </ul>
 
 
 <h3>Best places to ask for help</h3>
 
-<p>The <a href="http://erlang.org/mailman/listinfo/erlang-questions">Erlang Questions Mailinglist</a> is the best place to ask your Erlang questions. Don't be surprised if you question is answered by Erlang inventors themselves!</p>
+<p>The <a href="http://erlang.org/mailman/listinfo/erlang-questions">Erlang Questions Mailinglist</a> is the best place to ask your Erlang questions. Don&rsquo;t be surprised if you question is answered by Erlang inventors themselves!</p>
 
 <p>As with other programming languages <a href="http://stackoverflow.com/questions/tagged/erlang">Stack overflow</a> is also a great place to get answers to your pressing Erlang questions.</p>
 
@@ -108,7 +108,7 @@
 
 <p>I recently gave a talk introducing the great automated testing facilities of Erlang. Check out the <a href="/blog/2013/04/25/erlang-testing/">video and slides</a></p>
 
-<p>With help from former collegue &amp; friend <a href="https://twitter.com/j2h">Josh Kalderimis</a> I've added the first iteration of Erlang support to <a href="https://travis-ci.org/">Travis-CI</a>. It's a free continuous integration service for open source projects. It's used by well known Erlang projects like <a href="http://basho.com/riak/">Basho Riak</a>, <a href="http://elixir-lang.org/">Elixir</a> and <a href="https://github.com/mochi/mochiweb">Mochiweb</a>.
+<p>With help from former collegue &amp; friend <a href="https://twitter.com/j2h">Josh Kalderimis</a> I&rsquo;ve added the first iteration of Erlang support to <a href="https://travis-ci.org/">Travis-CI</a>. It&rsquo;s a free continuous integration service for open source projects. It&rsquo;s used by well known Erlang projects like <a href="http://basho.com/riak/">Basho Riak</a>, <a href="http://elixir-lang.org/">Elixir</a> and <a href="https://github.com/mochi/mochiweb">Mochiweb</a>.
 <a href="http://about.travis-ci.org/docs/user/languages/erlang/">See the documentation how to add your project</a>.</p>
 
 <p>If you can read Dutch, you can also read my blog post about <a href="blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Geautomatiseerd testen met Erlang/OTP en Travis-CI</a> which covers the same ground.</p>
@@ -125,34 +125,34 @@
 
 <p>Want more?  <a href="https://twitter.com/bryan_hunter">Bryan Hunter</a> maintains <a href="https://twitter.com/bryan_hunter/erlang/members">a list of Erlang folks on twitter</a> .</p>
 
-<p><a href="https://twitter.com/wardbekker">I'm also on twitter</a></p>
+<p><a href="https://twitter.com/wardbekker">I&rsquo;m also on twitter</a></p>
 
 <h3>Popular Erlang projects</h3>
 
 <p>Want to learn Erlang from the absolute best? Most popular Erlang projects are open source. Make some coffee, clone the repositories and learn from the code of the Erlang gods. Below a selection:</p>
 
 <ul>
-<li><a href="https://github.com/erlang/otp">Erlang OTP</a> - The full Erlang/OTP sourcecode.</li>
-<li><a href="https://github.com/basho/riak">Basho Riak</a> - A decentralized datastore.</li>
-<li><a href="https://github.com/extend/cowboy">Cowboy</a> - Small, fast, modular HTTP server written in Erlang.</li>
-<li><a href="https://github.com/rebar/rebar">Rebar</a> - A sophisticated build-tool for Erlang projects that follows OTP principles.</li>
-<li><a href="https://github.com/mochi/mochiweb">Mochiweb</a> - MochiWeb is an Erlang library for building lightweight HTTP servers.</li>
-<li><a href="https://github.com/basho/webmachine">Webmachine</a> - A REST-based system for building web applications.</li>
+<li><a href="https://github.com/erlang/otp">Erlang OTP</a> &ndash; The full Erlang/OTP sourcecode.</li>
+<li><a href="https://github.com/basho/riak">Basho Riak</a> &ndash; A decentralized datastore.</li>
+<li><a href="https://github.com/extend/cowboy">Cowboy</a> &ndash; Small, fast, modular HTTP server written in Erlang.</li>
+<li><a href="https://github.com/rebar/rebar">Rebar</a> &ndash; A sophisticated build-tool for Erlang projects that follows OTP principles.</li>
+<li><a href="https://github.com/mochi/mochiweb">Mochiweb</a> &ndash; MochiWeb is an Erlang library for building lightweight HTTP servers.</li>
+<li><a href="https://github.com/basho/webmachine">Webmachine</a> &ndash; A REST-based system for building web applications.</li>
 </ul>
 
 
-<p>Explore more popular Erlang projects on <a href="https://github.com/languages/Erlang">Github's Erlang page</a></p>
+<p>Explore more popular Erlang projects on <a href="https://github.com/languages/Erlang">Github&rsquo;s Erlang page</a></p>
 
 <h3>Conferences &amp; User groups</h3>
 
-<p>The <a href="http://www.erlang-factory.com/">Erlang Factory</a> conferences are the best places to meet professional Erlang developers. I've attended a few of them, and I am always amazed by the quality of the speakers and the <em>hallway</em> discussions. Pro tip: make sure you have a substantial lunch and then stay for the drinks.</p>
+<p>The <a href="http://www.erlang-factory.com/">Erlang Factory</a> conferences are the best places to meet professional Erlang developers. I&rsquo;ve attended a few of them, and I am always amazed by the quality of the speakers and the <em>hallway</em> discussions. Pro tip: make sure you have a substantial lunch and then stay for the drinks.</p>
 
-<p>A few local active user groups that I'm aware of:</p>
+<p>A few local active user groups that I&rsquo;m aware of:</p>
 
 <ul>
 <li><a href="http://www.meetup.com/ErlangChicago/">Chicago Erlang User Group</a></li>
-<li><a href="http://www.meetup.com/funadam/">Cross Functional Amsterdam</a> - I help organize this one. We have frequent Erlang focused talks.</li>
-<li><a href="http://www.meetup.com/erlangusergroup/">London Erlang User Group</a> -</li>
+<li><a href="http://www.meetup.com/funadam/">Cross Functional Amsterdam</a> &ndash; I help organize this one. We have frequent Erlang focused talks.</li>
+<li><a href="http://www.meetup.com/erlangusergroup/">London Erlang User Group</a> &ndash;</li>
 </ul>
 
 

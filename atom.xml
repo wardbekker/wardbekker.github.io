@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Ward Bekker]]></title>
-  <link href="http://wardbekker.github.io/atom.xml" rel="self"/>
-  <link href="http://wardbekker.github.io/"/>
-  <updated>2013-05-31T20:39:50+02:00</updated>
-  <id>http://wardbekker.github.io/</id>
+  <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
+  <link href="http://blog.equanimity.nl/"/>
+  <updated>2013-05-31T21:21:09+02:00</updated>
+  <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[A beginners guide to Erlang]]></title>
-    <link href="http://wardbekker.github.io/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
+    <link href="http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
     <updated>2013-05-29T22:14:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2013/05/29/a-beginners-guide-to-erlang</id>
+    <id>http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang</id>
     <content type="html"><![CDATA[<blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner&#8217;s Mind</cite></footer></blockquote>
 
 
@@ -29,20 +29,20 @@
 
 <h3>Writing Erlang</h3>
 
-<p>I use <a href="http://aquamacs.org/">Aquamacs</a>, An Emacs for mac users, with the <a href="http://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html">Erlang mode</a> provided by Erlang/OTP.  Combined with Eric B Merritt&#8217;s <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a> and Mochiweb <a href="https://github.com/oinksoft/reloader">reloader</a> this makes for a productive development environment.</p>
+<p>I use <a href="http://aquamacs.org/">Aquamacs</a>, An Emacs for mac users, with the <a href="http://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html">Erlang mode</a> provided by Erlang/OTP.  Combined with Eric B Merritt&rsquo;s <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a> and Mochiweb <a href="https://github.com/oinksoft/reloader">reloader</a> this makes for a productive development environment.</p>
 
 <h3>Documentation</h3>
 
 <ul>
 <li>The <a href="http://www.erlang.org/doc/">official Erlang documentation</a> is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.</li>
-<li>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn&#8217;t have an R16 copy and function signatures are not shown fully correct, but it works for me.</li>
-<li><a href="http://learnyousomeerlang.com/">Learn you some erlang</a> is a free online guide (and available as a dead tree version). It&#8217;s a very good intro for learning Erlang.</li>
+<li>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn&rsquo;t have an R16 copy and function signatures are not shown fully correct, but it works for me.</li>
+<li><a href="http://learnyousomeerlang.com/">Learn you some erlang</a> is a free online guide (and available as a dead tree version). It&rsquo;s a very good intro for learning Erlang.</li>
 </ul>
 
 
 <h3>Best places to ask for help</h3>
 
-<p>The <a href="http://erlang.org/mailman/listinfo/erlang-questions">Erlang Questions Mailinglist</a> is the best place to ask your Erlang questions. Don&#8217;t be surprised if you question is answered by Erlang inventors themselves!</p>
+<p>The <a href="http://erlang.org/mailman/listinfo/erlang-questions">Erlang Questions Mailinglist</a> is the best place to ask your Erlang questions. Don&rsquo;t be surprised if you question is answered by Erlang inventors themselves!</p>
 
 <p>As with other programming languages <a href="http://stackoverflow.com/questions/tagged/erlang">Stack overflow</a> is also a great place to get answers to your pressing Erlang questions.</p>
 
@@ -107,9 +107,9 @@
 
 <h3>Testing and Continuous integration</h3>
 
-<p>I recently gave a talk introducing the great automated testing facilities of Erlang. Check out the <a href="http://wardbekker.github.io/blog/2013/04/25/erlang-testing/">video and slides</a></p>
+<p>I recently gave a talk introducing the great automated testing facilities of Erlang. Check out the <a href="http://blog.equanimity.nl/blog/2013/04/25/erlang-testing/">video and slides</a></p>
 
-<p>With help from former collegue &amp; friend <a href="https://twitter.com/j2h">Josh Kalderimis</a> I&#8217;ve added the first iteration of Erlang support to <a href="https://travis-ci.org/">Travis-CI</a>. It&#8217;s a free continuous integration service for open source projects. It&#8217;s used by well known Erlang projects like <a href="http://basho.com/riak/">Basho Riak</a>, <a href="http://elixir-lang.org/">Elixir</a> and <a href="https://github.com/mochi/mochiweb">Mochiweb</a>.
+<p>With help from former collegue &amp; friend <a href="https://twitter.com/j2h">Josh Kalderimis</a> I&rsquo;ve added the first iteration of Erlang support to <a href="https://travis-ci.org/">Travis-CI</a>. It&rsquo;s a free continuous integration service for open source projects. It&rsquo;s used by well known Erlang projects like <a href="http://basho.com/riak/">Basho Riak</a>, <a href="http://elixir-lang.org/">Elixir</a> and <a href="https://github.com/mochi/mochiweb">Mochiweb</a>.
 <a href="http://about.travis-ci.org/docs/user/languages/erlang/">See the documentation how to add your project</a>.</p>
 
 <p>If you can read Dutch, you can also read my blog post about <a href="blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Geautomatiseerd testen met Erlang/OTP en Travis-CI</a> which covers the same ground.</p>
@@ -126,34 +126,34 @@
 
 <p>Want more?  <a href="https://twitter.com/bryan_hunter">Bryan Hunter</a> maintains <a href="https://twitter.com/bryan_hunter/erlang/members">a list of Erlang folks on twitter</a> .</p>
 
-<p><a href="https://twitter.com/wardbekker">I&#8217;m also on twitter</a></p>
+<p><a href="https://twitter.com/wardbekker">I&rsquo;m also on twitter</a></p>
 
 <h3>Popular Erlang projects</h3>
 
 <p>Want to learn Erlang from the absolute best? Most popular Erlang projects are open source. Make some coffee, clone the repositories and learn from the code of the Erlang gods. Below a selection:</p>
 
 <ul>
-<li><a href="https://github.com/erlang/otp">Erlang OTP</a> - The full Erlang/OTP sourcecode.</li>
-<li><a href="https://github.com/basho/riak">Basho Riak</a> - A decentralized datastore.</li>
-<li><a href="https://github.com/extend/cowboy">Cowboy</a> - Small, fast, modular HTTP server written in Erlang.</li>
-<li><a href="https://github.com/rebar/rebar">Rebar</a> - A sophisticated build-tool for Erlang projects that follows OTP principles.</li>
-<li><a href="https://github.com/mochi/mochiweb">Mochiweb</a> - MochiWeb is an Erlang library for building lightweight HTTP servers.</li>
-<li><a href="https://github.com/basho/webmachine">Webmachine</a> - A REST-based system for building web applications.</li>
+<li><a href="https://github.com/erlang/otp">Erlang OTP</a> &ndash; The full Erlang/OTP sourcecode.</li>
+<li><a href="https://github.com/basho/riak">Basho Riak</a> &ndash; A decentralized datastore.</li>
+<li><a href="https://github.com/extend/cowboy">Cowboy</a> &ndash; Small, fast, modular HTTP server written in Erlang.</li>
+<li><a href="https://github.com/rebar/rebar">Rebar</a> &ndash; A sophisticated build-tool for Erlang projects that follows OTP principles.</li>
+<li><a href="https://github.com/mochi/mochiweb">Mochiweb</a> &ndash; MochiWeb is an Erlang library for building lightweight HTTP servers.</li>
+<li><a href="https://github.com/basho/webmachine">Webmachine</a> &ndash; A REST-based system for building web applications.</li>
 </ul>
 
 
-<p>Explore more popular Erlang projects on <a href="https://github.com/languages/Erlang">Github&#8217;s Erlang page</a></p>
+<p>Explore more popular Erlang projects on <a href="https://github.com/languages/Erlang">Github&rsquo;s Erlang page</a></p>
 
 <h3>Conferences &amp; User groups</h3>
 
-<p>The <a href="http://www.erlang-factory.com/">Erlang Factory</a> conferences are the best places to meet professional Erlang developers. I&#8217;ve attended a few of them, and I am always amazed by the quality of the speakers and the <em>hallway</em> discussions. Pro tip: make sure you have a substantial lunch and then stay for the drinks.</p>
+<p>The <a href="http://www.erlang-factory.com/">Erlang Factory</a> conferences are the best places to meet professional Erlang developers. I&rsquo;ve attended a few of them, and I am always amazed by the quality of the speakers and the <em>hallway</em> discussions. Pro tip: make sure you have a substantial lunch and then stay for the drinks.</p>
 
-<p>A few local active user groups that I&#8217;m aware of:</p>
+<p>A few local active user groups that I&rsquo;m aware of:</p>
 
 <ul>
 <li><a href="http://www.meetup.com/ErlangChicago/">Chicago Erlang User Group</a></li>
-<li><a href="http://www.meetup.com/funadam/">Cross Functional Amsterdam</a> - I help organize this one. We have frequent Erlang focused talks.</li>
-<li><a href="http://www.meetup.com/erlangusergroup/">London Erlang User Group</a> -</li>
+<li><a href="http://www.meetup.com/funadam/">Cross Functional Amsterdam</a> &ndash; I help organize this one. We have frequent Erlang focused talks.</li>
+<li><a href="http://www.meetup.com/erlangusergroup/">London Erlang User Group</a> &ndash;</li>
 </ul>
 
 
@@ -169,9 +169,9 @@
   
   <entry>
     <title type="html"><![CDATA[[Dutch] Scrum 2009 ≠ Scrum 2012]]></title>
-    <link href="http://wardbekker.github.io/blog/2013/04/25/scrum-2009-not-scrum-2012/"/>
+    <link href="http://blog.equanimity.nl/blog/2013/04/25/scrum-2009-not-scrum-2012/"/>
     <updated>2013-04-25T15:05:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2013/04/25/scrum-2009-not-scrum-2012</id>
+    <id>http://blog.equanimity.nl/blog/2013/04/25/scrum-2009-not-scrum-2012</id>
     <content type="html"><![CDATA[<p>Tijdens de recent bezochte Scrum Product Owner cursus werd duidelijk dat Scrum is veranderd. Mijn begrip van Scrum, zoals geleerd tijdens de Scrum Master training van <a href="http://en.wikipedia.org/wiki/Jeff_Sutherland">Jeff Sutherland</a> in 2009, was aan herziening toe. Hieronder mijn bevindingen:</p>
 
 <h2>Scrum in 2009</h2>
@@ -208,10 +208,10 @@
   
   <entry>
     <title type="html"><![CDATA[Enable SPDY for your Erlang website]]></title>
-    <link href="http://wardbekker.github.io/blog/2013/04/25/enable-spdy-for-your-erlang-website/"/>
+    <link href="http://blog.equanimity.nl/blog/2013/04/25/enable-spdy-for-your-erlang-website/"/>
     <updated>2013-04-25T15:01:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2013/04/25/enable-spdy-for-your-erlang-website</id>
-    <content type="html"><![CDATA[<p>Google&#8217;s <a href="https://thestrangeloop.com">Strange Loop</a> presentation <a href="https://docs.google.com/presentation/d/1dPbm1lKjVqdYq3_z3Dgp4ChPNZuMyrL9uLWGL40HBhI/edit#slide=id.p19">Making the Web Faster</a> inspired me to enable SPDY on one of my side projects <a href="https://www.zininsushi.nl">Zin In Sushi</a>. This simple sushi restaurant review site is build in Erlang using <a href="http://wiki.basho.com/Webmachine.html">Basho&#8217;s Webmachine</a> in combination with <a href="http://code.google.com/p/erlydtl/">Erlydtl</a>.</p>
+    <id>http://blog.equanimity.nl/blog/2013/04/25/enable-spdy-for-your-erlang-website</id>
+    <content type="html"><![CDATA[<p>Google&rsquo;s <a href="https://thestrangeloop.com">Strange Loop</a> presentation <a href="https://docs.google.com/presentation/d/1dPbm1lKjVqdYq3_z3Dgp4ChPNZuMyrL9uLWGL40HBhI/edit#slide=id.p19">Making the Web Faster</a> inspired me to enable SPDY on one of my side projects <a href="https://www.zininsushi.nl">Zin In Sushi</a>. This simple sushi restaurant review site is build in Erlang using <a href="http://wiki.basho.com/Webmachine.html">Basho&rsquo;s Webmachine</a> in combination with <a href="http://code.google.com/p/erlydtl/">Erlydtl</a>.</p>
 
 <p>Below is a quick writeup of the steps needed.</p>
 
@@ -219,7 +219,7 @@
 
 <ul>
 <li>Your Erlang powered website is running on port 3000 (Substitute this with your own magic value) on HTTP.</li>
-<li>You are running a recent version of Ubuntu (I&#8217;m running 12.04 LTS).</li>
+<li>You are running a recent version of Ubuntu (I&rsquo;m running 12.04 LTS).</li>
 <li>Your domain is <code>www.example.org</code>.</li>
 </ul>
 
@@ -230,7 +230,7 @@
 <li>Reverse proxy setup with Apache 2</li>
 <li>SSL Setup with Apache 2</li>
 <li>Installation of <code>mod_spdy</code></li>
-<li><code>$ sudo service apache restart</code>, and you&#8217;re done!</li>
+<li><code>$ sudo service apache restart</code>, and you&rsquo;re done!</li>
 </ul>
 
 
@@ -250,7 +250,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Add a new site to Apache&#8217;s <code>available-sites</code></p>
+<p>Add a new site to Apache&rsquo;s <code>available-sites</code></p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/sites-available/reverse_proxy
@@ -389,7 +389,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now we&#8217;re in a good shape to add SPDY support</p>
+<p>Now we&rsquo;re in a good shape to add SPDY support</p>
 
 <h2>Installation of <code>mod_spdy</code></h2>
 
@@ -425,15 +425,15 @@
 
 <p>And browse to your website <code>https://www.example.org</code> in <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a>.</p>
 
-<p>To verify <code>mod_spdy</code> is working, open <code>chrome://net-internals/#spd</code> just after the first page load. Your server&#8217;s domain should be listed in the table under the <em>SPDY sessions</em> heading.gs</p>
+<p>To verify <code>mod_spdy</code> is working, open <code>chrome://net-internals/#spd</code> just after the first page load. Your server&rsquo;s domain should be listed in the table under the <em>SPDY sessions</em> heading.gs</p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.]]></title>
-    <link href="http://wardbekker.github.io/blog/2013/04/25/geautomatiseerd-testen-met-erlang/"/>
+    <link href="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/"/>
     <updated>2013-04-25T14:58:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2013/04/25/geautomatiseerd-testen-met-erlang</id>
+    <id>http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang</id>
     <content type="html"><![CDATA[<p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
 
 <p>De drie belangrijkste methoden worden hier kort besproken aan de hand van een test project. De methoden zijn:</p>
@@ -655,7 +655,7 @@
 </ul>
 
 
-<p>That&#8217;s it!</p>
+<p>That&rsquo;s it!</p>
 
 <p><a href="http://www.youtube.com/watch?v=YxJJu6mShiA&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/signing_and_switch.png" alt="Setup" /></a></p>
 
@@ -685,9 +685,9 @@ rapporteerd:</p>
   
   <entry>
     <title type="html"><![CDATA[Video: Automated testing with Erlang]]></title>
-    <link href="http://wardbekker.github.io/blog/2013/04/25/erlang-testing/"/>
+    <link href="http://blog.equanimity.nl/blog/2013/04/25/erlang-testing/"/>
     <updated>2013-04-25T14:52:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2013/04/25/erlang-testing</id>
+    <id>http://blog.equanimity.nl/blog/2013/04/25/erlang-testing</id>
     <content type="html"><![CDATA[<p>In 2012 I presented
 <a href="http://www.erlang-factory.com/conference/London2012/speakers/WardBekker">Automated testing with Erlang</a>
 at the <a href="http://www.erlang-factory.com/">Erlang Factory</a> event on the London Google Campus. <a href="http://www.erlang-factory.com/upload/presentations/693/EFL_2012_LONDON_ward_bekker_slides.pdf">Slides here</a>,
@@ -702,9 +702,9 @@ allowFullScreen></iframe>
   
   <entry>
     <title type="html"><![CDATA[Erlang Fprof output confusing? Try KCachegrind.]]></title>
-    <link href="http://wardbekker.github.io/blog/2013/04/24/fprof-kcachegrind/"/>
+    <link href="http://blog.equanimity.nl/blog/2013/04/24/fprof-kcachegrind/"/>
     <updated>2013-04-24T16:13:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2013/04/24/fprof-kcachegrind</id>
+    <id>http://blog.equanimity.nl/blog/2013/04/24/fprof-kcachegrind</id>
     <content type="html"><![CDATA[<p>Your Erlang code is perfect, but to find out why other peoples
 code runs dog slow you probably profile the code with <a href="http://www.erlang.org/doc/man/fprof.html">fprof</a> like this:</p>
 
@@ -731,9 +731,9 @@ sample of an actual fprof trace.</p>
 analyse result with sorting, a fancy call graph view, callee map and
 more.</p>
 
-<p><img src="http://wardbekker.github.io/images/qcachegrind.png" width="750" height="750" title="Qcachegrind screenshot" alt="images"></p>
+<p><img src="http://blog.equanimity.nl/images/qcachegrind.png" width="750" height="750" title="Qcachegrind screenshot" alt="images"></p>
 
-<p>As KCachegrind can&#8217;t read fprof analysis output directly, you need to
+<p>As KCachegrind can&rsquo;t read fprof analysis output directly, you need to
 convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.</p>
 
 <figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -781,9 +781,9 @@ KCachegrind.</p>
   
   <entry>
     <title type="html"><![CDATA[Inverted index compression techniques]]></title>
-    <link href="http://wardbekker.github.io/blog/2012/07/12/inverted-index-compression-techniques/"/>
+    <link href="http://blog.equanimity.nl/blog/2012/07/12/inverted-index-compression-techniques/"/>
     <updated>2012-07-12T15:55:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2012/07/12/inverted-index-compression-techniques</id>
+    <id>http://blog.equanimity.nl/blog/2012/07/12/inverted-index-compression-techniques</id>
     <content type="html"><![CDATA[<p>Today I presented at at the Dutch Erlang Usergroup meeting, hosted by <a href="http://www.spilgames.com/">Spilgames</a>.</p>
 
 <p>In this presentation I explained:</p>
@@ -800,9 +800,9 @@ KCachegrind.</p>
   
   <entry>
     <title type="html"><![CDATA[A basic full text search server in Erlang]]></title>
-    <link href="http://wardbekker.github.io/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/"/>
+    <link href="http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/"/>
     <updated>2011-10-07T16:06:00+02:00</updated>
-    <id>http://wardbekker.github.io/blog/2011/10/07/a-basic-full-text-search-server-in-erlang</id>
+    <id>http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang</id>
     <content type="html"><![CDATA[<blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner&#8217;s Mind</cite></footer></blockquote>
 
 
