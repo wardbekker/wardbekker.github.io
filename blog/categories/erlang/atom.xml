@@ -4,7 +4,7 @@
   <title><![CDATA[Category: erlang | Ward Bekker]]></title>
   <link href="http://wardbekker.github.io/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://wardbekker.github.io/"/>
-  <updated>2013-05-31T11:10:20+02:00</updated>
+  <updated>2013-05-31T11:24:58+02:00</updated>
   <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -18,7 +18,7 @@
     <link href="http://wardbekker.github.io/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
     <updated>2013-05-29T22:14:00+02:00</updated>
     <id>http://wardbekker.github.io/blog/2013/05/29/a-beginners-guide-to-erlang</id>
-    <content type="html"><![CDATA[<p>These starting points that helped me getting up to speed with Erlang. I hope this information helps you too.</p>
+    <content type="html"><![CDATA[<p>These starting points helped me getting up to speed with Erlang. I hope this information helps you too.</p>
 
 <h3>How install Erlang/OTP</h3>
 
