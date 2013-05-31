@@ -6,7 +6,7 @@ comments: true
 categories:  erlang
 ---
 
-These starting points that helped me getting up to speed with Erlang. I hope this information helps you too.
+These starting points helped me getting up to speed with Erlang. I hope this information helps you too.
 
 ### How install Erlang/OTP
 
