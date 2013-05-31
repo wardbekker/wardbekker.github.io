@@ -3,7 +3,7 @@ layout: post
 title: "A beginners guide to Erlang"
 date: 2013-05-29 22:14
 comments: true
-categories:  erlang
+categories:  Erlang
 ---
 
 {% blockquote Shunryu Suzuki, Zend Mind Beginner's Mind %}
