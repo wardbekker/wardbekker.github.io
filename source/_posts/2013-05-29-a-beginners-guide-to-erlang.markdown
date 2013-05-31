@@ -35,7 +35,7 @@ As with other programming languages [Stack overflow](http://stackoverflow.com/qu
 
 ### Erlang books
 
-Compared to Java, the quantity of Erlang books is low. But the quality is pretty good! And a little birdy told me that some great new books will be published in the near future. *[Disclaimer: Links to Amazon ahead with affiliate code for sponsoring my caffeine intake.]*
+Compared to Java, the quantity of Erlang books is low. But the quality is pretty good! And a little birdy told me that some great new books will be published in the near future. *Disclaimer: Links to Amazon ahead with affiliate code for sponsoring my caffeine intake.*
 
 <table>
             <tr>
