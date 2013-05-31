@@ -10,7 +10,7 @@ categories:  erlang
 In the beginner’s mind there are many possibilities, but in the expert’s there are few
 {% endblockquote %}
 
-These starting points helped me getting up to speed with Erlang. I hope this information helps you too.
+These starting points helped me getting up to speed with [Erlang](http://www.erlang.org/). I hope this information helps you too.
 
 ### How install Erlang/OTP
 
@@ -28,14 +28,14 @@ I use [Aquamacs](http://aquamacs.org/), An Emacs for mac users, with the [Erlang
 
 ### Best places to ask for help
 
-The [Erlang Questions Mailinglist](http://erlang.org/mailman/listinfo/erlang-questions) is the best place to ask your Erlang questions. Don't be suprised if you question is answered by Erlang inventors themselves!
+The [Erlang Questions Mailinglist](http://erlang.org/mailman/listinfo/erlang-questions) is the best place to ask your Erlang questions. Don't be surprised if you question is answered by Erlang inventors themselves!
 
 As with other programming languages [Stack overflow](http://stackoverflow.com/questions/tagged/erlang) is also a great place to get answers to your pressing Erlang questions.
 
 
 ### Erlang books
 
-Compared to Java, the quantity of Erlang books is low. But the quality is pretty good! And a little birdy told me that some great new books will be published in the near future. *Warning: Affilate Links to Amazon ahead. You will be sponsoring my caffeine intake. Thank you.*
+Compared to Java, the quantity of Erlang books is low. But the quality is pretty good! And a little birdy told me that some great new books will be published in the near future. *Warning: affiliate links to Amazon ahead. You will be sponsoring my caffeine intake. Thank you.*
 
 <table>
             <tr>
