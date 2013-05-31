@@ -6,6 +6,10 @@ comments: true
 categories:  erlang
 ---
 
+{% blockquote Shunryu Suzuki, Zend Mind Beginner's Mind %}
+In the beginner’s mind there are many possibilities, but in the expert’s there are few
+{% endblockquote %}
+
 These starting points helped me getting up to speed with Erlang. I hope this information helps you too.
 
 ### How install Erlang/OTP
