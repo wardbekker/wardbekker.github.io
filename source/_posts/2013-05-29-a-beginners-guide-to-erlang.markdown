@@ -24,7 +24,7 @@ I use [Aquamacs](http://aquamacs.org/), An Emacs for mac users, with the [Erlang
 
 - The [official Erlang documentation](http://www.erlang.org/doc/) is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.
 - I keep a local copy of [Erldocs](http://erldocs.com/) on my development machine for quick access. Unfortunatly it doesn't have an R16 copy and function signatures are not shown fully correct, but it works for me.
-- [Learn you some erlang](http://learnyousomeerlang.com/) is a free site and a book that's a very good intro for learning Erlang.
+- [Learn you some erlang](http://learnyousomeerlang.com/) is a free online guide (and available as a dead tree version). It's a very good intro for learning Erlang.
 
 ### Best places to ask for help
 
@@ -47,6 +47,7 @@ Compared to Java, the quantity of Erlang books is low. But the quality is pretty
                 <td>
                     <a href="http://www.amazon.com/gp/product/1593274351/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1593274351&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1593274351&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1593274351" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
                     <br />
+                    <a href="http://learnyousomeerlang.com/">Free online version</a><br />
                     <a href="http://www.amazon.com/gp/product/1593274351/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1593274351&linkCode=as2&tag=dotnettaxi-20">Learn You Some Erlang for Great Good!: A Beginner's Guide by Fred Hebert</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1593274351" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
                 </td>
             </tr>
