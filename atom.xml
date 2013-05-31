@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://wardbekker.github.io/atom.xml" rel="self"/>
   <link href="http://wardbekker.github.io/"/>
-  <updated>2013-05-31T11:51:05+02:00</updated>
+  <updated>2013-05-31T15:53:51+02:00</updated>
   <id>http://wardbekker.github.io/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -33,9 +33,12 @@
 
 <h3>Documentation</h3>
 
-<p>The <a href="http://www.erlang.org/doc/">official Erlang documentation</a> is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.</p>
+<ul>
+<li>The <a href="http://www.erlang.org/doc/">official Erlang documentation</a> is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.</li>
+<li>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn&#8217;t have an R16 copy and function signatures are not shown fully correct, but it works for me.</li>
+<li><a href="http://learnyousomeerlang.com/">Learn you some erlang</a> is a free online guide (and available as a dead tree version). It&#8217;s a very good intro for learning Erlang.</li>
+</ul>
 
-<p>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn&#8217;t have an R16 copy and function signatures are not shown fully correct, but it works for me.</p>
 
 <h3>Best places to ask for help</h3>
 
