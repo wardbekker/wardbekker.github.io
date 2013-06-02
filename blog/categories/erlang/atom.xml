@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2013-05-31T21:34:12+02:00</updated>
+  <updated>2013-06-02T18:08:03+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
     <updated>2013-05-29T22:14:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang</id>
-    <content type="html"><![CDATA[<p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner&rsquo;s Mind</cite></footer></blockquote></p>
+    <content type="html"><![CDATA[<p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&rsquo;s Mind</cite></footer></blockquote></p>
 
 <p>These starting points helped me getting up to speed with <a href="http://www.erlang.org/">Erlang</a>. I hope this information helps you too.</p>
 
@@ -457,7 +457,7 @@ KCachegrind.</p>
     <link href="http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/"/>
     <updated>2011-10-07T16:06:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang</id>
-    <content type="html"><![CDATA[<p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner&rsquo;s Mind</cite></footer></blockquote></p>
+    <content type="html"><![CDATA[<p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&rsquo;s Mind</cite></footer></blockquote></p>
 
 <p>This post explains how to build a basic full text search server in Erlang. The server has the following features:</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2013-05-31T21:34:12+02:00</updated>
+  <updated>2013-06-02T18:08:03+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -14,11 +14,39 @@
 
   
   <entry>
+    <title type="html"><![CDATA[My Erlang Workflow]]></title>
+    <link href="http://blog.equanimity.nl/blog/2013/06/02/my-erlang-workflow/"/>
+    <updated>2013-06-02T13:42:00+02:00</updated>
+    <id>http://blog.equanimity.nl/blog/2013/06/02/my-erlang-workflow</id>
+    <content type="html"><![CDATA[<p>A post with video&rsquo;s showing how I write a basic hello world Erlang/OTP
+application. Focus is my Erlang workflow.</p>
+
+<ul>
+<li>Installing Erlang</li>
+<li>Installing Rebar</li>
+<li>Installing reloader.beam</li>
+<li>Installing user_defaults.beam</li>
+<li>Installing Aquamacs</li>
+<li>Installing Erlang-mode for otp</li>
+<li>Setting up projmake</li>
+<li>Installing iTerm2</li>
+<li>Picking my theme</li>
+<li>Generate application skeleton with rebar</li>
+<li>Add gen_server using templates.</li>
+<li>start application in shell.</li>
+<li>show ./shell.sh script</li>
+<li>show reloader in shell.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[A beginners guide to Erlang]]></title>
     <link href="http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
     <updated>2013-05-29T22:14:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang</id>
-    <content type="html"><![CDATA[<blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner&#8217;s Mind</cite></footer></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&#8217;s Mind</cite></footer></blockquote>
 
 
 <p>These starting points helped me getting up to speed with <a href="http://www.erlang.org/">Erlang</a>. I hope this information helps you too.</p>
@@ -803,7 +831,7 @@ KCachegrind.</p>
     <link href="http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/"/>
     <updated>2011-10-07T16:06:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang</id>
-    <content type="html"><![CDATA[<blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zend Mind Beginner&#8217;s Mind</cite></footer></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&#8217;s Mind</cite></footer></blockquote>
 
 
 
