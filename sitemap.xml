@@ -4,7 +4,7 @@
         <loc>
             http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/
         </loc>
-        <lastmod>2013-06-02T18:06:54+02:00</lastmod>
+        <lastmod>2013-06-04T20:19:21+02:00</lastmod>
     </url>
     <url>
         <loc>
@@ -34,13 +34,13 @@
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/</loc>
-        <lastmod>2013-06-04T13:49:36+02:00</lastmod>
+        <lastmod>2013-06-04T20:06:15+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/
         </loc>
-        <lastmod>2013-06-04T14:49:18+02:00</lastmod>
+        <lastmod>2013-06-04T20:21:41+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/about/</loc>
@@ -48,11 +48,11 @@
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/archives/</loc>
-        <lastmod>2013-06-04T14:49:18+02:00</lastmod>
+        <lastmod>2013-06-04T20:21:41+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/</loc>
-        <lastmod>2013-06-04T14:49:18+02:00</lastmod>
+        <lastmod>2013-06-04T20:21:41+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/robots.txt</loc>
