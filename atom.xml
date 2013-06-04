@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2013-06-02T18:09:40+02:00</updated>
+  <updated>2013-06-04T13:44:04+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,275 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Continuous Integration for Erlang with Travis-CI]]></title>
+    <link href="http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/"/>
+    <updated>2013-06-04T06:01:00+02:00</updated>
+    <id>http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci</id>
+    <content type="html"><![CDATA[<p><a href="http://www.erlang.org">Erlang/OTP</a> is designed for building large,
+scalable, soft-realtime systems with high availability. Testing such systems is non-trivial, useful <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">automated testing</a> even more so. That&rsquo;s why Erlang comes with some advanced testing libraries.</p>
+
+<p>The three most important methods are explained here by a few simple examples:</p>
+
+<ul>
+<li><a href="#unit-testing-met-eunit">Unit testing</a></li>
+<li><a href="#quickcheck">Quickcheck</a></li>
+<li><a href="#common-test">Common test</a></li>
+</ul>
+
+
+<p>First <em>clone</em>  the project from Github using the command:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git@github.com:wardbekker/ci_quickstart.git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For compiling and executing the project we use <a href="https://github.com/basho/rebar">Rebar</a>, a <em>sophisticated build-tool for Erlang projects that follows OTP principles</em>.  Steps to build rebar:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/basho/rebar.git
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>rebar
+</span><span class='line'><span class="nv">$ </span>./bootstrap
+</span><span class='line'>Recompile: src/getopt
+</span><span class='line'>...
+</span><span class='line'>Recompile: src/rebar_utils
+</span><span class='line'><span class="o">==</span>&gt; rebar <span class="o">(</span>compile<span class="o">)</span>
+</span><span class='line'>Congratulations! You now have a self-contained script called <span class="s2">&quot;rebar&quot;</span> in
+</span><span class='line'>your current working directory. Place this script anywhere in your path
+</span><span class='line'>and you can use rebar to build OTP-compliant apps.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Unit testing met EUnit</h2>
+
+<p>Let&rsquo;s start with the most simple test method; <a href="http://www.erlang.org/doc/apps/eunit/chapter.html">EUnit</a>. It&rsquo;s Erlang unit testing library. A unit test check if a function returns the expected result for a given input. In the example below the function <code>addition</code> is defined in the module <code>ci_quickstart_math</code> and two <em>assertions</em> are used:</p>
+
+<ul>
+<li><code>?assertEqual(expected, actual)</code></li>
+<li><code>?assertNotEqual(expected, actual)</code>.</li>
+</ul>
+
+
+<p>Try it our yourself with executing EUnit from the command line: <code>rebar get-deps compile eunit</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">ci_quickstart_math</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">addition</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">ifdef</span><span class="p">(</span><span class="nv">TEST</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;eunit/include/eunit.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">endif</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="nv">X</span> <span class="o">+</span> <span class="nv">Y</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">ifdef</span><span class="p">(</span><span class="nv">TEST</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">simple_test</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="o">?</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">addition</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
+</span><span class='line'>    <span class="o">?</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">endif</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Did all test pass? Excellent! Now the bad news. The actual value of this type of test if quite low. Are we sure the addition function works correct for all possible input?  We are now only certain of these cases:</p>
+
+<ul>
+<li><code>addition(2,2) == 4</code></li>
+<li><code>addition(1,1) /= 3</code></li>
+</ul>
+
+
+<p>And even then, when I change the body of the <code>addition</code> function in obviously something totally wrong:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'> <span class="n">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="mi">4</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The tests will still pass!</p>
+
+<p>So, with unit tests our assertions may be correct, but the function body of <code>addition</code> can be a steaming pile of canis faeces.</p>
+
+<p>It&rsquo;s even worse; As in this case, the arguments of addition are <a href="http://www.erlang.org/doc/efficiency_guide/advanced.html">64-bit small integers</a>, which have a range of -576460752303423489 &ndash; 576460752303423488. With two arguments, that is a humongous amount of inputs we should test to be really sure our function works correctly.  In the example unit test we only check two? Even adding twenty more cases, the hard worker that you are, effectively have very little value.</p>
+
+<p>Depressed already?  On to the good stuff.</p>
+
+<h2>QuickCheck</h2>
+
+<p>Continuing with the addition example; what we actually want is a test method that generated all possible inputs, and checks the result. Erlang has this, and the method is called <a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a>. Erlang even has multiple QuickCheck-style libraries available:</p>
+
+<ul>
+<li><a href="http://www.quviq.com">Quvic QuickCheck</a></li>
+<li><a href="https://github.com/manopapad/proper">ProPEr</a></li>
+<li><a href="https://github.com/krestenkrab/triq">Triq</a></li>
+</ul>
+
+
+<p>A QuickCheck test, also called a <em>property</em>  for <code>addition</code> function looks like this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">prop_sum</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="o">?</span><span class="nv">FORALL</span><span class="p">(</span>
+</span><span class='line'>        <span class="p">{</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">int</span><span class="p">(),</span> <span class="n">int</span><span class="p">()},</span>
+</span><span class='line'>        <span class="n">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">)</span> <span class="o">-</span> <span class="nv">Y</span> <span class="o">==</span> <span class="nv">X</span>
+</span><span class='line'>    <span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Test this example from the command line by executing <code>./shell.sh</code>. You will enter the Erlang shell. Then execute <code>proper:quickcheck(ci_quickstart_math:prop_sum()).</code>.</p>
+
+<p>If we look at the implementation of the QuickCheck test, notice that we are not testing specific numbers. We are testing a <em>property</em>  of the addition function, namely when we add int <em>X</em> and <em>Y</em>, and subtract <em>Y</em>  from the result of the addition, we should be left with <em>X</em> again.</p>
+
+<p>The code <code>{int(), int()}</code> specifies that the QuickCheck should generate <em>tuples</em> with two random integers. Each generated <em>tuple</em>  is bound to the pattern <code>{X, Y}</code> by <a href="http://erlang.org/doc/reference_manual/patterns.html">Erlang pattern matching</a>.  Quickcheck will generate 100 combinations by default.  With the <code>numtests</code> option we can increase this considerably: <code>proper:quickcheck(ci_quickstart_math:prop_sum(),[{numtests,10000}]).</code>.</p>
+
+<p>The challenge when using Quickcheck style testing, is to come up with good function properties. This is much harder than writing unit tests. It&rsquo;s even more difficult to reason about function properties than actually writing the actual function. So why bother?</p>
+
+<p>Reasons to use QuickCheck:</p>
+
+<ul>
+<li>Test correct functioning for all inputs.</li>
+<li>Compared to unit tests, QuickCheck test tend to find more bugs than unit tests.</li>
+<li>You need to reason about your code on a deeper level which improves your understanding of the problem you are solving, which tends to result in better code.</li>
+</ul>
+
+
+<h2>Common Test</h2>
+
+<p>As you might know, Erlang is a very good fit for building concurrent, distributed and fault tolerant systems. Testing if what you build is actually has those properties, is quite complex.</p>
+
+<p>For that, Erlang offers <a href="http://www.erlang.org/doc/apps/common_test/basics_chapter.html">Common Test</a>. This test frameworks can do the heavy lifting required for meaningful <a href="http://en.wikipedia.org/wiki/System_testing">system tests</a>.  The inherent complexity of concurrent, distributed en fault tolerant systems is reflected in Common Test. So, in this introduction we only take a very quick glance. In this example we mimic the initial unit test using pattern matching for assertions.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">basic_SUITE</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;common_test/include/ct.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">all</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">test1</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">test2</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">all</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">test1</span><span class="p">,</span><span class="n">test2</span><span class="p">].</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test1</span><span class="p">(_</span><span class="nv">Config</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="mi">3</span> <span class="o">=</span> <span class="nn">ci_quickstart_math</span><span class="p">:</span><span class="nf">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">).</span> <span class="c">%% validated using pattern matching</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test2</span><span class="p">(_</span><span class="nv">Config</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="mi">2</span> <span class="o">=</span> <span class="nn">ci_quickstart_math</span><span class="p">:</span><span class="nf">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">).</span>  <span class="c">%% validated using pattern matching</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Continuous integration with Travis-CI</h2>
+
+<p>During development, you run your Erlang automated tests on your own workstation. But there comes a point where that&rsquo;s no longer feasible because of the long duration or high load. Or you work in a team setting where it&rsquo;s important that only working code is integrated. In those cases and  <a href="http://en.wikipedia.org/wiki/Continuous_integration#Advantages_and_disadvantages">for several other good reasons</a>, you need to use a <a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a> system.</p>
+
+<p>There are several continuous integration systems that allow you to run automated tests for Erlang. In this example we use <a href="http://travis-ci.org">Travis-CI</a>. It&rsquo;s a free hosted continuous integration service for the open source community. Travis-CI integrates with the popular <a href="http://www.github.com">Github</a>.</p>
+
+<p>Let&rsquo;s add our example project to Travis-CI.</p>
+
+<h3>Preparation</h3>
+
+<p>The build process of Travis-CI is configured with a <code>.travis.yml</code> file in the <em>root</em>  of our repository:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erlang // This project is an Erlang project</span>
+</span><span class='line'><span class="l-Scalar-Plain">notifications</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">you@example.org // Notify this e-mail address on build failures</span>
+</span><span class='line'><span class="l-Scalar-Plain">otp_release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">// The Erlang/OTP versions to run your test against.</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">- R15B01</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">- R15B</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">- R14B04</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Travis-CI Setup</h3>
+
+<p>This video shows how to register with Travis-CI:</p>
+
+<ul>
+<li>Log in with your Github account.</li>
+<li>Open the Travis-CI <em>profile</em> page.</li>
+<li>Enable the <em>repository</em>  that you want to test.</li>
+</ul>
+
+
+<p>That&rsquo;s it!</p>
+
+<p><a href="http://www.youtube.com/watch?v=YxJJu6mShiA&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/signing_and_switch.png" alt="Setup" /></a></p>
+
+<h3>Travis-CI Success Run</h3>
+
+<p>This video shows how Travis-CI will report an successful <em>integration build</em></p>
+
+<p><a href="http://www.youtube.com/watch?v=rJWRY1Uf_qg&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/success.png" alt="Success" /></a></p>
+
+<h3>Travis-CI Failure Run</h3>
+
+<p>This video shows how Travis-CI will report an failed <em>integration build</em></p>
+
+<p><a href="http://www.youtube.com/watch?v=5u8Kpz3m8ho&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fail.png" alt="Fail" /></a></p>
+
+<p>If you entered your e-mail address in <code>.travis.yml</code>, you will receive a mail about which <em>commit</em>  broke the build:</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/broken_email.png" width="400" height="200" alt="Broken build e-mail notification" /></p>
+
+<p>When your colleague fixed the build (you would never commit broken code, right?), you will receive a mail that the build is fixed by a new <em>commit</em>.</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[A beginners guide to Erlang]]></title>
