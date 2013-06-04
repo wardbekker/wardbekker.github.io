@@ -172,19 +172,20 @@ This video shows how to register with Travis-CI:
 
 That's it!
 
-<a href="http://www.youtube.com/watch?v=YxJJu6mShiA&hd=1" target="_blank">![Setup](https://raw.github.com/wardbekker/ci_quickstart/master/images/signing_and_switch.png)</a>
+{% youtube YxJJu6mShiA %}
 
 ### Travis-CI Success Run
 
 This video shows how Travis-CI will report an successful *integration build*
 
-<a href="http://www.youtube.com/watch?v=rJWRY1Uf_qg&hd=1" target="_blank">![Success](https://raw.github.com/wardbekker/ci_quickstart/master/images/success.png)</a>
+{% youtube rJWRY1Uf_qg %}
 
 ### Travis-CI Failure Run
 
-This video shows how Travis-CI will report an failed *integration build*
+This video shows how Travis-CI will report an failed *integration
+build*
 
-<a href="http://www.youtube.com/watch?v=5u8Kpz3m8ho&hd=1" target="_blank">![Fail](https://raw.github.com/wardbekker/ci_quickstart/master/images/fail.png)</a>
+{% youtube 5u8Kpz3m8ho %}
 
 If you entered your e-mail address in `.travis.yml`, you will receive a mail about which *commit*  broke the build:
 
