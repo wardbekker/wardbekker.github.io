@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2013-06-04T13:44:04+02:00</updated>
+  <updated>2013-06-04T13:51:37+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -381,7 +381,13 @@ scalable, soft-realtime systems with high availability. Testing such systems is 
 <p>With help from former collegue &amp; friend <a href="https://twitter.com/j2h">Josh Kalderimis</a> I&rsquo;ve added the first iteration of Erlang support to <a href="https://travis-ci.org/">Travis-CI</a>. It&rsquo;s a free continuous integration service for open source projects. It&rsquo;s used by well known Erlang projects like <a href="http://basho.com/riak/">Basho Riak</a>, <a href="http://elixir-lang.org/">Elixir</a> and <a href="https://github.com/mochi/mochiweb">Mochiweb</a>.
 <a href="http://about.travis-ci.org/docs/user/languages/erlang/">See the documentation how to add your project</a>.</p>
 
-<p>If you can read Dutch, you can also read my blog post about <a href="blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Geautomatiseerd testen met Erlang/OTP en Travis-CI</a> which covers the same ground.</p>
+<p>I&rsquo;ve also written a blog post which covers the same ground:</p>
+
+<ul>
+<li>English: <a href="http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Continuous Integration for Erlang with Travis-CI</a></li>
+<li>Dutch: <a href="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Geautomatiseerd testen met Erlang/OTP en Travis-CI</a></li>
+</ul>
+
 
 <h3>Who to follow on twitter</h3>
 
