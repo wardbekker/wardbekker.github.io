@@ -11,9 +11,9 @@ scalable, soft-realtime systems with high availability. Testing such systems is 
 
 The three most important methods are explained here by a few simple examples:
 
-* [Unit testing](#unit-testing-with-eunit)
-* [Quickcheck](#quickcheck)
-* [Common test](#common-test)
+* Unit testing
+* Quickcheck
+* Common test
 
 First *clone*  the project from Github using the command: 
 
@@ -172,20 +172,20 @@ This video shows how to register with Travis-CI:
 
 That's it!
 
-{% youtube YxJJu6mShiA %}
+{% youtube aRQswLPaplg %}
 
 ### Travis-CI Success Run
 
 This video shows how Travis-CI will report an successful *integration build*
 
-{% youtube rJWRY1Uf_qg %}
+{% youtube VibylfHMCrg %}
 
 ### Travis-CI Failure Run
 
 This video shows how Travis-CI will report an failed *integration
 build*
 
-{% youtube 5u8Kpz3m8ho %}
+{% youtube 3AlNH1CrIro %}
 
 If you entered your e-mail address in `.travis.yml`, you will receive a mail about which *commit*  broke the build:
 
