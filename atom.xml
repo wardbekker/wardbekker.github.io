@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-01-08T08:59:20+01:00</updated>
+  <updated>2014-01-08T09:00:15+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -30,55 +30,6 @@
 
 
 <p>Your laptop or PC probably needs to support <em>DisplayPort 1.2</em> to take advantage of the high resolution. My work supplied Mid-2009 Macbook Pro certainly doesn&rsquo;t. Time for an upgrade!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Erlang workspace tutorial]]></title>
-    <link href="http://blog.equanimity.nl/blog/2013/08/30/erlang-workspace-tutorial/"/>
-    <updated>2013-08-30T13:44:00+02:00</updated>
-    <id>http://blog.equanimity.nl/blog/2013/08/30/erlang-workspace-tutorial</id>
-    <content type="html"><![CDATA[
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Five reasons your estimate isn't worth that much]]></title>
-    <link href="http://blog.equanimity.nl/blog/2013/07/02/five-signs-your-estimate-isnt-worth-that-much/"/>
-    <updated>2013-07-02T15:27:00+02:00</updated>
-    <id>http://blog.equanimity.nl/blog/2013/07/02/five-signs-your-estimate-isnt-worth-that-much</id>
-    <content type="html"><![CDATA[<blockquote><p>I love deadlines. I like the whooshing sound they make as they fly by.</p><footer><strong>Douglas Adams</strong></footer></blockquote>
-
-
-<h1>Lies, Damn Lies and Software Development Estimates.</h1>
-
-<p>Building good software is hard. Some might say that precise estimates are impossible.</p>
-
-<p>Development effort estimation is hard. No doubt about that. But even if you come up with carefully crafted estimates, it will probably not</p>
-
-<p>Some red flags that makes your estimates not worth a lot:</p>
-
-<h1>New problem domain</h1>
-
-<p>You probably don&rsquo;t know enough of the inherent and accidental complexities of a problem domain of you never did a project in it.</p>
-
-<p>So, you&rsquo;re asked to build a new fancy global online payment service. How hard can it be, right? You can execute database transaction in your sleep, and know the basics of bookkeeping. Six to eight weeks for the MVP, right? Boom!</p>
-
-<p>Turns out that most domain knowledge is not written down. It&rsquo;s learned by hard experience.</p>
-
-<p>Sorry, you don&rsquo;t really know what the intrinsic complexity is of a new problem domain unless you did a few similar project in that field. Domain knowledge is not something you can learn from a book, it&rsquo;s learned by experience. Until then: your estimate accuracy sucks.</p>
-
-<h1>New team</h1>
-
-<p>A new team is formed for that new project. You worked with a few r[</p>
-
-<h1>New technology</h1>
-
-<h1>New requirements</h1>
-
-<h1>New 3rd party collaborations</h1>
-
-<p>, ,</p>
 ]]></content>
   </entry>
   
