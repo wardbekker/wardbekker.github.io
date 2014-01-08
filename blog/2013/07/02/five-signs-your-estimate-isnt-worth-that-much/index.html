@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>UI library with Erlang properties - Ward Bekker</title>
+  <title>Five reasons your estimate isn't worth that much - Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
 
   
-  <meta name="description" content="I worked with Cocoa Touch, Windows Forms Why isn&rsquo;t there a UI library that took a page out of the Erlang book? Let me explain what I mean by &hellip;">
+  <meta name="description" content="I love deadlines. I like the whooshing sound they make as they fly by.Douglas Adams Lies, Damn Lies and Software Development Estimates. Building good &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.equanimity.nl/blog/2013/06/05/ui-library-with-erlang-properties">
+  <link rel="canonical" href="http://blog.equanimity.nl/blog/2013/07/02/five-signs-your-estimate-isnt-worth-that-much">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
@@ -76,7 +76,7 @@
   
   <header>
     
-      <h1 class="entry-title">UI Library With Erlang Properties</h1>
+      <h1 class="entry-title">Five Reasons Your Estimate Isn't Worth That Much</h1>
     
     
       <p class="meta">
@@ -92,7 +92,7 @@
   
 
 
-<time datetime="2013-06-05T13:46:00+02:00" pubdate data-updated="true">Jun 5<span>th</span>, 2013</time>
+<time datetime="2013-07-02T15:27:00+02:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -101,77 +101,38 @@
   </header>
 
 
-<div class="entry-content"><p>I worked with Cocoa Touch, Windows Forms</p>
-
-<p>Why isn&rsquo;t there a UI library that took a page out of the Erlang book?</p>
-
-<p>Let me explain what I mean by explaining what the concepts are in
-cocoa, and how I would like them to be more Erlang like.</p>
-
-<h2>State</h2>
-
-<p>The user interface of an iPhone program is a visual representation of
-the program state. User interacts with the program using touch events, and triggers a state mutation which is reflected on the UI.</p>
-
-<p>Where is the state kept in an Objective-C program?</p>
-
-<p>I want to make the point that state it all over the place.</p>
-
-<ul>
-<li>UIView hirarchy &ndash;> buttons, labels, controllers, bar items, tableview</li>
-<li>Models &ndash;> core data</li>
-<li>Singletons, connections, notification,</li>
-</ul>
+<div class="entry-content"><blockquote><p>I love deadlines. I like the whooshing sound they make as they fly by.</p><footer><strong>Douglas Adams</strong></footer></blockquote>
 
 
-<p>Drawing the possible states as a statemachine is near impossible. But that complexity is what a UI programmer needs to work with.  Which means that it&rsquo;s pretty easy to end up with the UI in an unwanted state. That&rsquo;s what I think is one of the reasons that UI programming is so damn hard.</p>
+<h1>Lies, Damn Lies and Software Development Estimates.</h1>
 
-<p>To make this easier, we need to minimize the possible states the program can be in. Or perhaps declare the allowed states.</p>
+<p>Building good software is hard. Some might say that precise estimates are impossible.</p>
 
-<p>In erlang we have gen_fsm. It&rsquo;s a finite state machine process. It defines the possible states, and the allowed state transitions.</p>
+<p>Development effort estimation is hard. No doubt about that. But even if you come up with carefully crafted estimates, it will probably not</p>
 
-<p>So, wouldn&rsquo;t it be great if every individual screen of an iPhone app is actually a single proces, with defined states and state transitions.</p>
+<p>Some red flags that makes your estimates not worth a lot:</p>
 
-<p>[ Example state diagram here]</p>
+<h1>New problem domain</h1>
 
-<h2>Concurrency</h2>
+<p>You probably don&rsquo;t know enough of the inherent and accidental complexities of a problem domain of you never did a project in it.</p>
 
-<p>Most concurrency in Objective-C seems to be done using callbacks. So you call a method and specify with method needs to be called when finished with the result.  In the meantime the caller can do other stuff, mostly being able to be ready for new user input.</p>
+<p>So, you&rsquo;re asked to build a new fancy global online payment service. How hard can it be, right? You can execute database transaction in your sleep, and know the basics of bookkeeping. Six to eight weeks for the MVP, right? Boom!</p>
 
-<p>If you don&rsquo;t contain yourself, you will likely end up some form of callback hell. Callbacks are also called the modern version of GOTO&rsquo;s.</p>
+<p>Turns out that most domain knowledge is not written down. It&rsquo;s learned by hard experience.</p>
 
-<p><a href="http://elm-lang.org/learn/Escape-from-Callback-Hell.elm">http://elm-lang.org/learn/Escape-from-Callback-Hell.elm</a></p>
+<p>Sorry, you don&rsquo;t really know what the intrinsic complexity is of a new problem domain unless you did a few similar project in that field. Domain knowledge is not something you can learn from a book, it&rsquo;s learned by experience. Until then: your estimate accuracy sucks.</p>
 
-<p>What I rather would like to see, is the Erlang actor model. If your screen is a gen_fsm, you</p>
+<h1>New team</h1>
 
-<p>how does the no shared state make this easier.</p>
+<p>A new team is formed for that new project. You worked with a few r[</p>
 
-<p>clean seperation.  so the gen_fsm receives the &lsquo;refresh&rsquo; event. It does a async cast to a  &lsquo;gen_server&rsquo; and  It possibly goes into the refreshing state. When the gen_server is done with his business. It will send a &lsquo;data_ready&rsquo; event to the gen_fsm together with the data. The &lsquo;gen_fsm&rsquo; will transistion in the new state.</p>
+<h1>New technology</h1>
 
-<p>This looks similar to callbacks, but definitly isn&rsquo;t. There is no shared state, only message passing between actors that have independent thread of control.</p>
+<h1>New requirements</h1>
 
-<p>Which type of problems don&rsquo;t occur then. What&rsquo;s the difference?</p>
+<h1>New 3rd party collaborations</h1>
 
-<p>You don&rsquo;t relegate the control on when a block of code is executed.  etc.</p>
-
-<h2>Fault tolerance</h2>
-
-<p>In objective-c, if you don&rsquo;t handle all possible states (and those are many, as we noted before) correctly your app will crash in the ugliest way possible.</p>
-
-<p>Using the Erlang supervisor model, where crashing processes are restarted, this might mean that a single screen will crash, but the app stays functional. You might for example go back to the previous screen in that case. Or the process get&rsquo;s restarted and you can go one with your business.</p>
-
-<h2>Hot code loading</h2>
-
-<p>This could be cool for two reasons in an iPhone app:</p>
-
-<ul>
-<li>in production: automatic live upgrades. Don&rsquo;t you just hate that you constantly manuall update the apps?</li>
-<li>in development: this is probably for me the biggest advantage. When developing an Objective-C program I constantly need to run the app in the simulator, log in, go the the feature I&rsquo;m developing, testing if I fixed the problem,</li>
-</ul>
-
-
-<p>As part of my daytime work I sometimes program iPhone apps in
-Objective-C.</p>
+<p>, ,</p>
 </div>
 
 
@@ -194,7 +155,7 @@ Objective-C.</p>
   
 
 
-<time datetime="2013-06-05T13:46:00+02:00" pubdate data-updated="true">Jun 5<span>th</span>, 2013</time>
+<time datetime="2013-07-02T15:27:00+02:00" pubdate data-updated="true">Jul 2<span>nd</span>, 2013</time>
       
 
 
@@ -202,7 +163,7 @@ Objective-C.</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2013/06/05/ui-library-with-erlang-properties/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2013/06/05/ui-library-with-erlang-properties/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2013/07/02/five-signs-your-estimate-isnt-worth-that-much/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2013/07/02/five-signs-your-estimate-isnt-worth-that-much/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -215,6 +176,8 @@ Objective-C.</p>
       
         <a class="basic-alignment left" href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/" title="Previous Post: Continuous Integration for Erlang with Travis-CI">&laquo; Continuous Integration for Erlang with Travis-CI</a>
       
+      
+        <a class="basic-alignment right" href="/blog/2013/08/30/erlang-workspace-tutorial/" title="Next Post: Erlang workspace tutorial">Erlang workspace tutorial &raquo;</a>
       
     </p>
   </footer>
@@ -232,7 +195,7 @@ Objective-C.</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Ward Bekker <br/>
+  Copyright &copy; 2014 - Ward Bekker <br/>
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>, customized with <a href="https://github.com/mjhea0/whiterspace">whiterspace</a>.</span>
 </p>
 
@@ -244,8 +207,8 @@ Objective-C.</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.equanimity.nl/blog/2013/06/05/ui-library-with-erlang-properties/';
-        var disqus_url = 'http://blog.equanimity.nl/blog/2013/06/05/ui-library-with-erlang-properties/';
+        var disqus_identifier = 'http://blog.equanimity.nl/blog/2013/07/02/five-signs-your-estimate-isnt-worth-that-much/';
+        var disqus_url = 'http://blog.equanimity.nl/blog/2013/07/02/five-signs-your-estimate-isnt-worth-that-much/';
         var disqus_script = 'embed.js';
       
     (function () {
