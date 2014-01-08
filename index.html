@@ -9,8 +9,7 @@
   <meta name="author" content="Ward Bekker">
 
   
-  <meta name="description" content="Erlang/OTP is designed for building large,
-scalable, soft-realtime systems with high availability. Testing such systems is non-trivial, useful &hellip;">
+  <meta name="description" content="I worked with Cocoa Touch, Windows Forms Why isn&rsquo;t there a UI library that took a page out of the Erlang book? Let me explain what I mean by &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -74,6 +73,114 @@ scalable, soft-realtime systems with high availability. Testing such systems is 
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/05/ui-library-with-erlang-properties/">UI Library With Erlang Properties</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-05T13:46:00+02:00" pubdate data-updated="true">Jun 5<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/06/05/ui-library-with-erlang-properties/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I worked with Cocoa Touch, Windows Forms</p>
+
+<p>Why isn&rsquo;t there a UI library that took a page out of the Erlang book?</p>
+
+<p>Let me explain what I mean by explaining what the concepts are in
+cocoa, and how I would like them to be more Erlang like.</p>
+
+<h2>State</h2>
+
+<p>The user interface of an iPhone program is a visual representation of
+the program state. User interacts with the program using touch events, and triggers a state mutation which is reflected on the UI.</p>
+
+<p>Where is the state kept in an Objective-C program?</p>
+
+<p>I want to make the point that state it all over the place.</p>
+
+<ul>
+<li>UIView hirarchy &ndash;> buttons, labels, controllers, bar items, tableview</li>
+<li>Models &ndash;> core data</li>
+<li>Singletons, connections, notification,</li>
+</ul>
+
+
+<p>Drawing the possible states as a statemachine is near impossible. But that complexity is what a UI programmer needs to work with.  Which means that it&rsquo;s pretty easy to end up with the UI in an unwanted state. That&rsquo;s what I think is one of the reasons that UI programming is so damn hard.</p>
+
+<p>To make this easier, we need to minimize the possible states the program can be in. Or perhaps declare the allowed states.</p>
+
+<p>In erlang we have gen_fsm. It&rsquo;s a finite state machine process. It defines the possible states, and the allowed state transitions.</p>
+
+<p>So, wouldn&rsquo;t it be great if every individual screen of an iPhone app is actually a single proces, with defined states and state transitions.</p>
+
+<p>[ Example state diagram here]</p>
+
+<h2>Concurrency</h2>
+
+<p>Most concurrency in Objective-C seems to be done using callbacks. So you call a method and specify with method needs to be called when finished with the result.  In the meantime the caller can do other stuff, mostly being able to be ready for new user input.</p>
+
+<p>If you don&rsquo;t contain yourself, you will likely end up some form of callback hell. Callbacks are also called the modern version of GOTO&rsquo;s.</p>
+
+<p><a href="http://elm-lang.org/learn/Escape-from-Callback-Hell.elm">http://elm-lang.org/learn/Escape-from-Callback-Hell.elm</a></p>
+
+<p>What I rather would like to see, is the Erlang actor model. If your screen is a gen_fsm, you</p>
+
+<p>how does the no shared state make this easier.</p>
+
+<p>clean seperation.  so the gen_fsm receives the &lsquo;refresh&rsquo; event. It does a async cast to a  &lsquo;gen_server&rsquo; and  It possibly goes into the refreshing state. When the gen_server is done with his business. It will send a &lsquo;data_ready&rsquo; event to the gen_fsm together with the data. The &lsquo;gen_fsm&rsquo; will transistion in the new state.</p>
+
+<p>This looks similar to callbacks, but definitly isn&rsquo;t. There is no shared state, only message passing between actors that have independent thread of control.</p>
+
+<p>Which type of problems don&rsquo;t occur then. What&rsquo;s the difference?</p>
+
+<p>You don&rsquo;t relegate the control on when a block of code is executed.  etc.</p>
+
+<h2>Fault tolerance</h2>
+
+<p>In objective-c, if you don&rsquo;t handle all possible states (and those are many, as we noted before) correctly your app will crash in the ugliest way possible.</p>
+
+<p>Using the Erlang supervisor model, where crashing processes are restarted, this might mean that a single screen will crash, but the app stays functional. You might for example go back to the previous screen in that case. Or the process get&rsquo;s restarted and you can go one with your business.</p>
+
+<h2>Hot code loading</h2>
+
+<p>This could be cool for two reasons in an iPhone app:</p>
+
+<ul>
+<li>in production: automatic live upgrades. Don&rsquo;t you just hate that you constantly manuall update the apps?</li>
+<li>in development: this is probably for me the biggest advantage. When developing an Objective-C program I constantly need to run the app in the simulator, log in, go the the feature I&rsquo;m developing, testing if I fixed the problem,</li>
+</ul>
+
+
+<p>As part of my daytime work I sometimes program iPhone apps in
+Objective-C.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
