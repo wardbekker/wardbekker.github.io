@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-01-08T09:04:13+01:00</updated>
+  <updated>2014-01-30T17:37:48+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,35 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How Apple will implement Mobile Payment]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment/"/>
+    <updated>2014-01-30T17:30:00+01:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment</id>
+    <content type="html"><![CDATA[<p>The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code <a href="http://recode.net/2014/01/30/paypal-wants-in-on-apples-mobile-payments-dreams/">claim</a> that Apple and Paypal are in talks about a partnership, perhaps Apple using a whitelabel version of Paypal as a backoffice for their new service.</p>
+
+<p>If Paypal and Apple are going to partner, my best guess is that this will NOT be using a whitelabel, but a much more lightweight integration like this:</p>
+
+<ul>
+<li>Apple will partner with Visa, Mastercard, Venmo, Paypal and such.</li>
+<li>Apple will allows their users to hook up their phone&rsquo;s with those payment providers in a similar way as now done with Facebook, Flickr, Vimeo etc <img src="https://www.evernote.com/shard/s48/sh/552cb35f-6281-47b0-a305-209343a68835/1b0edc98ae52d4eff296ef9c4b856d71/deep/0/setting_example.png" alt="setting_example" /></li>
+<li>Apple will provider app developers with a Mobile Payment framework, similar to the <a href="https://developer.apple.com/library/ios/documentation/Social/Reference/Social_Framework/_index.html">Social Framework</a> that will provide developers an abstracted way to accept mobile payments. Likely with TouchID confirmation for easy of use. Possibly with a way to let the user to configure a standard shipping and/or billing address.</li>
+<li>So, when the user is checking out a physical good, a dialog will be shown where the user will select the desired payment method.</li>
+</ul>
+
+
+<p><img src="https://www.evernote.com/shard/s48/sh/df67389b-6fca-4aae-adbc-334785750aa7/c65a9b1bec941d83bcb4326131ad4b1e/deep/0/payment_selection.png" alt="payment_selection" /></p>
+
+<p>Some not so researched reasons why I think a deep level partnering will not happen:</p>
+
+<ul>
+<li>Apple does not have a track record partnering with third parties on such a deep level. They want to be able to call the shots. Control is the keyword.</li>
+<li>Apple probably doesn&rsquo;t want to deal with the support effort of chargebacks for goods they don&rsquo;t deliver. (see also the physical good restriction for the current in app purchase stuff). It&rsquo;s a totally different business.</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Three affordable 4K retina monitors introduced at CES 2014]]></title>
