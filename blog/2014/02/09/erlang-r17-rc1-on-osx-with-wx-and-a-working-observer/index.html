@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>How Apple will implement Mobile Payments - Ward Bekker</title>
+  <title>Erlang R17-rc1 on OSX with WX and a working Observer - Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
 
   
-  <meta name="description" content="The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code claim that Apple and Paypal are in talks about a &hellip;">
+  <meta name="description" content="This post is based on HOWTO: Getting wx to work with Erlang r16b02 on OS X Set correct Xcode path for compilation $ xcode-select -s /Applications/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment">
+  <link rel="canonical" href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
@@ -76,7 +76,7 @@
   
   <header>
     
-      <h1 class="entry-title">How Apple Will Implement Mobile Payments</h1>
+      <h1 class="entry-title">Erlang R17-rc1 on OSX With WX and a Working Observer</h1>
     
     
       <p class="meta">
@@ -92,7 +92,7 @@
   
 
 
-<time datetime="2014-01-30T17:30:00+01:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time>
+<time datetime="2014-02-09T08:53:00+01:00" pubdate data-updated="true">Feb 9<span>th</span>, 2014</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -101,27 +101,59 @@
   </header>
 
 
-<div class="entry-content"><p>The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code <a href="http://recode.net/2014/01/30/paypal-wants-in-on-apples-mobile-payments-dreams/">claim</a> that Apple and Paypal are in talks about a partnership, perhaps Apple using a whitelabel version of Paypal as a backoffice for their new service.</p>
+<div class="entry-content"><p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r17b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a></p>
 
-<p>If Paypal and Apple are going to partner, my best guess is that this will NOT be using a whitelabel, but a much more lightweight integration like this:</p>
+<h2>Set correct Xcode path for compilation</h2>
 
-<ul>
-<li>Apple will partner with Visa, Mastercard, Venmo, Paypal and such.</li>
-<li>Apple will allows their users to hook up their phone&rsquo;s with those payment providers in a similar way as now done with Facebook, Flickr, Vimeo etc. Like this: <div class="thumbnail"><a href="https://www.evernote.com/shard/s48/sh/552cb35f-6281-47b0-a305-209343a68835/1b0edc98ae52d4eff296ef9c4b856d71"><img style="max-width:400px" src="https://www.evernote.com/shard/s48/sh/552cb35f-6281-47b0-a305-209343a68835/1b0edc98ae52d4eff296ef9c4b856d71/deep/0/setting_example.png" alt="setting_example" /></a></div></li>
-<li>Apple will provider app developers with a Mobile Payment framework, similar to the <a href="https://developer.apple.com/library/ios/documentation/Social/Reference/Social_Framework/_index.html">Social Framework</a> that will provide developers an abstracted way to accept mobile payments. Likely with TouchID confirmation for easy of use. Possibly with a way to let the user to configure a standard shipping and/or billing address.</li>
-<li>So, when the user is checking out a physical good, a dialog will be shown where the user will select the desired payment method. Like this: <div class="thumbnail"><a href="https://www.evernote.com/shard/s48/sh/df67389b-6fca-4aae-adbc-334785750aa7/c65a9b1bec941d83bcb4326131ad4b1e"><img src="https://www.evernote.com/shard/s48/sh/df67389b-6fca-4aae-adbc-334785750aa7/c65a9b1bec941d83bcb4326131ad4b1e/deep/0/payment_selection.png" alt="payment_selection" style="max-width:400px" /></a></div></li>
-</ul>
+<pre><code>$ xcode-select -s /Applications/Xcode.app/Contents/Developer
+</code></pre>
 
+<p>or if you installed a beta version (in my case <code>51-Beta5</code>):</p>
 
-<p>Some reasons why I think a deep level partnering will not happen:</p>
+<pre><code>$ xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
+</code></pre>
 
-<ul>
-<li>Apple does not have a track record partnering with third parties on such a deep level. They want to be able to call the shots. Control is the keyword.</li>
-<li>Apple probably doesn&rsquo;t want to deal with the support effort of chargebacks for goods they don&rsquo;t deliver. (see also the physical good restriction for the current in app purchase stuff). It&rsquo;s a totally different business.</li>
-</ul>
+<h2>Install wxmac</h2>
 
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
 
-<p><a href="https://news.ycombinator.com/item?id=7151592">Upvote this story on Hacker News</a></p>
+<pre><code>$ brew install https://raw.github.com/MSch/homebrew/master/Library/Formula/wxmac.rb --disable-monolithic'
+</code></pre>
+
+<h2>Install kerl</h2>
+
+<pre><code>$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></pre>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<pre><code>KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx" 
+</code></pre>
+
+<h2>Build &amp; Install 32-bit Erlang with kerl</h2>
+
+<p>I read that 64-bit Erlang doesn&rsquo;t work with wx, so I went with 32-bit erlang. Compilation takes time. Did you already walk the dog?</p>
+
+<pre><code>$ CPPFLAGS="-arch i386" kerl build 17.0-rc1 17rc1.x86.wx
+</code></pre>
+
+<p>Install:</p>
+
+<pre><code>$ kerl install 17rc1.x86.wx ~/17rc1.x86.wx
+</code></pre>
+
+<p>Activate:</p>
+
+<pre><code>$ . ~/17rc1.x86.wx/activate
+</code></pre>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<pre><code>$ erl -s observer start
+</code></pre>
 </div>
 
 
@@ -144,7 +176,7 @@
   
 
 
-<time datetime="2014-01-30T17:30:00+01:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time>
+<time datetime="2014-02-09T08:53:00+01:00" pubdate data-updated="true">Feb 9<span>th</span>, 2014</time>
       
 
 
@@ -152,7 +184,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -163,10 +195,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/01/08/4k-retina-monitors-at-ces-2014/" title="Previous Post: Three affordable 4K retina monitors introduced at CES 2014">&laquo; Three affordable 4K retina monitors introduced at CES 2014</a>
+        <a class="basic-alignment left" href="/blog/2014/01/30/how-apple-will-implement-mobile-payment/" title="Previous Post: How Apple will implement Mobile Payments">&laquo; How Apple will implement Mobile Payments</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/" title="Next Post: Erlang R17-rc1 on OSX with WX and a working Observer">Erlang R17-rc1 on OSX with WX and a working Observer &raquo;</a>
       
     </p>
   </footer>
@@ -196,8 +226,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment/';
-        var disqus_url = 'http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment/';
+        var disqus_identifier = 'http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/';
+        var disqus_url = 'http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-01-30T19:45:22+01:00</updated>
+  <updated>2014-02-09T08:54:43+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Erlang R17-rc1 on OSX with WX and a working Observer]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/"/>
+    <updated>2014-02-09T08:53:00+01:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer</id>
+    <content type="html"><![CDATA[<p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r17b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a></p>
+
+<h2>Set correct Xcode path for compilation</h2>
+
+<pre><code>$ xcode-select -s /Applications/Xcode.app/Contents/Developer
+</code></pre>
+
+<p>or if you installed a beta version (in my case <code>51-Beta5</code>):</p>
+
+<pre><code>$ xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
+</code></pre>
+
+<h2>Install wxmac</h2>
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+<pre><code>$ brew install https://raw.github.com/MSch/homebrew/master/Library/Formula/wxmac.rb --disable-monolithic'
+</code></pre>
+
+<h2>Install kerl</h2>
+
+<pre><code>$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></pre>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<pre><code>KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx" 
+</code></pre>
+
+<h2>Build &amp; Install 32-bit Erlang with kerl</h2>
+
+<p>I read that 64-bit Erlang doesn&rsquo;t work with wx, so I went with 32-bit erlang. Compilation takes time. Did you already walk the dog?</p>
+
+<pre><code>$ CPPFLAGS="-arch i386" kerl build 17.0-rc1 17rc1.x86.wx
+</code></pre>
+
+<p>Install:</p>
+
+<pre><code>$ kerl install 17rc1.x86.wx ~/17rc1.x86.wx
+</code></pre>
+
+<p>Activate:</p>
+
+<pre><code>$ . ~/17rc1.x86.wx/activate
+</code></pre>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<pre><code>$ erl -s observer start
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[How Apple will implement Mobile Payments]]></title>

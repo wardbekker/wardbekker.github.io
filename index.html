@@ -9,7 +9,7 @@
   <meta name="author" content="Ward Bekker">
 
   
-  <meta name="description" content="The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code claim that Apple and Paypal are in talks about a &hellip;">
+  <meta name="description" content="This post is based on HOWTO: Getting wx to work with Erlang r16b02 on OS X Set correct Xcode path for compilation $ xcode-select -s /Applications/ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,96 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">Erlang R17-rc1 on OSX With WX and a Working Observer</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-09T08:53:00+01:00" pubdate data-updated="true">Feb 9<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r17b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a></p>
+
+<h2>Set correct Xcode path for compilation</h2>
+
+<pre><code>$ xcode-select -s /Applications/Xcode.app/Contents/Developer
+</code></pre>
+
+<p>or if you installed a beta version (in my case <code>51-Beta5</code>):</p>
+
+<pre><code>$ xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
+</code></pre>
+
+<h2>Install wxmac</h2>
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+<pre><code>$ brew install https://raw.github.com/MSch/homebrew/master/Library/Formula/wxmac.rb --disable-monolithic'
+</code></pre>
+
+<h2>Install kerl</h2>
+
+<pre><code>$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></pre>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<pre><code>KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx" 
+</code></pre>
+
+<h2>Build &amp; Install 32-bit Erlang with kerl</h2>
+
+<p>I read that 64-bit Erlang doesn&rsquo;t work with wx, so I went with 32-bit erlang. Compilation takes time. Did you already walk the dog?</p>
+
+<pre><code>$ CPPFLAGS="-arch i386" kerl build 17.0-rc1 17rc1.x86.wx
+</code></pre>
+
+<p>Install:</p>
+
+<pre><code>$ kerl install 17rc1.x86.wx ~/17rc1.x86.wx
+</code></pre>
+
+<p>Activate:</p>
+
+<pre><code>$ . ~/17rc1.x86.wx/activate
+</code></pre>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<pre><code>$ erl -s observer start
+</code></pre>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1416,54 +1506,6 @@ KCachegrind.</p>
 
 
 <p>Enjoy!</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/12/inverted-index-compression-techniques/">Inverted Index Compression Techniques</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-12T15:55:00+02:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/07/12/inverted-index-compression-techniques/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Today I presented at at the Dutch Erlang Usergroup meeting, hosted by <a href="http://www.spilgames.com/">Spilgames</a>.</p>
-
-<p>In this presentation I explained:</p>
-
-<ul>
-<li>How to build a inverted index that supports boolean AND queries</li>
-<li>Elias Ɣ (gamma) encoding and Delta gap compression to reduce the size of inverted indexes</li>
-</ul>
-
-
-<p><a href="http://blog.tty.nl/files/2012/07/presentatie_search_compression.pdf">The Slides</a></p>
 </div>
   
   

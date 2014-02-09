@@ -53,16 +53,22 @@
         <lastmod>2014-01-30T19:45:10+01:00</lastmod>
     </url>
     <url>
+        <loc>
+            http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/
+        </loc>
+        <lastmod>2014-02-09T08:54:22+01:00</lastmod>
+    </url>
+    <url>
         <loc>http://blog.equanimity.nl/about/</loc>
         <lastmod>2013-08-30T13:47:04+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/archives/</loc>
-        <lastmod>2014-01-30T19:45:10+01:00</lastmod>
+        <lastmod>2014-02-09T08:54:22+01:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/</loc>
-        <lastmod>2014-01-30T19:45:10+01:00</lastmod>
+        <lastmod>2014-02-09T08:54:22+01:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/robots.txt</loc>
