@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-02-09T09:40:39+01:00</updated>
+  <updated>2014-02-11T15:17:32+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -14,11 +14,13 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Erlang R17-rc1 on OSX with WX and a working Observer]]></title>
+    <title type="html"><![CDATA[Erlang R17-rc1 on OSX Mavericks with WX and a working Observer]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/"/>
     <updated>2014-02-09T08:53:00+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer</id>
-    <content type="html"><![CDATA[<p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r16b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a> by <a href="https://twitter.com/MSch">Martin Schuerrer</a></p>
+    <content type="html"><![CDATA[<p><strong>Update 11 Feb 2013</strong> <a href="https://twitter.com/SpiffDgud">Dan GudMundsson</a> pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of this blog post with the instructions found in the official <a href="https://github.com/erlang/otp/blob/maint/HOWTO/INSTALL.md">Erlang/OTP installation HOWTO</a>.</p>
+
+<p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r16b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a> by <a href="https://twitter.com/MSch">Martin Schuerrer</a></p>
 
 <p>Erlang R17-rc1 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
 
@@ -40,11 +42,21 @@
 <pre><code>$ xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
 </code></pre>
 
-<h2>Install wxmac</h2>
+<h2>Install wxWidgets</h2>
 
 <p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
 
-<pre><code>$ brew install https://raw.github.com/MSch/homebrew/master/Library/Formula/wxmac.rb --disable-monolithic'
+<pre><code>$ curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
+$ tar xvjf wxWidgets-3.0.0.tar.bz2
+$ cd wxWidgets-3.0.0.tar.bz2
+$ ./configure --with-cocoa --prefix=/usr/local
+$ make &amp;&amp; sudo make install
+$ export PATH=/usr/local/bin:$PATH
+</code></pre>
+
+<p>Check that you got the correct wx-config</p>
+
+<pre><code>$ which wx-config
 </code></pre>
 
 <h2>Install kerl</h2>
@@ -60,21 +72,25 @@ $ chmod a+x kerl
 <pre><code>KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx" 
 </code></pre>
 
-<h2>Build &amp; Install 32-bit Erlang with kerl</h2>
+<h2>Build &amp; Install Erlang with kerl</h2>
 
-<p>I read that 64-bit Erlang doesn&rsquo;t work with wx, so I went with 32-bit erlang. Compilation takes time. Did you already walk the dog?</p>
+<pre><code>$ kerl update releases
+$ kerl build 17.0-rc1 17rc1
+</code></pre>
 
-<pre><code>$ CPPFLAGS="-arch i386" kerl build 17.0-rc1 17rc1.x86.wx
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+<pre><code>$ CPPFLAGS="-arch i386" kerl build 17.0-rc1 17rc1
 </code></pre>
 
 <p>Install:</p>
 
-<pre><code>$ kerl install 17rc1.x86.wx ~/17rc1.x86.wx
+<pre><code>$ kerl install 17rc1 ~/17rc1
 </code></pre>
 
 <p>Activate:</p>
 
-<pre><code>$ . ~/17rc1.x86.wx/activate
+<pre><code>$ . ~/17rc1/activate
 </code></pre>
 
 <p>And bliss out on your new wx-enabled Erlang:</p>
