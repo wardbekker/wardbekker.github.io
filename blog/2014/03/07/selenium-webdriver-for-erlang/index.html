@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Selenium Webdriver for Erlang - Ward Bekker</title>
+  <meta name="author" content="Ward Bekker">
+
+  
+  <meta name="description" content="Selenium is the industry standard for automated testing of web applications. Together with Webdriver, a &lsquo;remote control&rsquo; API for all &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40429950-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="no-sidebar"  >
+  <header role="banner">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.equanimity.nl" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Selenium Webdriver for Erlang</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-07T08:18:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://docs.seleniumhq.org">Selenium</a> is the industry standard for automated testing of web applications. Together with <a href="http://docs.seleniumhq.org/projects/webdriver/">Webdriver</a>, a &lsquo;remote control&rsquo; API for all major browsers, it enables you to create robust integration test in your favorite programming language for your target browsers.</p>
+
+<p>The great people of <a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">QuviQ</a>, creators of the unique <a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Quickcheck</a> test framework, created an Erlang Webdriver client implementation <a href="https://github.com/Quviq/webdrv">Github</a>.</p>
+
+<p>It&rsquo;s trivial to get started with the following steps:</p>
+
+<h2>Step 1: Add webdrv to the rebar.config of your project</h2>
+
+<p>Open <code>rebar.config</code> in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:</p>
+
+<pre><code>{deps, [
+   {webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
+   ]}.
+</code></pre>
+
+<h2>Step 2: Get and compile webdrv</h2>
+
+<p>Go to the root of your Erlang project and execute:</p>
+
+<pre><code>$ rebar get-deps compile
+</code></pre>
+
+<h2>Step 3: Get &amp; start the Google chromedriver</h2>
+
+<p>For this quickstart we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
+
+<pre><code>$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
+$ unzip chromedriver_mac32.zip
+$ ./chromedriver
+</code></pre>
+
+<p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
+
+<pre><code>Starting ChromeDriver (v2.9.248307) on port 9515
+</code></pre>
+
+<p>Important! This server needs to be running during test execution.</p>
+
+<h2>Step 4:  Your first Erlang webdrvr test!</h2>
+
+<p>Save the following module in <code>src/random_org_test.erl</code>. In this test we open a page, fill in a form, submit the form, and check if an expected piece of text is indeed present in the response:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-module(random_org_test).
+</span><span class='line'>    
+</span><span class='line'>-compile(export_all).
+</span><span class='line'>
+</span><span class='line'>-include_lib("webdrv/include/webdrv.hrl").
+</span><span class='line'>
+</span><span class='line'>-define(CHROMEDRIVER, "http://localhost:9515/").
+</span><span class='line'>
+</span><span class='line'>test() -&gt;
+</span><span class='line'>    {ok, _Pid} = webdrv_session:start_session(test, ?CHROMEDRIVER,  webdrv_cap:default_chrome(), 10000),
+</span><span class='line'>    webdrv_session:set_url(test, "http://www.random.org/integers/"),
+</span><span class='line'>    {ok, Emin} = webdrv_session:find_element(test, "name", "min"),
+</span><span class='line'>    webdrv_session:clear_element(test, Emin),
+</span><span class='line'>    webdrv_session:send_value(test, Emin, "5"),
+</span><span class='line'>    {ok, Emax} = webdrv_session:find_element(test, "name", "max"),
+</span><span class='line'>    webdrv_session:clear_element(test, Emax),
+</span><span class='line'>    webdrv_session:send_value(test, Emax, "15"),
+</span><span class='line'>    webdrv_session:submit(test, Emax),  
+</span><span class='line'>    {ok, PageSource} = webdrv_session:get_page_source(test),
+</span><span class='line'>    string:str(PageSource, "Here are your random numbers") &gt; 0,
+</span><span class='line'>    webdrv_session:stop_session(test).</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Step 5: Run the test</h3>
+
+<p>Run your test by opening up the Erlang shell..</p>
+
+<pre><code>$ erl -pa ebin deps/*/ebin
+</code></pre>
+
+<p>..and execute the test function</p>
+
+<pre><code>1&gt; random_org_test:test().
+</code></pre>
+
+<p>You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output <code>ok</code>.</p>
+
+<h2>Further information</h2>
+
+<ul>
+<li><a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">Watch the Erlang Factory presentation by Hans Svensson from Quviq</a></li>
+<li><a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium Webdriver documentation</a></li>
+</ul>
+
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Ward Bekker</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-07T08:18:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/" title="Previous Post: Erlang R17-rc1 on OSX Mavericks with WX and a working Observer">&laquo; Erlang R17-rc1 on OSX Mavericks with WX and a working Observer</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Ward Bekker <br/>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>, customized with <a href="https://github.com/mjhea0/whiterspace">whiterspace</a>.</span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'wardbekkerblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/';
+        var disqus_url = 'http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

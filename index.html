@@ -9,7 +9,7 @@
   <meta name="author" content="Ward Bekker">
 
   
-  <meta name="description" content="Update 11 Feb 2013 Dan GudMundsson pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of &hellip;">
+  <meta name="description" content="Selenium is the industry standard for automated testing of web applications. Together with Webdriver, a &lsquo;remote control&rsquo; API for all &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -73,6 +73,150 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/07/selenium-webdriver-for-erlang/">Selenium Webdriver for Erlang</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-07T08:18:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/03/07/selenium-webdriver-for-erlang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://docs.seleniumhq.org">Selenium</a> is the industry standard for automated testing of web applications. Together with <a href="http://docs.seleniumhq.org/projects/webdriver/">Webdriver</a>, a &lsquo;remote control&rsquo; API for all major browsers, it enables you to create robust integration test in your favorite programming language for your target browsers.</p>
+
+<p>The great people of <a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">QuviQ</a>, creators of the unique <a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Quickcheck</a> test framework, created an Erlang Webdriver client implementation <a href="https://github.com/Quviq/webdrv">Github</a>.</p>
+
+<p>It&rsquo;s trivial to get started with the following steps:</p>
+
+<h2>Step 1: Add webdrv to the rebar.config of your project</h2>
+
+<p>Open <code>rebar.config</code> in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:</p>
+
+<pre><code>{deps, [
+   {webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
+   ]}.
+</code></pre>
+
+<h2>Step 2: Get and compile webdrv</h2>
+
+<p>Go to the root of your Erlang project and execute:</p>
+
+<pre><code>$ rebar get-deps compile
+</code></pre>
+
+<h2>Step 3: Get &amp; start the Google chromedriver</h2>
+
+<p>For this quickstart we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
+
+<pre><code>$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
+$ unzip chromedriver_mac32.zip
+$ ./chromedriver
+</code></pre>
+
+<p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
+
+<pre><code>Starting ChromeDriver (v2.9.248307) on port 9515
+</code></pre>
+
+<p>Important! This server needs to be running during test execution.</p>
+
+<h2>Step 4:  Your first Erlang webdrvr test!</h2>
+
+<p>Save the following module in <code>src/random_org_test.erl</code>. In this test we open a page, fill in a form, submit the form, and check if an expected piece of text is indeed present in the response:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-module(random_org_test).
+</span><span class='line'>    
+</span><span class='line'>-compile(export_all).
+</span><span class='line'>
+</span><span class='line'>-include_lib("webdrv/include/webdrv.hrl").
+</span><span class='line'>
+</span><span class='line'>-define(CHROMEDRIVER, "http://localhost:9515/").
+</span><span class='line'>
+</span><span class='line'>test() -&gt;
+</span><span class='line'>    {ok, _Pid} = webdrv_session:start_session(test, ?CHROMEDRIVER,  webdrv_cap:default_chrome(), 10000),
+</span><span class='line'>    webdrv_session:set_url(test, "http://www.random.org/integers/"),
+</span><span class='line'>    {ok, Emin} = webdrv_session:find_element(test, "name", "min"),
+</span><span class='line'>    webdrv_session:clear_element(test, Emin),
+</span><span class='line'>    webdrv_session:send_value(test, Emin, "5"),
+</span><span class='line'>    {ok, Emax} = webdrv_session:find_element(test, "name", "max"),
+</span><span class='line'>    webdrv_session:clear_element(test, Emax),
+</span><span class='line'>    webdrv_session:send_value(test, Emax, "15"),
+</span><span class='line'>    webdrv_session:submit(test, Emax),  
+</span><span class='line'>    {ok, PageSource} = webdrv_session:get_page_source(test),
+</span><span class='line'>    string:str(PageSource, "Here are your random numbers") &gt; 0,
+</span><span class='line'>    webdrv_session:stop_session(test).</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Step 5: Run the test</h3>
+
+<p>Run your test by opening up the Erlang shell..</p>
+
+<pre><code>$ erl -pa ebin deps/*/ebin
+</code></pre>
+
+<p>..and execute the test function</p>
+
+<pre><code>1&gt; random_org_test:test().
+</code></pre>
+
+<p>You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output <code>ok</code>.</p>
+
+<h2>Further information</h2>
+
+<ul>
+<li><a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">Watch the Erlang Factory presentation by Hans Svensson from Quviq</a></li>
+<li><a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium Webdriver documentation</a></li>
+</ul>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1424,114 +1568,6 @@ watch the video below. Enjoy!</p>
 height="375" frameborder="0" webkitAllowFullScreen mozallowfullscreen
 allowFullScreen></iframe>
 
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/24/fprof-kcachegrind/">Erlang Fprof Output Confusing? Try KCachegrind.</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-04-24T16:13:00+02:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/24/fprof-kcachegrind/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Your Erlang code is perfect, but to find out why other peoples
-code runs dog slow you probably profile the code with <a href="http://www.erlang.org/doc/man/fprof.html">fprof</a> like this:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>(node@host)1> fprof:apply(module, function, [arguments]).
-</span><span class='line'>(node@host)1> fprof:profile().
-</span><span class='line'>(node@host)1> fprof:analyse({dest, "outfile.fprof"}).</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The printout of fprof analyse is a text dump of the result, which can
-grow over 1000 lines and contains a lot of noise which makes it hard
-to locate the bottlenecks. Below a truncated
-sample of an actual fprof trace.</p>
-
-<div><script src='https://gist.github.com/5458222.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
-
-
-<h2>KCachegrind</h2>
-
-<p><a href="http://kcachegrind.sourceforge.net">KCachegrind</a> to the rescue! With this tool you can visually inspect the fprof
-analyse result with sorting, a fancy call graph view, callee map and
-more.</p>
-
-<p><img src="/images/qcachegrind.png" width="750" height="750" title="Qcachegrind screenshot" alt="images"></p>
-
-<p>As KCachegrind can&rsquo;t read fprof analysis output directly, you need to
-convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>./erlgrind outfile.fprof callgrind.001
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>KCachegrind &amp; Erlgrind Installation</h2>
-
-<p>For installation of KCachegrind on my Mac I use
-<a href="http://mxcl.github.io/homebrew/">Homebrew</a>, a package manager for OSX. Notice that you
-install <em>qcachegrind</em>, the <a href="http://qt-project.org">QT</a> version of
-KCachegrind.</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>brew install qcachegrind
-</span><span class='line'><span class="nv">$ </span>brew instal graphviz
-</span><span class='line'><span class="nv">$ </span>sudo ln -s /usr/local/bin/dot /usr/bin/dot
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Installing the Erlgrind (<a href="https://github.com/isacssouza/erlgrind">Github</a>) script:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>curl -O <span class="s2">&quot;https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind&quot;</span>
-</span><span class='line'><span class="nv">$ </span>chmod +x erlgrind
-</span><span class='line'><span class="nv">$ </span>mv erlgrind /usr/local/bin/
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And open qcachegrind:</p>
-
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>open ~/Applications/qcachegrind.app
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Enjoy!</p>
 </div>
   
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-02-11T19:53:09+01:00</updated>
+  <updated>2014-03-07T09:40:26+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,121 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Selenium Webdriver for Erlang]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/"/>
+    <updated>2014-03-07T08:18:00+01:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang</id>
+    <content type="html"><![CDATA[<p><a href="http://docs.seleniumhq.org">Selenium</a> is the industry standard for automated testing of web applications. Together with <a href="http://docs.seleniumhq.org/projects/webdriver/">Webdriver</a>, a &lsquo;remote control&rsquo; API for all major browsers, it enables you to create robust integration test in your favorite programming language for your target browsers.</p>
+
+<p>The great people of <a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">QuviQ</a>, creators of the unique <a href="http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Quickcheck</a> test framework, created an Erlang Webdriver client implementation <a href="https://github.com/Quviq/webdrv">Github</a>.</p>
+
+<p>It&rsquo;s trivial to get started with the following steps:</p>
+
+<h2>Step 1: Add webdrv to the rebar.config of your project</h2>
+
+<p>Open <code>rebar.config</code> in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:</p>
+
+<pre><code>{deps, [
+   {webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
+   ]}.
+</code></pre>
+
+<h2>Step 2: Get and compile webdrv</h2>
+
+<p>Go to the root of your Erlang project and execute:</p>
+
+<pre><code>$ rebar get-deps compile
+</code></pre>
+
+<h2>Step 3: Get &amp; start the Google chromedriver</h2>
+
+<p>For this quickstart we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
+
+<pre><code>$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
+$ unzip chromedriver_mac32.zip
+$ ./chromedriver
+</code></pre>
+
+<p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
+
+<pre><code>Starting ChromeDriver (v2.9.248307) on port 9515
+</code></pre>
+
+<p>Important! This server needs to be running during test execution.</p>
+
+<h2>Step 4:  Your first Erlang webdrvr test!</h2>
+
+<p>Save the following module in <code>src/random_org_test.erl</code>. In this test we open a page, fill in a form, submit the form, and check if an expected piece of text is indeed present in the response:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>-module(random_org_test).
+</span><span class='line'>    
+</span><span class='line'>-compile(export_all).
+</span><span class='line'>
+</span><span class='line'>-include_lib("webdrv/include/webdrv.hrl").
+</span><span class='line'>
+</span><span class='line'>-define(CHROMEDRIVER, "http://localhost:9515/").
+</span><span class='line'>
+</span><span class='line'>test() -&gt;
+</span><span class='line'>    {ok, _Pid} = webdrv_session:start_session(test, ?CHROMEDRIVER,  webdrv_cap:default_chrome(), 10000),
+</span><span class='line'>    webdrv_session:set_url(test, "http://www.random.org/integers/"),
+</span><span class='line'>    {ok, Emin} = webdrv_session:find_element(test, "name", "min"),
+</span><span class='line'>    webdrv_session:clear_element(test, Emin),
+</span><span class='line'>    webdrv_session:send_value(test, Emin, "5"),
+</span><span class='line'>    {ok, Emax} = webdrv_session:find_element(test, "name", "max"),
+</span><span class='line'>    webdrv_session:clear_element(test, Emax),
+</span><span class='line'>    webdrv_session:send_value(test, Emax, "15"),
+</span><span class='line'>    webdrv_session:submit(test, Emax),  
+</span><span class='line'>    {ok, PageSource} = webdrv_session:get_page_source(test),
+</span><span class='line'>    string:str(PageSource, "Here are your random numbers") &gt; 0,
+</span><span class='line'>    webdrv_session:stop_session(test).</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Step 5: Run the test</h3>
+
+<p>Run your test by opening up the Erlang shell..</p>
+
+<pre><code>$ erl -pa ebin deps/*/ebin
+</code></pre>
+
+<p>..and execute the test function</p>
+
+<pre><code>1&gt; random_org_test:test().
+</code></pre>
+
+<p>You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output <code>ok</code>.</p>
+
+<h2>Further information</h2>
+
+<ul>
+<li><a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">Watch the Erlang Factory presentation by Hans Svensson from Quviq</a></li>
+<li><a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium Webdriver documentation</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Erlang R17-rc1 on OSX Mavericks with WX and a working Observer]]></title>
