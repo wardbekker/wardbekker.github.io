@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-07T09:51:01+01:00</updated>
+  <updated>2014-03-07T09:54:41+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -60,7 +60,7 @@ $ ./chromedriver
 
 <p>Save the following module in <code>src/random_org_test.erl</code>. In this test we open a page, fill in a form, submit the form, and check if an expected piece of text is indeed present in the response:</p>
 
-<p>```
+<p>```erlang
 -module(random_org_test).</p>
 
 <p>-compile(export_all).</p>
