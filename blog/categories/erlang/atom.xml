@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-07T09:45:49+01:00</updated>
+  <updated>2014-03-07T09:50:27+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -87,7 +87,7 @@ webdrv_session:stop_session(test).
 
 <p>```</p>
 
-<h3>Step 5: Run the test</h3>
+<h2>Step 5: Run the test</h2>
 
 <p>Run your test by opening up the Erlang shell..</p>
 
