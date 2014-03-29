@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-29T23:51:44+01:00</updated>
+  <updated>2014-03-29T23:58:12+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -19,6 +19,8 @@
     <updated>2014-03-29T20:21:15+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/03/29/your-first-erlang-program</id>
     <content type="html"><![CDATA[<p>Always wanted to learn <a href="http://www.erlang.org">Erlang</a>? Let&rsquo;s create your first Erlang &ldquo;Hello World&rdquo; program in style!</p>
+
+<p>In this HOWTO I&rsquo;ll show you how to setup a bleeding edge Erlang development VPS and how to run you first Erlang program.</p>
 
 <h1>Main ingredient: Cores</h1>
 
