@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-29T15:15:01+01:00</updated>
+  <updated>2014-03-29T15:45:30+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -28,31 +28,43 @@
 
 <p>Open <code>rebar.config</code> in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:</p>
 
-<pre><code>{deps, [
-   {webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
-   ]}.
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">{</span><span class="n">deps</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">webdrv</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;https://github.com/ehedenst/webdrv.git&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">branch</span><span class="p">,</span> <span class="s">&quot;master&quot;</span><span class="p">}}},</span>
+</span><span class='line'>       <span class="p">]}.</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2>Step 2: Get and compile webdrv</h2>
 
 <p>Go to the root of your Erlang project and execute:</p>
 
-<pre><code>$ rebar get-deps compile
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="sc">$ </span><span class="n">rebar</span> <span class="nb">get</span><span class="o">-</span><span class="n">deps</span> <span class="n">compile</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2>Step 3: Get &amp; start the Google chromedriver</h2>
 
 <p>For this quick start we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
 
-<pre><code>$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
-$ unzip chromedriver_mac32.zip
-$ ./chromedriver
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="sc">$ </span><span class="n">curl</span> <span class="o">-</span><span class="nv">O</span> <span class="nn">http</span><span class="p">:</span><span class="o">//</span><span class="n">chromedriver</span><span class="p">.</span><span class="n">storage</span><span class="p">.</span><span class="n">googleapis</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="mi">2</span><span class="p">.</span><span class="mi">9</span><span class="o">/</span><span class="n">chromedriver_mac32</span><span class="p">.</span><span class="n">zip</span>
+</span><span class='line'><span class="sc">$ </span><span class="n">unzip</span> <span class="n">chromedriver_mac32</span><span class="p">.</span><span class="n">zip</span>
+</span><span class='line'><span class="sc">$ </span><span class="p">.</span><span class="o">/</span><span class="n">chromedriver</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
 
-<pre><code>Starting ChromeDriver (v2.9.248307) on port 9515
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nv">Starting</span> <span class="nv">ChromeDriver</span> <span class="p">(</span><span class="n">v2</span><span class="p">.</span><span class="mi">9</span><span class="p">.</span><span class="mi">248307</span><span class="p">)</span> <span class="n">on</span> <span class="n">port</span> <span class="mi">9515</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Important! This server needs to be running during test execution.</p>
 
@@ -109,13 +121,17 @@ $ ./chromedriver
 
 <p>Run your test by opening up the Erlang shell..</p>
 
-<pre><code>$ erl -pa ebin deps/*/ebin
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="sc">$ </span><span class="n">erl</span> <span class="o">-</span><span class="n">pa</span> <span class="n">ebin</span> <span class="n">deps</span><span class="o">/*/</span><span class="n">ebin</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>..and execute the test function</p>
 
-<pre><code>1&gt; random_org_test:test().
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">1</span><span class="o">&gt;</span> <span class="nn">random_org_test</span><span class="p">:</span><span class="nf">test</span><span class="p">().</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output <code>ok</code>.</p>
 

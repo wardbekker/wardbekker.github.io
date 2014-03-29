@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-29T15:15:01+01:00</updated>
+  <updated>2014-03-29T15:45:30+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -28,31 +28,38 @@
 
 <p>Open <code>rebar.config</code> in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:</p>
 
-<pre><code>{deps, [
-   {webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
+<p>```erlang
+{deps, [</p>
+
+<pre><code>{webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
    ]}.
 </code></pre>
+
+<p>```</p>
 
 <h2>Step 2: Get and compile webdrv</h2>
 
 <p>Go to the root of your Erlang project and execute:</p>
 
-<pre><code>$ rebar get-deps compile
-</code></pre>
+<p><code>
+$ rebar get-deps compile
+</code></p>
 
 <h2>Step 3: Get &amp; start the Google chromedriver</h2>
 
 <p>For this quick start we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
 
-<pre><code>$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
+<p><code>
+$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
 $ unzip chromedriver_mac32.zip
 $ ./chromedriver
-</code></pre>
+</code></p>
 
 <p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
 
-<pre><code>Starting ChromeDriver (v2.9.248307) on port 9515
-</code></pre>
+<p><code>
+Starting ChromeDriver (v2.9.248307) on port 9515
+</code></p>
 
 <p>Important! This server needs to be running during test execution.</p>
 
@@ -91,13 +98,15 @@ webdrv_session:stop_session(test).
 
 <p>Run your test by opening up the Erlang shell..</p>
 
-<pre><code>$ erl -pa ebin deps/*/ebin
-</code></pre>
+<p><code>
+$ erl -pa ebin deps/*/ebin
+</code></p>
 
 <p>..and execute the test function</p>
 
-<pre><code>1&gt; random_org_test:test().
-</code></pre>
+<p><code>
+1&gt; random_org_test:test().
+</code></p>
 
 <p>You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output <code>ok</code>.</p>
 
