@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-29T15:46:41+01:00</updated>
+  <updated>2014-03-29T15:52:28+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -163,13 +163,17 @@
 
 <h2>Set correct Xcode path for compilation</h2>
 
-<pre><code>$ xcode-select -s /Applications/Xcode.app/Contents/Developer
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select -s /Applications/Xcode.app/Contents/Developer
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>or if you installed a beta version (in my case <code>51-Beta5</code>):</p>
 
-<pre><code>$ xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2>Install wxWidgets</h2>
 
@@ -177,59 +181,84 @@
 
 <p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
 
-<pre><code>$ curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
-$ tar xvjf wxWidgets-3.0.0.tar.bz2
-$ cd wxWidgets-3.0.0.tar.bz2
-$ ./configure --with-cocoa --prefix=/usr/local
-$ make &amp;&amp; sudo make install
-$ export PATH=/usr/local/bin:$PATH
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span>tar xvjf wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span>./configure --with-cocoa --prefix<span class="o">=</span>/usr/local
+</span><span class='line'><span class="nv">$ </span>make <span class="o">&amp;&amp;</span> sudo make install
+</span><span class='line'><span class="nv">$ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Check that you got the correct wx-config</p>
 
-<pre><code>$ which wx-config
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>which wx-config
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2>Install kerl</h2>
 
 <p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
 
-<pre><code>$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
-$ chmod a+x kerl
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+</span><span class='line'><span class="nv">$ </span>chmod a+x kerl
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
 
 <p>Add these lines:</p>
 
-<pre><code>KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx" 
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">KERL_CONFIGURE_OPTIONS</span><span class="o">=</span><span class="s2">&quot;--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2>Build &amp; Install Erlang with kerl</h2>
 
-<pre><code>$ kerl update releases
-$ kerl build 17.0-rc1 17rc1
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl update releases
+</span><span class='line'><span class="nv">$ </span>kerl build 17.0-rc1 17rc1
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
 
-<pre><code>$ CPPFLAGS="-arch i386" kerl build 17.0-rc1 17rc1
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;-arch i386&quot;</span> kerl build 17.0-rc1 17rc1
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Install:</p>
 
-<pre><code>$ kerl install 17rc1 ~/17rc1
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl install 17rc1 ~/17rc1
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Activate:</p>
 
-<pre><code>$ . ~/17rc1/activate
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>. ~/17rc1/activate
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>And bliss out on your new wx-enabled Erlang:</p>
 
-<pre><code>$ erl -s observer start
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>erl -s observer start
+</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
