@@ -8,9 +8,10 @@
   <title>Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
 
+   
+  <meta name="description" content="">
   
-  <meta name="description" content="Selenium is the industry standard for automated testing of web applications. Together with Webdriver, a &lsquo;remote control&rsquo; API for all &hellip;">
-  
+  <meta name="keywords" content="">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -20,17 +21,19 @@
   
   <link rel="canonical" href="http://blog.equanimity.nl">
   <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <script src="/js/application.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
-<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+
   
   <script type="text/javascript">
     var _gaq = _gaq || [];
@@ -47,43 +50,73 @@
 
 </head>
 
-<body   class="no-sidebar"  >
-  <header role="banner">
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
-</ul>
-  
-<form action="http://google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:blog.equanimity.nl" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/about">About</a></li>
+<body   >
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
+    
+        <li ><a href="/">Home</a></li>
+    
+        <li ><a href="/blog/archives/">Archive</a></li>
+    
+        <li ><a href="/about/">About</a></li>
+    
 </ul>
 
-</nav>
-  <div id="main">
-    <div id="content">
-      <div class="blog-index">
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/wardbekker" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    
+    
+    <li><a href="http://twitter.com/wardbekker" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://plus.google.com/wardbekker@gmail.com" title="Google+ Profile"><i class="icon-google-plus-sign social-navbar"></i></a></li>
+    
+    
+    
+
+    
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+      <div class="row-fluid">
+        <div id="content">
+          <div class="jumbotron">
+  <div class="container">
+    
+      Ward Bekker
+    
+    <h3 class="tagline">
+      
+         Here are some thoughts of mine.
+      
+    </h3>
+  </div>
+</div>
+
+
+<div class="blog-index">
   
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/07/selenium-webdriver-for-erlang/">Selenium Webdriver for Erlang Quick Start</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -95,16 +128,23 @@
   
 
 
-<time datetime="2014-03-07T08:18:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/03/07/selenium-webdriver-for-erlang/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://docs.seleniumhq.org">Selenium</a> is the industry standard for automated testing of web applications. Together with <a href="http://docs.seleniumhq.org/projects/webdriver/">Webdriver</a>, a &lsquo;remote control&rsquo; API for all major browsers, it enables you to create robust integration test for the browser.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2014-03-07T08:18:00+01:00" pubdate data-updated="true">Mar 7<span>th</span>, 2014</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2014/03/07/selenium-webdriver-for-erlang/">Selenium Webdriver for Erlang quick start</a></h1>
+      <p><a href="http://docs.seleniumhq.org">Selenium</a> is the industry standard for automated testing of web applications. Together with <a href="http://docs.seleniumhq.org/projects/webdriver/">Webdriver</a>, a &lsquo;remote control&rsquo; API for all major browsers, it enables you to create robust integration test for the browser.</p>
 
 <p>The great people of <a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">QuviQ</a>, creators of the unique <a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Quickcheck</a> test framework, created an Erlang Webdriver client implementation (<a href="https://github.com/Quviq/webdrv">Github repository</a>).</p>
 
@@ -213,23 +253,26 @@ $ ./chromedriver
 <li><a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium Webdriver documentation</a></li>
 </ul>
 
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">Erlang R17-rc1 on OSX Mavericks With WX and a Working Observer</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -241,16 +284,23 @@ $ ./chromedriver
   
 
 
-<time datetime="2014-02-09T08:53:00+01:00" pubdate data-updated="true">Feb 9<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>Update 11 Feb 2013</strong> <a href="https://twitter.com/SpiffDgud">Dan GudMundsson</a> pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of this blog post with the instructions found in the official <a href="https://github.com/erlang/otp/blob/maint/HOWTO/INSTALL.md">Erlang/OTP installation HOWTO</a>.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2014-02-09T08:53:00+01:00" pubdate data-updated="true">Feb 9<span>th</span>, 2014</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">Erlang R17-rc1 on OSX Mavericks with WX and a working Observer</a></h1>
+      <p><strong>Update 11 Feb 2013</strong> <a href="https://twitter.com/SpiffDgud">Dan GudMundsson</a> pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of this blog post with the instructions found in the official <a href="https://github.com/erlang/otp/blob/maint/HOWTO/INSTALL.md">Erlang/OTP installation HOWTO</a>.</p>
 
 <p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r16b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a> by <a href="https://twitter.com/MSch">Martin Schuerrer</a></p>
 
@@ -329,23 +379,26 @@ $ kerl build 17.0-rc1 17rc1
 
 <pre><code>$ erl -s observer start
 </code></pre>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/30/how-apple-will-implement-mobile-payment/">How Apple Will Implement Mobile Payments</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -357,16 +410,21 @@ $ kerl build 17.0-rc1 17rc1
   
 
 
-<time datetime="2014-01-30T17:30:00+01:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/01/30/how-apple-will-implement-mobile-payment/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code <a href="http://recode.net/2014/01/30/paypal-wants-in-on-apples-mobile-payments-dreams/">claim</a> that Apple and Paypal are in talks about a partnership, perhaps Apple using a whitelabel version of Paypal as a backoffice for their new service.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2014-01-30T17:30:00+01:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2014/01/30/how-apple-will-implement-mobile-payment/">How Apple will implement Mobile Payments</a></h1>
+      <p>The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code <a href="http://recode.net/2014/01/30/paypal-wants-in-on-apples-mobile-payments-dreams/">claim</a> that Apple and Paypal are in talks about a partnership, perhaps Apple using a whitelabel version of Paypal as a backoffice for their new service.</p>
 
 <p>If Paypal and Apple are going to partner, my best guess is that this will NOT be using a whitelabel, but a much more lightweight integration like this:</p>
 
@@ -387,23 +445,26 @@ $ kerl build 17.0-rc1 17rc1
 
 
 <p><a href="https://news.ycombinator.com/item?id=7151592">Upvote this story on Hacker News</a></p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/01/08/4k-retina-monitors-at-ces-2014/">Three Affordable 4K Retina Monitors Introduced at CES 2014</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -415,16 +476,23 @@ $ kerl build 17.0-rc1 17rc1
   
 
 
-<time datetime="2014-01-08T08:31:00+01:00" pubdate data-updated="true">Jan 8<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/01/08/4k-retina-monitors-at-ces-2014/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>2014 just started and is already a great year for high pixel density lovers. Three affordable 4K desktop monitors where introduced at CES 2014. Release is expected to be in Q1 &amp; Q2 of this year.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2014-01-08T08:31:00+01:00" pubdate data-updated="true">Jan 8<span>th</span>, 2014</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2014/01/08/4k-retina-monitors-at-ces-2014/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/retina/"><span class="badge">retina</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2014/01/08/4k-retina-monitors-at-ces-2014/">Three affordable 4K retina monitors introduced at CES 2014</a></h1>
+      <p>2014 just started and is already a great year for high pixel density lovers. Three affordable 4K desktop monitors where introduced at CES 2014. Release is expected to be in Q1 &amp; Q2 of this year.</p>
 
 <p>The 4k monitors:</p>
 
@@ -436,23 +504,26 @@ $ kerl build 17.0-rc1 17rc1
 
 
 <p>Your laptop or PC probably needs to support <em>DisplayPort 1.2</em> to take advantage of the high resolution. My work supplied Mid-2009 Macbook Pro certainly doesn&rsquo;t. Time for an upgrade!</p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Continuous Integration for Erlang With Travis-CI</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -464,16 +535,23 @@ $ kerl build 17.0-rc1 17rc1
   
 
 
-<time datetime="2013-06-04T06:01:00+02:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.erlang.org">Erlang/OTP</a> is designed for building large,
+<i class="icon-calendar-empty"></i> <time datetime="2013-06-04T06:01:00+02:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Continuous Integration for Erlang with Travis-CI</a></h1>
+      <p><a href="http://www.erlang.org">Erlang/OTP</a> is designed for building large,
 scalable, soft-realtime systems with high availability. Testing such systems is non-trivial, useful <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">automated testing</a> even more so. That&rsquo;s why Erlang comes with some advanced testing libraries.</p>
 
 <p>The three most important methods are explained here by a few simple examples:</p>
@@ -738,23 +816,26 @@ build</em></p>
 <p>When your colleague fixed the build (you would never commit broken code, right?), you will receive a mail that the build is fixed by a new <em>commit</em>.</p>
 
 <p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/05/29/a-beginners-guide-to-erlang/">A Beginners Guide to Erlang</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -766,16 +847,23 @@ build</em></p>
   
 
 
-<time datetime="2013-05-29T22:14:00+02:00" pubdate data-updated="true">May 29<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/05/29/a-beginners-guide-to-erlang/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&#8217;s Mind</cite></footer></blockquote>
+<i class="icon-calendar-empty"></i> <time datetime="2013-05-29T22:14:00+02:00" pubdate data-updated="true">May 29<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/05/29/a-beginners-guide-to-erlang/">A beginners guide to Erlang</a></h1>
+      <blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&#8217;s Mind</cite></footer></blockquote>
 
 
 <p>These starting points helped me getting up to speed with <a href="http://www.erlang.org/">Erlang</a>. I hope this information helps you too.</p>
@@ -921,23 +1009,26 @@ build</em></p>
 <p>I attended the three day Erlang/OTP express course from <a href="https://www.erlang-solutions.com/services/training">Erlang Solutions</a> and got a much better understanding of OTP. Erlang Solutions also provide E-learning training.</p>
 
 <p>I also heard some good things from the <a href="http://erlangcamp.com/">Erlang Camp by Erlware</a>. This is a intensive two day trainings for beginners and intermediate Erlang programmers.</p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/25/scrum-2009-not-scrum-2012/">[Dutch] Scrum 2009 ≠ Scrum 2012</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -949,16 +1040,21 @@ build</em></p>
   
 
 
-<time datetime="2013-04-25T15:05:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/25/scrum-2009-not-scrum-2012/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Tijdens de recent bezochte Scrum Product Owner cursus werd duidelijk dat Scrum is veranderd. Mijn begrip van Scrum, zoals geleerd tijdens de Scrum Master training van <a href="http://en.wikipedia.org/wiki/Jeff_Sutherland">Jeff Sutherland</a> in 2009, was aan herziening toe. Hieronder mijn bevindingen:</p>
+<i class="icon-calendar-empty"></i> <time datetime="2013-04-25T15:05:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2013/04/25/scrum-2009-not-scrum-2012/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/04/25/scrum-2009-not-scrum-2012/">[Dutch] Scrum 2009 ≠ Scrum 2012</a></h1>
+      <p>Tijdens de recent bezochte Scrum Product Owner cursus werd duidelijk dat Scrum is veranderd. Mijn begrip van Scrum, zoals geleerd tijdens de Scrum Master training van <a href="http://en.wikipedia.org/wiki/Jeff_Sutherland">Jeff Sutherland</a> in 2009, was aan herziening toe. Hieronder mijn bevindingen:</p>
 
 <h2>Scrum in 2009</h2>
 
@@ -989,23 +1085,26 @@ build</em></p>
 <h2>Waar is het changelog?</h2>
 
 <p>Gezien de grote veranderingen was ik benieuwd of er een officiële Scrum changelog is. Zijn de veranderingen een verschil in interpretatie tussen de verschillende trainers, of zijn de spelregels veranderd. Helaas, er is geen changelog. Wel de Scrum Guide, de officiële gids met de actuele spelregels van Scrum. <a href="http://www.scrum.org/scrumguides/">De meest recente versie is uit october 2011</a>. Ik ga deze uitpluizen of er nog andere belangrijke veranderingen zijn. Wie weet materiaal voor een volgende blog post. Renee Troughton van het Agile Forest blog heeft reeds voorwerk gedaan in zijn serie artikelen <a href="http://agileforest.com/2012/02/19/scrum-evolution-over-time-part-1/">Scrum Evolution over Time</a>.</p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/25/enable-spdy-for-your-erlang-website/">Enable SPDY for Your Erlang Website</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -1017,16 +1116,21 @@ build</em></p>
   
 
 
-<time datetime="2013-04-25T15:01:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/25/enable-spdy-for-your-erlang-website/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Google&rsquo;s <a href="https://thestrangeloop.com">Strange Loop</a> presentation <a href="https://docs.google.com/presentation/d/1dPbm1lKjVqdYq3_z3Dgp4ChPNZuMyrL9uLWGL40HBhI/edit#slide=id.p19">Making the Web Faster</a> inspired me to enable SPDY on one of my side projects <a href="https://www.zininsushi.nl">Zin In Sushi</a>. This simple sushi restaurant review site is build in Erlang using <a href="http://wiki.basho.com/Webmachine.html">Basho&rsquo;s Webmachine</a> in combination with <a href="http://code.google.com/p/erlydtl/">Erlydtl</a>.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2013-04-25T15:01:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2013/04/25/enable-spdy-for-your-erlang-website/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/04/25/enable-spdy-for-your-erlang-website/">Enable SPDY for your Erlang website</a></h1>
+      <p>Google&rsquo;s <a href="https://thestrangeloop.com">Strange Loop</a> presentation <a href="https://docs.google.com/presentation/d/1dPbm1lKjVqdYq3_z3Dgp4ChPNZuMyrL9uLWGL40HBhI/edit#slide=id.p19">Making the Web Faster</a> inspired me to enable SPDY on one of my side projects <a href="https://www.zininsushi.nl">Zin In Sushi</a>. This simple sushi restaurant review site is build in Erlang using <a href="http://wiki.basho.com/Webmachine.html">Basho&rsquo;s Webmachine</a> in combination with <a href="http://code.google.com/p/erlydtl/">Erlydtl</a>.</p>
 
 <p>Below is a quick writeup of the steps needed.</p>
 
@@ -1241,23 +1345,26 @@ build</em></p>
 <p>And browse to your website <code>https://www.example.org</code> in <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a>.</p>
 
 <p>To verify <code>mod_spdy</code> is working, open <code>chrome://net-internals/#spd</code> just after the first page load. Your server&rsquo;s domain should be listed in the table under the <em>SPDY sessions</em> heading.gs</p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/">[Dutch] Geautomatiseerd Testen Met Erlang/OTP en Travis-CI - Een Introductie.</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -1269,16 +1376,23 @@ build</em></p>
   
 
 
-<time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
+<i class="icon-calendar-empty"></i> <time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/">[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.</a></h1>
+      <p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
 
 <p>De drie belangrijkste methoden worden hier kort besproken aan de hand van een test project. De methoden zijn:</p>
 
@@ -1524,23 +1638,26 @@ rapporteerd:</p>
 <p>Als de fout verholpen is, krijg je de volgende e-mail als de build weer slaagt:</p>
 
 <p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
+    <hr>
+    
   
   
     <article>
       
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/04/25/erlang-testing/">Video: Automated Testing With Erlang</a></h1>
-    
-    
-      <p class="meta">
-        
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
 
 
 
@@ -1552,16 +1669,23 @@ rapporteerd:</p>
   
 
 
-<time datetime="2013-04-25T14:52:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/04/25/erlang-testing/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>In 2012 I presented
+<i class="icon-calendar-empty"></i> <time datetime="2013-04-25T14:52:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2013/04/25/erlang-testing/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/04/25/erlang-testing/">Video: Automated testing with Erlang</a></h1>
+      <p>In 2012 I presented
 <a href="http://www.erlang-factory.com/conference/London2012/speakers/WardBekker">Automated testing with Erlang</a>
 at the <a href="http://www.erlang-factory.com/">Erlang Factory</a> event on the London Google Campus. <a href="http://www.erlang-factory.com/upload/presentations/693/EFL_2012_LONDON_ward_bekker_slides.pdf">Slides here</a>,
 watch the video below. Enjoy!</p>
@@ -1570,35 +1694,40 @@ watch the video below. Enjoy!</p>
 height="375" frameborder="0" webkitAllowFullScreen mozallowfullscreen
 allowFullScreen></iframe>
 
-</div>
-  
-  
+
+      
+      
+    </div>
+  </div>
+
 
 
     </article>
+    
   
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
-    <a href="/blog/archives">Blog Archives</a>
+
     
   </div>
 </div>
-<aside class="sidebar">
-  
-    
-  
-</aside>
 
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - Ward Bekker <br/>
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a>, customized with <a href="https://github.com/mjhea0/whiterspace">whiterspace</a>.</span>
+
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
+  Copyright &copy; 2014 - Ward Bekker -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
 </p>
 
-</footer>
+
+        </footer>
+      </div>
+  </div>
   
 
 <script type="text/javascript">

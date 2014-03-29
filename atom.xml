@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-07T09:54:41+01:00</updated>
+  <updated>2014-03-29T15:06:00+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -1262,7 +1262,7 @@ more.</p>
 <p>As KCachegrind can&rsquo;t read fprof analysis output directly, you need to
 convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>./erlgrind outfile.fprof callgrind.001
 </span></code></pre></td></tr></table></div></figure>
 
@@ -1274,7 +1274,7 @@ convert it first to the callgrind format with the <a href="https://github.com/is
 install <em>qcachegrind</em>, the <a href="http://qt-project.org">QT</a> version of
 KCachegrind.</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>brew install qcachegrind
@@ -1285,7 +1285,7 @@ KCachegrind.</p>
 
 <p>Installing the Erlgrind (<a href="https://github.com/isacssouza/erlgrind">Github</a>) script:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>curl -O <span class="s2">&quot;https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind&quot;</span>
@@ -1296,7 +1296,7 @@ KCachegrind.</p>
 
 <p>And open qcachegrind:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>open ~/Applications/qcachegrind.app
 </span></code></pre></td></tr></table></div></figure>
 
