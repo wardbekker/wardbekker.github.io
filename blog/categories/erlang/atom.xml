@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-29T15:52:28+01:00</updated>
+  <updated>2014-03-29T23:51:44+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,173 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Your first Erlang program (in style).]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/03/29/your-first-erlang-program/"/>
+    <updated>2014-03-29T20:21:15+01:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/03/29/your-first-erlang-program</id>
+    <content type="html"><![CDATA[<p>Always wanted to learn <a href="http://www.erlang.org">Erlang</a>? Let&rsquo;s create your first Erlang &ldquo;Hello World&rdquo; program in style!</p>
+
+<h1>Main ingredient: Cores</h1>
+
+<p>Erlang&rsquo;s main strength is it&rsquo;s concurrency support. It likes cores, so for our &lsquo;Hello World&rsquo; program we obviously need cores. Lot&rsquo;s! Not 4, not 8, 20!</p>
+
+<p>Create an account on <a href="https://www.digitalocean.com/?refcode=0d0404fa1c5c">Digital Ocean</a> if you don&rsquo;t have one yet (love them) and we&rsquo;re going to boot up their biggest instance. It&rsquo;s a steal at less than 1 dollar per hour. Just make sure you destroy it when done.</p>
+
+<p>64GB and 20 cores will make our Hello World so snappy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/b5a389c7-cd10-4e3f-a099-7f87968e2ec3/211a356f730703fcad9d4c6eb16ba1c7/deep/0/Fullscreen-29-03-14-21-36.png" alt="Fullscreen%2029/03/14%2021:36" /></p>
+
+<ul>
+<li>Pick a datacenter location near you.</li>
+<li>Select the latest version of Ubuntu: 13.10 x64.</li>
+<li>Create the Droplet.</li>
+<li>And ssh to your Droplet with the credentials received from Digital Ocean: <code>ssh root@your_ip_address</code>.</li>
+</ul>
+
+
+<h1>Bleeding Edge Erlang</h1>
+
+<p>We&rsquo;re going to compile Erlang from it&rsquo;s github repository master branch, At the time of writing it&rsquo;s a few commits after R17 release candidate 2 which comes with a Hipe LLVM backend, maps and named funs. If that doesn&rsquo;t make any sense, no worries, just remember it&rsquo;s the fastest Erlang yet. And fast is good.</p>
+
+<p>Install the required Ubuntu packages:</p>
+
+<p><code>bash
+$ apt-get install tmux build-essential emacs24 git-core libncurses5-dev libssl-dev autconf htop
+</code></p>
+
+<p>Fire up <a href="http://tmux.sourceforge.net">Tmux</a>:</p>
+
+<p><code>bash
+$ tmux
+</code></p>
+
+<p>Install <a href="https://github.com/spawngrid/kerl">Kerl</a>, a tool which makes building and switching Erlang versions easy.</p>
+
+<p><code>bash
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></p>
+
+<p>Let&rsquo;s add some good configuration options for our Erlang installation</p>
+
+<p><code>bash
+$ emacs .kerlrc
+</code>
+And add</p>
+
+<p><code>text
+KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll"
+</code></p>
+
+<p>And because we can, we forge our Erlang installation on 20 cores. <strong>Muahahaha.</strong></p>
+
+<p>To see those cores sweat for you on compilation, create another tmux window <code>CTRL-b c</code> and run <code>htop</code>.</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/49c6830d-6d0f-45e6-958a-6d262050b709/0b252a604ad067fa75f37345d8f59a84/deep/0/Fullscreen-29-03-14-21-52.png" alt="Fullscreen%2029/03/14%2021:52" /></p>
+
+<p>Besides the eye candy, compilation finishes under 5 minutes on a 20 core Digital Ocean Droplet. Whoop!</p>
+
+<p>To start compilation of Erlang:</p>
+
+<p><code>bash
+$ export MAKEFLAGS=-j20 &amp;&amp; ./kerl build git git://github.com/erlang/otp.git master erlang_llvm
+</code>
+After compilation we need to install the build and activate it:</p>
+
+<p><code>bash
+$ kerl install erlang_llvm erlang_llvm
+$ . ~/erlang_llvm/activate
+</code></p>
+
+<p>Great! We are now ready for our Pièce de résistance.</p>
+
+<h1>Just say: Hello!</h1>
+
+<p>Real Erlang hacker use Emacs, so let&rsquo;s setup Emacs for Erlang development.</p>
+
+<p>Fetch a good base config for Emacs:</p>
+
+<p><code>bash
+$ curl -o https://gist.githubusercontent.com/wardbekker/22a1bd79eb93af85fde0/raw/41eb32cbe1bc231c21fba8ec090e537805de2c58/.emacs
+</code></p>
+
+<p>Start up Emacs <code>emacs</code>. It will complain that it can&rsquo;t find <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a>. Let&rsquo;s fix that:</p>
+
+<p><code>
+[ESC]-x package-install [Enter] projmake-mode
+</code></p>
+
+<p>Exit emacs:</p>
+
+<p><code>
+[CTRL]-x [CTRL]-c
+</code></p>
+
+<p>Start up Emacs again <code>emacs</code>. Great! We can finally start writing our &ldquo;Hello World&rdquo; program. Oh, not, wait. First, we create a <code>projmake</code> file. The file is needed by <a href="https://github.com/ericbmerritt/projmake-mode">Projmake-mode</a>, a Flymake inspired mode that compiles your program on every save and shows build errors and warnings inline. Really useful!</p>
+
+<p><code>
+[CRTL]-x f projmake [Enter]
+</code></p>
+
+<p>Add these line and save the file</p>
+
+<p><code>cl
+(projmake
+ :name  "Hello"
+ :shell "erlc +native hello.erl")
+</code></p>
+
+<p>Ok, now we can really start writing our &ldquo;Hello World&rdquo; program and put those 20 cores and 64GB RAM to good use.</p>
+
+<p><code>
+[CTRL]-x f hello.erl [Enter]
+</code></p>
+
+<p>And type or paste:</p>
+
+<p>```erlang
+-module(hello).
+-export([just_say/0]).</p>
+
+<p>just_say() &ndash;>
+io_format(&ldquo;hello~n&rdquo;, []).
+```</p>
+
+<p>And save with <code>[CTRL]-x [CTRL]-s</code>.</p>
+
+<p>Whoops. We made an error as projmake-mode shows:</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/ef7fb886-9179-40ea-966e-cdffb8d5d303/b1b324c0e4021c9dac5b320f79f168ab/deep/0/Fullscreen-29-03-14-21-24.png" alt="Fullscreen%2029/03/14%2021:24" /></p>
+
+<p>Replace <code>io_format</code> with <code>io:format</code> and save again. That fixes our error!.</p>
+
+<p>Let&rsquo;s run our program. Fire up the Erlang shell with:</p>
+
+<p><code>
+[ESC]-x erlang-shell
+</code></p>
+
+<p>Load the <code>hello</code> module with:</p>
+
+<p><code>
+1&gt; m(hello). [Enter]
+</code></p>
+
+<p>And run you first Erlang function&hellip;.</p>
+
+<p><code>
+2&gt; hello:just_say(). [Enter]
+</code></p>
+
+<p>Bliss!</p>
+
+<p><img src="http://i.imgur.com/1Sk0c.gif" /></p>
+
+<p>Like it sofar? Check out <a href="/blog/2013/05/29/a-beginners-guide-to-erlang/">A beginners guide to Erlang</a> to continue your Erlang binge.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Selenium Webdriver for Erlang quick start]]></title>
@@ -598,219 +765,6 @@ build</em></p>
 <p>I attended the three day Erlang/OTP express course from <a href="https://www.erlang-solutions.com/services/training">Erlang Solutions</a> and got a much better understanding of OTP. Erlang Solutions also provide E-learning training.</p>
 
 <p>I also heard some good things from the <a href="http://erlangcamp.com/">Erlang Camp by Erlware</a>. This is a intensive two day trainings for beginners and intermediate Erlang programmers.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.]]></title>
-    <link href="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/"/>
-    <updated>2013-04-25T14:58:00+02:00</updated>
-    <id>http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang</id>
-    <content type="html"><![CDATA[<p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
-
-<p>De drie belangrijkste methoden worden hier kort besproken aan de hand van een test project. De methoden zijn:</p>
-
-<ul>
-<li><a href="#unit-testing-met-eunit">Unit testing</a></li>
-<li><a href="#quickcheck">Quickcheck</a></li>
-<li><a href="#common-test">Common test</a></li>
-</ul>
-
-
-<p>Je <em>cloned</em> het project van Github met het volgende commando:</p>
-
-<p><code>sh
-$ git clone git@github.com:wardbekker/ci_quickstart.git
-</code></p>
-
-<p>Voor het compileren van het project en uitvoeren van de testen gebruik je <a href="https://github.com/basho/rebar">Rebar</a>, een <em>sophisticated build-tool for Erlang projects that follows OTP principles</em>.  Je bouwt Rebar als volgt:</p>
-
-<p><code>sh
-$ git clone git://github.com/basho/rebar.git
-$ cd rebar
-$ ./bootstrap
-Recompile: src/getopt
-...
-Recompile: src/rebar_utils
-==&gt; rebar (compile)
-Congratulations! You now have a self-contained script called "rebar" in
-your current working directory. Place this script anywhere in your path
-and you can use rebar to build OTP-compliant apps.
-</code></p>
-
-<h2>Unit testing met EUnit</h2>
-
-<p>Je begint met de eenvoudigste test methode; <a href="http://www.erlang.org/doc/apps/eunit/chapter.html">EUnit</a>. Dit is een unit testing bibliotheek voor Erlang. In een unit test controleer je of de functie goed werkt bij bekende input en resultaat. In dit voorbeeld heb je de functie <code>addition</code> geimplementeerd in de module <code>ci_quickstart_math</code> en twee <em>assertions</em>. (Je voert deze test uit op de commandline met: <code>rebar get-deps compile eunit</code>):</p>
-
-<p>```erlang
--module(ci_quickstart_math).
--export([addition/2]).</p>
-
-<p>-ifdef(TEST).
--include_lib(&ldquo;eunit/include/eunit.hrl&rdquo;).
--endif.</p>
-
-<p>addition(X, Y) &ndash;></p>
-
-<pre><code>X + Y.
-</code></pre>
-
-<p>-ifdef(TEST).</p>
-
-<p>simple_test() &ndash;></p>
-
-<pre><code>?assertEqual(4, addition(2,2)),
-?assertNotEqual(3, addition(1,1)).
-</code></pre>
-
-<p>-endif.
-```</p>
-
-<p>Het slechte nieuws is dat de waarde van deze test zeer laag is. Weet je nu zeker dat optelling goed gaat in alle gevallen? Het enige wat de test nu aantoont is dat:</p>
-
-<ul>
-<li><code>addition(2,2) == 4</code></li>
-<li><code>addition(1,1) /= 3</code></li>
-</ul>
-
-
-<p>Stel, je verandert de implementatie van de function <code>addition</code> in:</p>
-
-<p>```erlang
- addition(X, Y) &ndash;></p>
-
-<pre><code>4.
-</code></pre>
-
-<p>```</p>
-
-<p>De testen slagen in dit geval, maar dit betekend niet dat de implementatie van <code>addition</code> correct is.</p>
-
-<p>Sterker nog; De argumenten zijn in dit geval <a href="http://www.erlang.org/doc/efficiency_guide/advanced.html">64-bit small integers</a>, en die hebben een bereik van -576460752303423489 t/m 576460752303423488. Met twee argumenten, betekend dit dat er enorm veel verschillende input mogelijk is. En in de unit test controleer je er maar 3!?!?  Ook al ben je een harde werker en test je wel 10! addities, in feite is de waarde van de unit test niet verbeterd en nog steeds erg laag.</p>
-
-<p>Wat nu?</p>
-
-<h2>QuickCheck</h2>
-
-<p>Wat je eigenlijk wil is een test methode dat alle mogelijke input variaties genereerd en de bijbehorende output controleert. Deze methode heet <a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a>. Voor Erlang zijn er een aantal QuickCheck frameworks beschikbaar:</p>
-
-<ul>
-<li><a href="http://www.quviq.com">Quvic QuickCheck</a></li>
-<li><a href="https://github.com/manopapad/proper">ProPEr</a></li>
-<li><a href="https://github.com/krestenkrab/triq">Triq</a></li>
-</ul>
-
-
-<p>Een Quickcheck test voor de <code>addition</code> functie:</p>
-
-<p>```erlang
-prop_sum() &ndash;></p>
-
-<pre><code>?FORALL(
-    {X, Y}, 
-    {int(), int()},
-    addition(X,Y) - Y == X
-).
-</code></pre>
-
-<p>```</p>
-
-<p>Voer de test uit door de Erlang Shell op te starten met <code>./shell.sh</code> en de volgende functie aanroep <code>proper:quickcheck(ci_quickstart_math:prop_sum()).</code></p>
-
-<p>Specifieke nummers worden niet getest. Je gaat nu controleren of de functie voldoet aan de eigenschap dat als je Y weer er afhaalt, je X overhoud.</p>
-
-<p><code>{int(), int()}</code> genereerd <em>tuples</em> met twee random integers. De <em>tuple</em> wordt gebonden aan <code>{X, Y}</code> door <em>pattern matching</em>.  Standaard worden er 100 combinaties getest, en dit aantal voer je op met de <code>numtests</code> optie: <code>proper:quickcheck(ci_quickstart_math:prop_sum(),[{numtests,10000}]).</code>.</p>
-
-<p>De uitdaging bij het werken met QuickCheck is het bedenken van de eigenschappen van de functie. Dit is lastiger dan het maken van een unit test. Sterker nog, het schrijven van de functie is vaak nog eenvoudiger dan het redeneren over de eigenschappen. Het positieve effect van QuickCheck op de kwaliteit van je code, en de manier waarop je als developer over je code nadenkt maakt deze tool een zeer waardevol onderdeel van je test gereedschapskist.</p>
-
-<!---
-[[Naast testen van functie eigenschappen is Quickcheck erg goed in het testen van zgn .State Machine. Een goed voorbeeld hiervan is de controle van de beloofde eventual consistency van Basho's Riak, een populair distribueerd database systeem gemaakt in Erlang. Zie hiervoor de slides van xxxxx. ]]
--->
-
-
-<h2>Common Test</h2>
-
-<p>Zoals bekend is Erlang uitermate geschikt voor het bouwen van concurrent, distributed en fault tolerant systemen. Om te controleren of je systeem werkt zoals verwacht, is complex.</p>
-
-<p>Hiervoor is <a href="http://www.erlang.org/doc/apps/common_test/basics_chapter.html">Common Test</a> in het leven geroepen. Dit krachtige test framework is uitermate geschikt voor de ontwikkeling van pittige <a href="http://en.wikipedia.org/wiki/System_testing">systeem tests</a>. De inherente complexiteit van concurrent, distributed en fault tolerant systemen maakt Common Test complex. Hoe je een serieuze OTP applicatie op de pijnbank legt met CT valt derhalve buiten de scope van deze blogpost. Hier onder wel een minimaal Comment Test waarin de EUnit testen worden nagebootst door gebruik van pattern matching.</p>
-
-<p>```erlang
--module(basic_SUITE).
--include_lib(&ldquo;common_test/include/ct.hrl&rdquo;).</p>
-
-<p>-export([all/0]).
--export([test1/1, test2/1]).</p>
-
-<p>all() &ndash;> [test1,test2].</p>
-
-<p>test1(_Config) &ndash;></p>
-
-<pre><code>3 = ci_quickstart_math:addition(1,2). %% validated using pattern matching
-</code></pre>
-
-<p>test2(_Config) &ndash;></p>
-
-<pre><code>2 = ci_quickstart_math:addition(1,1).  %% validated using pattern matching
-</code></pre>
-
-<p>```</p>
-
-<h2>Continuous integration met Travis-CI</h2>
-
-<p>Stel, je hebt een flinke hoeveelheid Eunit, Common Test en Quickcheck testen geïmplementeerd. Het uitvoeren van alle geavanceerde testen duurt lang en belast je systeem fors. Om deze, en <a href="http://en.wikipedia.org/wiki/Continuous_integration#Advantages_and_disadvantages">nog meer goede redenen</a>, is <a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a> aan te raden.</p>
-
-<p>Er zijn legio systemen waarmee het mogelijk is om continuous integration voor Erlang op te zetten. In dit voorbeeld gebruik je het hosted systeem <a href="http://travis-ci.org">Travis-CI</a>. Deze dienst ondersteunt Erlang, integreert met het populaire Github en zorgt voor een vliegende start. En het is gratis voor open source projecten.</p>
-
-<h3>Voorbereiding</h3>
-
-<p>Het build proces van Travis-CI configureer je via het <code>.travis.yml</code>-bestand in de <em>root</em> van je repository. Een voorbeeld:</p>
-
-<p><code>yaml
-language: erlang // De repository bevat een Erlang project
-notifications:
-  email: you@example.org // Build success en failures stuurt Travis-CI naar dit adres.
-otp_release: // Travis-CI test/bouwt je project voor meerdere Erlang/OTP versies.
-  - R15B01
-  - R15B
-  - R14B04
-</code></p>
-
-<h3>Travis-CI Setup</h3>
-
-<p>Deze video toont hoe je start met Travis-CI:</p>
-
-<ul>
-<li>Log in met je Github account.</li>
-<li>Ga naar de Travis-CI <em>profile</em> pagina.</li>
-<li>Schakel de gewenste Github <em>repository</em> in.</li>
-</ul>
-
-
-<p>That&rsquo;s it!</p>
-
-<p><a href="http://www.youtube.com/watch?v=YxJJu6mShiA&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/signing_and_switch.png" alt="Setup" /></a></p>
-
-<h3>Travis-CI Success Run</h3>
-
-<p>Deze video toont hoe Travis-CI een geslaagde <em>integration build</em>
-rapporteerd:</p>
-
-<p><a href="http://www.youtube.com/watch?v=rJWRY1Uf_qg&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/success.png" alt="Success" /></a></p>
-
-<h3>Travis-CI Failure Run</h3>
-
-<p>Deze video toont hoe Travis-CI een mislukte <em>integration build</em>
-rapporteerd:</p>
-
-<p><a href="http://www.youtube.com/watch?v=5u8Kpz3m8ho&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fail.png" alt="Fail" /></a></p>
-
-<p>Als je e-mail adres in <code>.travis.yml</code> staat, krijg je ook een e-mail notificatie dat de laatste <em>commit</em> de build gebroken heeft:</p>
-
-<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/broken_email.png" width="400" height="200" alt="Broken build e-mail notification" /></p>
-
-<p>Als de fout verholpen is, krijg je de volgende e-mail als de build weer slaagt:</p>
-
-<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
 ]]></content>
   </entry>
   
