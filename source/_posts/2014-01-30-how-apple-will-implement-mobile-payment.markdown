@@ -1,0 +1,22 @@
+---
+layout: post
+title: "How Apple will implement Mobile Payments"
+date: 2014-01-30 17:30
+comments: true
+categories: 
+---
+The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code [claim](http://recode.net/2014/01/30/paypal-wants-in-on-apples-mobile-payments-dreams/) that Apple and Paypal are in talks about a partnership, perhaps Apple using a whitelabel version of Paypal as a backoffice for their new service.
+
+If Paypal and Apple are going to partner, my best guess is that this will NOT be using a whitelabel, but a much more lightweight integration like this:
+
+- Apple will partner with Visa, Mastercard, Venmo, Paypal and such.
+- Apple will allows their users to hook up their phone's with those payment providers in a similar way as now done with Facebook, Flickr, Vimeo etc. Like this: <div class="thumbnail"><a href="https://www.evernote.com/shard/s48/sh/552cb35f-6281-47b0-a305-209343a68835/1b0edc98ae52d4eff296ef9c4b856d71"><img style="max-width:400px" src="https://www.evernote.com/shard/s48/sh/552cb35f-6281-47b0-a305-209343a68835/1b0edc98ae52d4eff296ef9c4b856d71/deep/0/setting_example.png" alt="setting_example" /></a></div>
+- Apple will provider app developers with a Mobile Payment framework, similar to the [Social Framework](https://developer.apple.com/library/ios/documentation/Social/Reference/Social_Framework/_index.html) that will provide developers an abstracted way to accept mobile payments. Likely with TouchID confirmation for easy of use. Possibly with a way to let the user to configure a standard shipping and/or billing address.
+- So, when the user is checking out a physical good, a dialog will be shown where the user will select the desired payment method. Like this: <div class="thumbnail"><a href="https://www.evernote.com/shard/s48/sh/df67389b-6fca-4aae-adbc-334785750aa7/c65a9b1bec941d83bcb4326131ad4b1e"><img src="https://www.evernote.com/shard/s48/sh/df67389b-6fca-4aae-adbc-334785750aa7/c65a9b1bec941d83bcb4326131ad4b1e/deep/0/payment_selection.png" alt="payment_selection" style="max-width:400px" /></a></div>
+
+Some reasons why I think a deep level partnering will not happen:
+
+- Apple does not have a track record partnering with third parties on such a deep level. They want to be able to call the shots. Control is the keyword.
+- Apple probably doesn't want to deal with the support effort of chargebacks for goods they don't deliver. (see also the physical good restriction for the current in app purchase stuff). It's a totally different business.
+
+[Upvote this story on Hacker News](https://news.ycombinator.com/item?id=7151592)

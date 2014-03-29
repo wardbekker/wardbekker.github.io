@@ -3,7 +3,7 @@ layout: post
 title: "Video: Automated testing with Erlang"
 date: 2013-04-25 14:52
 comments: true
-categories: 
+categories: Erlang
 ---
 
 In 2012 I presented
