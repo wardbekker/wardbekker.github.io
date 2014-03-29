@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-29T15:45:30+01:00</updated>
+  <updated>2014-03-29T15:46:41+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -41,7 +41,7 @@
 
 <p>Go to the root of your Erlang project and execute:</p>
 
-<p><code>
+<p><code>bash
 $ rebar get-deps compile
 </code></p>
 
@@ -49,7 +49,7 @@ $ rebar get-deps compile
 
 <p>For this quick start we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
 
-<p><code>
+<p><code>bash
 $ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
 $ unzip chromedriver_mac32.zip
 $ ./chromedriver
@@ -57,7 +57,7 @@ $ ./chromedriver
 
 <p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
 
-<p><code>
+<p><code>bash
 Starting ChromeDriver (v2.9.248307) on port 9515
 </code></p>
 
@@ -98,13 +98,13 @@ webdrv_session:stop_session(test).
 
 <p>Run your test by opening up the Erlang shell..</p>
 
-<p><code>
+<p><code>bash
 $ erl -pa ebin deps/*/ebin
 </code></p>
 
 <p>..and execute the test function</p>
 
-<p><code>
+<p><code>bash
 1&gt; random_org_test:test().
 </code></p>
 
