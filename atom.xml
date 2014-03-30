@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-30T00:31:06+01:00</updated>
+  <updated>2014-03-30T18:15:42+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -167,8 +167,8 @@
 </pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">hello</span><span class="p">).</span>
 </span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">just_say</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">just</span><span class="err">\</span><span class="p">_</span><span class="n">say</span><span class="p">()</span> <span class="o">-&gt;</span>
-</span><span class='line'><span class="n">io</span><span class="err">\</span><span class="p">_</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;hello</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[]).</span>
+</span><span class='line'><span class="nf">just_say</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="n">io_format</span><span class="p">(</span><span class="s">&quot;hello</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[]).</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

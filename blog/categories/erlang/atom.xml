@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-30T00:31:06+01:00</updated>
+  <updated>2014-03-30T18:15:42+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -144,9 +144,12 @@ $ curl -o https://gist.githubusercontent.com/wardbekker/22a1bd79eb93af85fde0/raw
 -module(hello).
 -export([just_say/0]).</p>
 
-<p>just_say() &ndash;>
-io_format(&ldquo;hello~n&rdquo;, []).
-```</p>
+<p>just_say() &ndash;></p>
+
+<pre><code>io_format("hello~n", []).
+</code></pre>
+
+<p>```</p>
 
 <p>And save with <code>[CTRL]-x [CTRL]-s</code>.</p>
 
