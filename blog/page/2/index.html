@@ -128,6 +128,299 @@
   
 
 
+<i class="icon-calendar-empty"></i> <time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
+          <div class="row-fluid">
+          
+          <a href="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
+          
+          </div>
+          
+          <div class="row-fluid">
+          
+          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
+          
+          </div>
+          
+    </div>
+    <div class="span10 post-container">
+      <h1 class="link"><a href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/">[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.</a></h1>
+      <p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
+
+<p>De drie belangrijkste methoden worden hier kort besproken aan de hand van een test project. De methoden zijn:</p>
+
+<ul>
+<li><a href="#unit-testing-met-eunit">Unit testing</a></li>
+<li><a href="#quickcheck">Quickcheck</a></li>
+<li><a href="#common-test">Common test</a></li>
+</ul>
+
+
+<p>Je <em>cloned</em> het project van Github met het volgende commando:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git@github.com:wardbekker/ci_quickstart.git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Voor het compileren van het project en uitvoeren van de testen gebruik je <a href="https://github.com/basho/rebar">Rebar</a>, een <em>sophisticated build-tool for Erlang projects that follows OTP principles</em>.  Je bouwt Rebar als volgt:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/basho/rebar.git
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>rebar
+</span><span class='line'><span class="nv">$ </span>./bootstrap
+</span><span class='line'>Recompile: src/getopt
+</span><span class='line'>...
+</span><span class='line'>Recompile: src/rebar_utils
+</span><span class='line'><span class="o">==</span>&gt; rebar <span class="o">(</span>compile<span class="o">)</span>
+</span><span class='line'>Congratulations! You now have a self-contained script called <span class="s2">&quot;rebar&quot;</span> in
+</span><span class='line'>your current working directory. Place this script anywhere in your path
+</span><span class='line'>and you can use rebar to build OTP-compliant apps.
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Unit testing met EUnit</h2>
+
+<p>Je begint met de eenvoudigste test methode; <a href="http://www.erlang.org/doc/apps/eunit/chapter.html">EUnit</a>. Dit is een unit testing bibliotheek voor Erlang. In een unit test controleer je of de functie goed werkt bij bekende input en resultaat. In dit voorbeeld heb je de functie <code>addition</code> geimplementeerd in de module <code>ci_quickstart_math</code> en twee <em>assertions</em>. (Je voert deze test uit op de commandline met: <code>rebar get-deps compile eunit</code>):</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">ci_quickstart_math</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">addition</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">ifdef</span><span class="p">(</span><span class="nv">TEST</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;eunit/include/eunit.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">endif</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="nv">X</span> <span class="o">+</span> <span class="nv">Y</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">ifdef</span><span class="p">(</span><span class="nv">TEST</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">simple_test</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="o">?</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">addition</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
+</span><span class='line'>    <span class="o">?</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">endif</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Het slechte nieuws is dat de waarde van deze test zeer laag is. Weet je nu zeker dat optelling goed gaat in alle gevallen? Het enige wat de test nu aantoont is dat:</p>
+
+<ul>
+<li><code>addition(2,2) == 4</code></li>
+<li><code>addition(1,1) /= 3</code></li>
+</ul>
+
+
+<p>Stel, je verandert de implementatie van de function <code>addition</code> in:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'> <span class="n">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="mi">4</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>De testen slagen in dit geval, maar dit betekend niet dat de implementatie van <code>addition</code> correct is.</p>
+
+<p>Sterker nog; De argumenten zijn in dit geval <a href="http://www.erlang.org/doc/efficiency_guide/advanced.html">64-bit small integers</a>, en die hebben een bereik van -576460752303423489 t/m 576460752303423488. Met twee argumenten, betekend dit dat er enorm veel verschillende input mogelijk is. En in de unit test controleer je er maar 3!?!?  Ook al ben je een harde werker en test je wel 10! addities, in feite is de waarde van de unit test niet verbeterd en nog steeds erg laag.</p>
+
+<p>Wat nu?</p>
+
+<h2>QuickCheck</h2>
+
+<p>Wat je eigenlijk wil is een test methode dat alle mogelijke input variaties genereerd en de bijbehorende output controleert. Deze methode heet <a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a>. Voor Erlang zijn er een aantal QuickCheck frameworks beschikbaar:</p>
+
+<ul>
+<li><a href="http://www.quviq.com">Quvic QuickCheck</a></li>
+<li><a href="https://github.com/manopapad/proper">ProPEr</a></li>
+<li><a href="https://github.com/krestenkrab/triq">Triq</a></li>
+</ul>
+
+
+<p>Een Quickcheck test voor de <code>addition</code> functie:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">prop_sum</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="o">?</span><span class="nv">FORALL</span><span class="p">(</span>
+</span><span class='line'>        <span class="p">{</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">int</span><span class="p">(),</span> <span class="n">int</span><span class="p">()},</span>
+</span><span class='line'>        <span class="n">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">)</span> <span class="o">-</span> <span class="nv">Y</span> <span class="o">==</span> <span class="nv">X</span>
+</span><span class='line'>    <span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Voer de test uit door de Erlang Shell op te starten met <code>./shell.sh</code> en de volgende functie aanroep <code>proper:quickcheck(ci_quickstart_math:prop_sum()).</code></p>
+
+<p>Specifieke nummers worden niet getest. Je gaat nu controleren of de functie voldoet aan de eigenschap dat als je Y weer er afhaalt, je X overhoud.</p>
+
+<p><code>{int(), int()}</code> genereerd <em>tuples</em> met twee random integers. De <em>tuple</em> wordt gebonden aan <code>{X, Y}</code> door <em>pattern matching</em>.  Standaard worden er 100 combinaties getest, en dit aantal voer je op met de <code>numtests</code> optie: <code>proper:quickcheck(ci_quickstart_math:prop_sum(),[{numtests,10000}]).</code>.</p>
+
+<p>De uitdaging bij het werken met QuickCheck is het bedenken van de eigenschappen van de functie. Dit is lastiger dan het maken van een unit test. Sterker nog, het schrijven van de functie is vaak nog eenvoudiger dan het redeneren over de eigenschappen. Het positieve effect van QuickCheck op de kwaliteit van je code, en de manier waarop je als developer over je code nadenkt maakt deze tool een zeer waardevol onderdeel van je test gereedschapskist.</p>
+
+<!---
+[[Naast testen van functie eigenschappen is Quickcheck erg goed in het testen van zgn .State Machine. Een goed voorbeeld hiervan is de controle van de beloofde eventual consistency van Basho's Riak, een populair distribueerd database systeem gemaakt in Erlang. Zie hiervoor de slides van xxxxx. ]]
+-->
+
+
+<h2>Common Test</h2>
+
+<p>Zoals bekend is Erlang uitermate geschikt voor het bouwen van concurrent, distributed en fault tolerant systemen. Om te controleren of je systeem werkt zoals verwacht, is complex.</p>
+
+<p>Hiervoor is <a href="http://www.erlang.org/doc/apps/common_test/basics_chapter.html">Common Test</a> in het leven geroepen. Dit krachtige test framework is uitermate geschikt voor de ontwikkeling van pittige <a href="http://en.wikipedia.org/wiki/System_testing">systeem tests</a>. De inherente complexiteit van concurrent, distributed en fault tolerant systemen maakt Common Test complex. Hoe je een serieuze OTP applicatie op de pijnbank legt met CT valt derhalve buiten de scope van deze blogpost. Hier onder wel een minimaal Comment Test waarin de EUnit testen worden nagebootst door gebruik van pattern matching.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">basic_SUITE</span><span class="p">).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;common_test/include/ct.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">all</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">test1</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">test2</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">all</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="n">test1</span><span class="p">,</span><span class="n">test2</span><span class="p">].</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test1</span><span class="p">(_</span><span class="nv">Config</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="mi">3</span> <span class="o">=</span> <span class="nn">ci_quickstart_math</span><span class="p">:</span><span class="nf">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">).</span> <span class="c">%% validated using pattern matching</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test2</span><span class="p">(_</span><span class="nv">Config</span><span class="p">)</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="mi">2</span> <span class="o">=</span> <span class="nn">ci_quickstart_math</span><span class="p">:</span><span class="nf">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">).</span>  <span class="c">%% validated using pattern matching</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Continuous integration met Travis-CI</h2>
+
+<p>Stel, je hebt een flinke hoeveelheid Eunit, Common Test en Quickcheck testen geïmplementeerd. Het uitvoeren van alle geavanceerde testen duurt lang en belast je systeem fors. Om deze, en <a href="http://en.wikipedia.org/wiki/Continuous_integration#Advantages_and_disadvantages">nog meer goede redenen</a>, is <a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a> aan te raden.</p>
+
+<p>Er zijn legio systemen waarmee het mogelijk is om continuous integration voor Erlang op te zetten. In dit voorbeeld gebruik je het hosted systeem <a href="http://travis-ci.org">Travis-CI</a>. Deze dienst ondersteunt Erlang, integreert met het populaire Github en zorgt voor een vliegende start. En het is gratis voor open source projecten.</p>
+
+<h3>Voorbereiding</h3>
+
+<p>Het build proces van Travis-CI configureer je via het <code>.travis.yml</code>-bestand in de <em>root</em> van je repository. Een voorbeeld:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erlang // De repository bevat een Erlang project</span>
+</span><span class='line'><span class="l-Scalar-Plain">notifications</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">you@example.org // Build success en failures stuurt Travis-CI naar dit adres.</span>
+</span><span class='line'><span class="l-Scalar-Plain">otp_release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">// Travis-CI test/bouwt je project voor meerdere Erlang/OTP versies.</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">- R15B01</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">- R15B</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">- R14B04</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Travis-CI Setup</h3>
+
+<p>Deze video toont hoe je start met Travis-CI:</p>
+
+<ul>
+<li>Log in met je Github account.</li>
+<li>Ga naar de Travis-CI <em>profile</em> pagina.</li>
+<li>Schakel de gewenste Github <em>repository</em> in.</li>
+</ul>
+
+
+<p>That&rsquo;s it!</p>
+
+<p><a href="http://www.youtube.com/watch?v=YxJJu6mShiA&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/signing_and_switch.png" alt="Setup" /></a></p>
+
+<h3>Travis-CI Success Run</h3>
+
+<p>Deze video toont hoe Travis-CI een geslaagde <em>integration build</em>
+rapporteerd:</p>
+
+<p><a href="http://www.youtube.com/watch?v=rJWRY1Uf_qg&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/success.png" alt="Success" /></a></p>
+
+<h3>Travis-CI Failure Run</h3>
+
+<p>Deze video toont hoe Travis-CI een mislukte <em>integration build</em>
+rapporteerd:</p>
+
+<p><a href="http://www.youtube.com/watch?v=5u8Kpz3m8ho&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fail.png" alt="Fail" /></a></p>
+
+<p>Als je e-mail adres in <code>.travis.yml</code> staat, krijg je ook een e-mail notificatie dat de laatste <em>commit</em> de build gebroken heeft:</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/broken_email.png" width="400" height="200" alt="Broken build e-mail notification" /></p>
+
+<p>Als de fout verholpen is, krijg je de volgende e-mail als de build weer slaagt:</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
+
+      
+      
+    </div>
+  </div>
+
+
+
+    </article>
+    
+    <hr>
+    
+  
+  
+    <article>
+      
+
+  <div class="row-fluid">
+    <div class="span2 post-meta">
+	  <h5 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
 <i class="icon-calendar-empty"></i> <time datetime="2013-04-25T14:52:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
           <div class="row-fluid">
           

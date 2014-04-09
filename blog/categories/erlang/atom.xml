@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-31T21:33:45+02:00</updated>
+  <updated>2014-04-09T20:01:25+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,96 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Erlang/OTP 17.0 on OSX Mavericks with WX and a working Observer]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/"/>
+    <updated>2014-04-09T19:53:00+02:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer</id>
+    <content type="html"><![CDATA[<p>This post is an update of <a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">HOWTO: &ldquo;Erlang R17-RC2 on OSX Mavericks with WX and a working Observer&rdquo;</a>.</p>
+
+<p>Erlang/OTP 17.0 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
+
+<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-17, especially for 64-bit Erlang. However, 17.0 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
+
+<h2>Set correct Xcode path for compilation</h2>
+
+<p><code>bash
+$ xcode-select -s /Applications/Xcode.app/Contents/Developer
+</code></p>
+
+<h2>Install wxWidgets</h2>
+
+<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+<p><code>bash
+$ curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
+$ tar xvjf wxWidgets-3.0.0.tar.bz2
+$ cd wxWidgets-3.0.0.tar.bz2
+$ ./configure --with-cocoa --prefix=/usr/local
+$ make &amp;&amp; sudo make install
+$ export PATH=/usr/local/bin:$PATH
+</code></p>
+
+<p>Check that you got the correct wx-config</p>
+
+<p><code>bash
+$ which wx-config
+</code></p>
+
+<h2>Install kerl</h2>
+
+<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
+
+<p><code>bash
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></p>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<p><code>bash
+KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx"
+</code></p>
+
+<h2>Build &amp; Install Erlang with kerl</h2>
+
+<p><code>bash
+$ kerl update releases
+$ kerl build 17.0 17.0
+</code></p>
+
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+<p><code>bash
+$ CPPFLAGS="-arch i386" kerl build 17.0 17.0
+</code></p>
+
+<p>Install:</p>
+
+<p><code>bash
+$ kerl install 17.0 ~/erlang_17_0
+</code></p>
+
+<p>Activate:</p>
+
+<p><code>bash
+$ . ~/erlang_17_0/activate
+</code></p>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<p><code>bash
+$ erl -s observer start
+</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Your first Erlang program (in style).]]></title>
@@ -619,159 +709,6 @@ build</em></p>
 <p>When your colleague fixed the build (you would never commit broken code, right?), you will receive a mail that the build is fixed by a new <em>commit</em>.</p>
 
 <p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[A beginners guide to Erlang]]></title>
-    <link href="http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
-    <updated>2013-05-29T22:14:00+02:00</updated>
-    <id>http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang</id>
-    <content type="html"><![CDATA[<p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&rsquo;s Mind</cite></footer></blockquote></p>
-
-<p>These starting points helped me getting up to speed with <a href="http://www.erlang.org/">Erlang</a>. I hope this information helps you too.</p>
-
-<h3>How install Erlang/OTP</h3>
-
-<p>You can install Erlang/OTP from <a href="http://www.erlang.org/download.html">source</a>, but I like the <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">ready-to-go packages</a> provided by Erlang Solutions.</p>
-
-<h3>Writing Erlang</h3>
-
-<p>I use <a href="http://aquamacs.org/">Aquamacs</a>, An Emacs for mac users, with the <a href="http://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html">Erlang mode</a> provided by Erlang/OTP.  Combined with Eric B Merritt&rsquo;s <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a> and Mochiweb <a href="https://github.com/oinksoft/reloader">reloader</a> this makes for a productive development environment.</p>
-
-<h3>Documentation</h3>
-
-<ul>
-<li>The <a href="http://www.erlang.org/doc/">official Erlang documentation</a> is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.</li>
-<li>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn&rsquo;t have an R16 copy and function signatures are not shown fully correct, but it works for me.</li>
-<li><a href="http://learnyousomeerlang.com/">Learn you some erlang</a> is a free online guide (and available as a dead tree version). It&rsquo;s a very good intro for learning Erlang.</li>
-</ul>
-
-
-<h3>Best places to ask for help</h3>
-
-<p>The <a href="http://erlang.org/mailman/listinfo/erlang-questions">Erlang Questions Mailinglist</a> is the best place to ask your Erlang questions. Don&rsquo;t be surprised if you question is answered by Erlang inventors themselves!</p>
-
-<p>As with other programming languages <a href="http://stackoverflow.com/questions/tagged/erlang">Stack overflow</a> is also a great place to get answers to your pressing Erlang questions.</p>
-
-<h3>Erlang books</h3>
-
-<p>Compared to Java, the quantity of Erlang books is low. But the quality is pretty good! And a little birdy told me that some great new books will be published in the near future. <em>Warning: affiliate links to Amazon ahead. You will be sponsoring my caffeine intake. Thank you.</em></p>
-
-<table>
-            <tr>
-                <td>
-                    <a href="http://www.amazon.com/gp/product/0596518188/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0596518188&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=0596518188&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0596518188" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                    <br />
-                    <a href="http://www.amazon.com/gp/product/0596518188/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0596518188&linkCode=as2&tag=dotnettaxi-20">Erlang Programming by Francesco Cesarini</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0596518188" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                </td>
-                <td>
-                    <a href="http://learnyousomeerlang.com"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1593274351&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1593274351" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                    <br />
-                    <a href="http://learnyousomeerlang.com/">Learn you some Erlang by Fred Hebert</a><br />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449309968&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1449309968&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449309968" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                    <br />
-                    <a href="http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449309968&linkCode=as2&tag=dotnettaxi-20">Building Web Applications with Erlang: Working with REST and Web Sockets on Yaws</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449309968" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                </td>
-                <td>
-                    <a href="http://www.amazon.com/gp/product/193435600X/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=193435600X&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=193435600X&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=193435600X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                    <br />
-                    <a href="http://www.amazon.com/gp/product/193435600X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=193435600X&linkCode=as2&tag=dotnettaxi-20">Programming Erlang: Software for a Concurrent World</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=193435600X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="http://www.amazon.com/gp/product/1933988789/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1933988789&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1933988789&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1933988789" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                    <br />
-                    <a href="http://www.amazon.com/gp/product/1933988789/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1933988789&linkCode=as2&tag=dotnettaxi-20">Erlang and OTP in Action</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1933988789" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                </td>
-                <td>
-                    <a href="http://www.amazon.com/gp/product/0321636465/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321636465&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=0321636465&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0321636465" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                    <br />
-                    <a href="http://www.amazon.com/gp/product/0321636465/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321636465&linkCode=as2&tag=dotnettaxi-20">Building Scalable Applications with Erlang (Developer's Library)</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0321636465" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="http://www.amazon.com/gp/product/1449331769/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449331769&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1449331769&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449331769" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                    <br />
-                    <a href="http://www.amazon.com/gp/product/1449331769/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449331769&linkCode=as2&tag=dotnettaxi-20">Introducing Erlang</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449331769" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                </td>
-                <td>
-                    <a href="http://www.amazon.com/gp/product/3941841459/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=3941841459&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=3941841459&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=3941841459" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                    <br />
-                    <a href="http://www.amazon.com/gp/product/3941841459/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=3941841459&linkCode=as2&tag=dotnettaxi-20">Erlang/OTP</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=3941841459" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-                </td>
-            </tr>
-</table>
-
-
-<br /><br />
-
-
-<h3>Testing and Continuous integration</h3>
-
-<p>I recently gave a talk introducing the great automated testing facilities of Erlang. Check out the <a href="/blog/2013/04/25/erlang-testing/">video and slides</a></p>
-
-<p>With help from former collegue &amp; friend <a href="https://twitter.com/j2h">Josh Kalderimis</a> I&rsquo;ve added the first iteration of Erlang support to <a href="https://travis-ci.org/">Travis-CI</a>. It&rsquo;s a free continuous integration service for open source projects. It&rsquo;s used by well known Erlang projects like <a href="http://basho.com/riak/">Basho Riak</a>, <a href="http://elixir-lang.org/">Elixir</a> and <a href="https://github.com/mochi/mochiweb">Mochiweb</a>.
-<a href="http://about.travis-ci.org/docs/user/languages/erlang/">See the documentation how to add your project</a>.</p>
-
-<p>If you can read Dutch, you can also read my blog post about <a href="blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Geautomatiseerd testen met Erlang/OTP en Travis-CI</a> which covers the same ground.</p>
-
-<h3>Who to follow on twitter</h3>
-
-<p>Two of the three Erlang inventors are active tweeps:</p>
-
-<ul>
-<li><a href="https://twitter.com/joeerl">Joe Armstrong</a></li>
-<li><a href="https://twitter.com/rvirding">Robert Virding</a></li>
-</ul>
-
-
-<p>Want more?  <a href="https://twitter.com/bryan_hunter">Bryan Hunter</a> maintains <a href="https://twitter.com/bryan_hunter/erlang/members">a list of Erlang folks on twitter</a> .</p>
-
-<p><a href="https://twitter.com/wardbekker">I&rsquo;m also on twitter</a></p>
-
-<h3>Popular Erlang projects</h3>
-
-<p>Want to learn Erlang from the absolute best? Most popular Erlang projects are open source. Make some coffee, clone the repositories and learn from the code of the Erlang gods. Below a selection:</p>
-
-<ul>
-<li><a href="https://github.com/erlang/otp">Erlang OTP</a> &ndash; The full Erlang/OTP sourcecode.</li>
-<li><a href="https://github.com/basho/riak">Basho Riak</a> &ndash; A decentralized datastore.</li>
-<li><a href="https://github.com/extend/cowboy">Cowboy</a> &ndash; Small, fast, modular HTTP server written in Erlang.</li>
-<li><a href="https://github.com/rebar/rebar">Rebar</a> &ndash; A sophisticated build-tool for Erlang projects that follows OTP principles.</li>
-<li><a href="https://github.com/mochi/mochiweb">Mochiweb</a> &ndash; MochiWeb is an Erlang library for building lightweight HTTP servers.</li>
-<li><a href="https://github.com/basho/webmachine">Webmachine</a> &ndash; A REST-based system for building web applications.</li>
-</ul>
-
-
-<p>Explore more popular Erlang projects on <a href="https://github.com/languages/Erlang">Github&rsquo;s Erlang page</a></p>
-
-<h3>Conferences &amp; User groups</h3>
-
-<p>The <a href="http://www.erlang-factory.com/">Erlang Factory</a> conferences are the best places to meet professional Erlang developers. I&rsquo;ve attended a few of them, and I am always amazed by the quality of the speakers and the <em>hallway</em> discussions. Pro tip: make sure you have a substantial lunch and then stay for the drinks.</p>
-
-<p>A few local active user groups that I&rsquo;m aware of:</p>
-
-<ul>
-<li><a href="http://www.meetup.com/ErlangChicago/">Chicago Erlang User Group</a></li>
-<li><a href="http://www.meetup.com/funadam/">Cross Functional Amsterdam</a> &ndash; I help organize this one. We have frequent Erlang focused talks.</li>
-<li><a href="http://www.meetup.com/erlangusergroup/">London Erlang User Group</a> &ndash;</li>
-</ul>
-
-
-<p>Explore more Erlang user groups on <a href="http://www.meetup.com/find/?offset=0&amp;psize=64&amp;currentpage=1&amp;allMeetups=true&amp;categories=&amp;keywords=erlang&amp;radius=Infinity&amp;userFreeform=&amp;mcId=&amp;mcName=&amp;lat=52.083298&amp;lon=4.300003&amp;sort=default">Meetup</a></p>
-
-<h3>Training</h3>
-
-<p>I attended the three day Erlang/OTP express course from <a href="https://www.erlang-solutions.com/services/training">Erlang Solutions</a> and got a much better understanding of OTP. Erlang Solutions also provide E-learning training.</p>
-
-<p>I also heard some good things from the <a href="http://erlangcamp.com/">Erlang Camp by Erlware</a>. This is a intensive two day trainings for beginners and intermediate Erlang programmers.</p>
 ]]></content>
   </entry>
   

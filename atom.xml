@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-03-31T21:33:45+02:00</updated>
+  <updated>2014-04-09T20:01:25+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,113 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Erlang/OTP 17.0 on OSX Mavericks with WX and a working Observer]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/"/>
+    <updated>2014-04-09T19:53:00+02:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer</id>
+    <content type="html"><![CDATA[<p>This post is an update of <a href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">HOWTO: &ldquo;Erlang R17-RC2 on OSX Mavericks with WX and a working Observer&rdquo;</a>.</p>
+
+<p>Erlang/OTP 17.0 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
+
+<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-17, especially for 64-bit Erlang. However, 17.0 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
+
+<h2>Set correct Xcode path for compilation</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select -s /Applications/Xcode.app/Contents/Developer
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install wxWidgets</h2>
+
+<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span>tar xvjf wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span>./configure --with-cocoa --prefix<span class="o">=</span>/usr/local
+</span><span class='line'><span class="nv">$ </span>make <span class="o">&amp;&amp;</span> sudo make install
+</span><span class='line'><span class="nv">$ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Check that you got the correct wx-config</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>which wx-config
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Install kerl</h2>
+
+<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+</span><span class='line'><span class="nv">$ </span>chmod a+x kerl
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">KERL_CONFIGURE_OPTIONS</span><span class="o">=</span><span class="s2">&quot;--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Build &amp; Install Erlang with kerl</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl update releases
+</span><span class='line'><span class="nv">$ </span>kerl build 17.0 17.0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;-arch i386&quot;</span> kerl build 17.0 17.0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl install 17.0 ~/erlang_17_0
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Activate:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>. ~/erlang_17_0/activate
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>erl -s observer start
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Your first Erlang program (in style).]]></title>
