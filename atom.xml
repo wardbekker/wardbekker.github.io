@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-04-09T20:01:25+02:00</updated>
+  <updated>2014-04-09T20:05:57+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -20,7 +20,7 @@
     <id>http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer</id>
     <content type="html"><![CDATA[<p>This post is an update of <a href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">HOWTO: &ldquo;Erlang R17-RC2 on OSX Mavericks with WX and a working Observer&rdquo;</a>.</p>
 
-<p>Erlang/OTP 17.0 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
+<p>Today&rsquo;s release of Erlang/OTP 17.0 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
 
 <p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-17, especially for 64-bit Erlang. However, 17.0 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
 
