@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-04-15T12:11:15+02:00</updated>
+  <updated>2014-04-15T12:11:51+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -21,6 +21,8 @@
     <content type="html"><![CDATA[<p><em>Update April 15 &ndash; 2014: Erlang/OTP 17.0 with a working WX library is now also available through <a href="http://brew.sh">Homebrew</a>: <code>brew install wxmac erlang</code>. HT <a href="https://twitter.com/dch__">@dhc_</a></em></p>
 
 <p><em>This post is an update of <a href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">HOWTO: &ldquo;Erlang R17-RC2 on OSX Mavericks with WX and a working Observer&rdquo;</a>.</em></p>
+
+<h2>The best Erlang yet</h2>
 
 <p>Today&rsquo;s Erlang/OTP 17.0 release is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://learnyousomeerlang.com/maps">Maps</a> and <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Named arguments in funs</a>.</p>
 
