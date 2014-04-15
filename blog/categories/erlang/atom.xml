@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-04-15T12:11:51+02:00</updated>
+  <updated>2014-04-15T12:14:59+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -406,7 +406,8 @@ $ erl -pa ebin deps/*/ebin
     <link href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/"/>
     <updated>2014-02-09T08:53:00+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer</id>
-    <content type="html"><![CDATA[<p><strong>Update 11 Feb 2013</strong> <a href="https://twitter.com/SpiffDgud">Dan GudMundsson</a> pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of this blog post with the instructions found in the official <a href="https://github.com/erlang/otp/blob/maint/HOWTO/INSTALL.md">Erlang/OTP installation HOWTO</a>.</p>
+    <content type="html"><![CDATA[<p><strong>Update 15 April 2014</strong> Erlang/OTP 17.0 is released. <a href="/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/">Read the updated HOWTO here</a>.
+<strong>Update 11 Feb 2014</strong> <a href="https://twitter.com/SpiffDgud">Dan GudMundsson</a> pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of this blog post with the instructions found in the official <a href="https://github.com/erlang/otp/blob/maint/HOWTO/INSTALL.md">Erlang/OTP installation HOWTO</a>.</p>
 
 <p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r16b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a> by <a href="https://twitter.com/MSch">Martin Schuerrer</a></p>
 
