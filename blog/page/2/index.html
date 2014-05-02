@@ -8,10 +8,9 @@
   <title>Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
 
-   
-  <meta name="description" content="">
   
-  <meta name="keywords" content="">
+  <meta name="description" content="Erlang/OTP is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke &hellip;">
+  
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -20,16 +19,13 @@
 
   
   <link rel="canonical" href="http://blog.equanimity.nl/blog/page/2">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <link href="/favicon.ico" rel="icon">
+  
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
-  <script src="/js/jquery.js"></script>
-  <script src="/js/bootstrap-collapse.js"></script>
-  <script src="/js/modernizr-2.0.js"></script>
-  <script src="/js/octopress.js" type="text/javascript"></script>
-  <script src="/js/application.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -50,73 +46,46 @@
 
 </head>
 
-<body   >
-  <div class="navbar navbar-inverse navbar-static-top">
-  	<div class="navbar-inner">
-  	  <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="fui-menu-24"></span>
-        </a>
-  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
-  	      <ul class="nav">
-    
-        <li ><a href="/">Home</a></li>
-    
-        <li ><a href="/blog/archives/">Archive</a></li>
-    
-        <li ><a href="/about/">About</a></li>
-    
+<body   class="no-sidebar"  >
+  <header role="banner"><hgroup>
+  <h1>Ward Bekker</h1>
+  
+    <h2><a href="/">WB</a></h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation">
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.equanimity.nl" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About Me</a></li>
 </ul>
 
-<ul class="nav pull-right">
-    
-    <li><a href="http://github.com/wardbekker" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
-    
-    
-    
-    
-    <li><a href="http://twitter.com/wardbekker" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://plus.google.com/wardbekker@gmail.com" title="Google+ Profile"><i class="icon-google-plus-sign social-navbar"></i></a></li>
-    
-    
-    
-
-    
-</ul>
-
-  	    </div>
-  	  </div>
-  	</div>
-  </div>
-  <div class="container" id="main">
-      <div class="row-fluid">
-        <div id="content">
-          <div class="jumbotron">
-  <div class="container">
-    
-      Ward Bekker
-    
-    <h3 class="tagline">
-      
-        Amsterdam
-      
-    </h3>
-  </div>
-</div>
-
-
-<div class="blog-index">
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
   
   
   
     <article>
       
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/">[Dutch] Geautomatiseerd Testen Met Erlang/OTP en Travis-CI - Een Introductie.</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -128,23 +97,16 @@
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
-          <div class="row-fluid">
-          
-          <a href="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/">[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.</a></h1>
-      <p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
+<time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
 
 <p>De drie belangrijkste methoden worden hier kort besproken aan de hand van een test project. De methoden zijn:</p>
 
@@ -390,26 +352,23 @@ rapporteerd:</p>
 <p>Als de fout verholpen is, krijg je de volgende e-mail als de build weer slaagt:</p>
 
 <p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
-
-      
-      
-    </div>
-  </div>
-
+</div>
+  
+  
 
 
     </article>
-    
-    <hr>
-    
   
   
     <article>
       
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/25/erlang-testing/">Video: Automated Testing With Erlang</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -421,23 +380,16 @@ rapporteerd:</p>
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2013-04-25T14:52:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
-          <div class="row-fluid">
-          
-          <a href="http://blog.equanimity.nl/blog/2013/04/25/erlang-testing/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2013/04/25/erlang-testing/">Video: Automated testing with Erlang</a></h1>
-      <p>In 2012 I presented
+<time datetime="2013-04-25T14:52:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/25/erlang-testing/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In 2012 I presented
 <a href="http://www.erlang-factory.com/conference/London2012/speakers/WardBekker">Automated testing with Erlang</a>
 at the <a href="http://www.erlang-factory.com/">Erlang Factory</a> event on the London Google Campus. <a href="http://www.erlang-factory.com/upload/presentations/693/EFL_2012_LONDON_ward_bekker_slides.pdf">Slides here</a>,
 watch the video below. Enjoy!</p>
@@ -446,26 +398,23 @@ watch the video below. Enjoy!</p>
 height="375" frameborder="0" webkitAllowFullScreen mozallowfullscreen
 allowFullScreen></iframe>
 
-
-      
-      
-    </div>
-  </div>
-
+</div>
+  
+  
 
 
     </article>
-    
-    <hr>
-    
   
   
     <article>
       
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/04/24/fprof-kcachegrind/">Erlang Fprof Output Confusing? Try KCachegrind.</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -477,23 +426,16 @@ allowFullScreen></iframe>
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2013-04-24T16:13:00+02:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time></h5>
-          <div class="row-fluid">
-          
-          <a href="http://blog.equanimity.nl/blog/2013/04/24/fprof-kcachegrind/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2013/04/24/fprof-kcachegrind/">Erlang Fprof output confusing? Try KCachegrind.</a></h1>
-      <p>Your Erlang code is perfect, but to find out why other peoples
+<time datetime="2013-04-24T16:13:00+02:00" pubdate data-updated="true">Apr 24<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/04/24/fprof-kcachegrind/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Your Erlang code is perfect, but to find out why other peoples
 code runs dog slow you probably profile the code with <a href="http://www.erlang.org/doc/man/fprof.html">fprof</a> like this:</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -564,26 +506,23 @@ KCachegrind.</p>
 
 
 <p>Enjoy!</p>
-
-      
-      
-    </div>
-  </div>
-
+</div>
+  
+  
 
 
     </article>
-    
-    <hr>
-    
   
   
     <article>
       
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/12/inverted-index-compression-techniques/">Inverted Index Compression Techniques</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -595,21 +534,16 @@ KCachegrind.</p>
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2012-07-12T15:55:00+02:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time></h5>
-          <div class="row-fluid">
-          
-          <a href="http://blog.equanimity.nl/blog/2012/07/12/inverted-index-compression-techniques/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2012/07/12/inverted-index-compression-techniques/">Inverted index compression techniques</a></h1>
-      <p>Today I presented at at the Dutch Erlang Usergroup meeting, hosted by <a href="http://www.spilgames.com/">Spilgames</a>.</p>
+<time datetime="2012-07-12T15:55:00+02:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time>
+        
+         | <a href="/blog/2012/07/12/inverted-index-compression-techniques/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I presented at at the Dutch Erlang Usergroup meeting, hosted by <a href="http://www.spilgames.com/">Spilgames</a>.</p>
 
 <p>In this presentation I explained:</p>
 
@@ -620,26 +554,23 @@ KCachegrind.</p>
 
 
 <p><a href="http://blog.tty.nl/files/2012/07/presentatie_search_compression.pdf">The Slides</a></p>
-
-      
-      
-    </div>
-  </div>
-
+</div>
+  
+  
 
 
     </article>
-    
-    <hr>
-    
   
   
     <article>
       
-
-  <div class="row-fluid">
-    <div class="span2 post-meta">
-	  <h5 class="date-time">
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/">A Basic Full Text Search Server in Erlang</a></h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -651,23 +582,16 @@ KCachegrind.</p>
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2011-10-07T16:06:00+02:00" pubdate data-updated="true">Oct 7<span>th</span>, 2011</time></h5>
-          <div class="row-fluid">
-          
-          <a href="http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/#disqus_thread">Comments </a> <span class="fui-bubble-16"></span>
-          
-          </div>
-          
-          <div class="row-fluid">
-          
-          <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
-          
-          </div>
-          
-    </div>
-    <div class="span10 post-container">
-      <h1 class="link"><a href="/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/">A basic full text search server in Erlang</a></h1>
-      <blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&#8217;s Mind</cite></footer></blockquote>
+<time datetime="2011-10-07T16:06:00+02:00" pubdate data-updated="true">Oct 7<span>th</span>, 2011</time>
+        
+         | <a href="/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&#8217;s Mind</cite></footer></blockquote>
 
 
 
@@ -1076,40 +1000,30 @@ Eshell&gt; stackoverflow_importer_ser:import().
 
 <p>So, that why it&#8217;s called a <em>sample</em> application ;-)</p>
 
-
-      
-      
-    </div>
-  </div>
-
+</div>
+  
+  
 
 
     </article>
-    
   
   <div class="pagination">
     
-
+    <a href="/blog/archives">Blog Archives</a>
     
     <a class="next" href="/">Newer &rarr;</a>
     
   </div>
 </div>
 
-
-        </div>
-      </div>
-      <div class="row-fluid">
-        <footer class="footer-page" role="contentinfo">
-          <p>
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
   Copyright &copy; 2014 - Ward Bekker -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-
-        </footer>
-      </div>
-  </div>
+</footer>
   
 
 <script type="text/javascript">

@@ -8,10 +8,9 @@
   <title>[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie. - Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
 
-   
-  <meta name="description" content="">
   
-  <meta name="keywords" content="">
+  <meta name="description" content="Erlang/OTP is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke &hellip;">
+  
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -20,16 +19,13 @@
 
   
   <link rel="canonical" href="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <link href="/favicon.ico" rel="icon">
+  
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
-  <script src="/js/jquery.js"></script>
-  <script src="/js/bootstrap-collapse.js"></script>
-  <script src="/js/modernizr-2.0.js"></script>
-  <script src="/js/octopress.js" type="text/javascript"></script>
-  <script src="/js/application.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -50,57 +46,43 @@
 
 </head>
 
-<body   >
-  <div class="navbar navbar-inverse navbar-static-top">
-  	<div class="navbar-inner">
-  	  <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="fui-menu-24"></span>
-        </a>
-  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
-  	      <ul class="nav">
-    
-        <li ><a href="/">Home</a></li>
-    
-        <li ><a href="/blog/archives/">Archive</a></li>
-    
-        <li ><a href="/about/">About</a></li>
-    
+<body   class="no-sidebar"  >
+  <header role="banner"><hgroup>
+  <h1>Ward Bekker</h1>
+  
+    <h2><a href="/">WB</a></h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation">
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.equanimity.nl" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About Me</a></li>
 </ul>
 
-<ul class="nav pull-right">
-    
-    <li><a href="http://github.com/wardbekker" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
-    
-    
-    
-    
-    <li><a href="http://twitter.com/wardbekker" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://plus.google.com/wardbekker@gmail.com" title="Google+ Profile"><i class="icon-google-plus-sign social-navbar"></i></a></li>
-    
-    
-    
-
-    
-</ul>
-
-  	    </div>
-  	  </div>
-  	</div>
-  </div>
-  <div class="container" id="main">
-      <div class="row-fluid">
-        <div id="content">
-          <div>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
 <article class="hentry" role="article">
   
-
   <header>
-  <div class="jumbotron">
-    [Dutch] Geautomatiseerd Testen Met Erlang/OTP en Travis-CI - Een Introductie.
-	<h5>
+    
+      <h1 class="entry-title">[Dutch] Geautomatiseerd Testen Met Erlang/OTP en Travis-CI - Een Introductie.</h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -112,12 +94,16 @@
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time></h5>
-  </div>
-</header>
-  <div class="row-fluid">
-    <div class="span12">
-      <p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
+<time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://www.erlang.org">Erlang/OTP</a> is ontworpen voor het bouwen van grote, schaalbare, soft-realtime systemen met een hoge beschikbaarheid. Het testen van dergelijke systemen is niet eenvoudig, laat staan <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">geautomatiseerd testen</a>. Voor Erlang zijn er dan ook geavanceerde automatische test methoden beschikbaar.</p>
 
 <p>De drie belangrijkste methoden worden hier kort besproken aan de hand van een test project. De methoden zijn:</p>
 
@@ -363,64 +349,59 @@ rapporteerd:</p>
 <p>Als de fout verholpen is, krijg je de volgende e-mail als de build weer slaagt:</p>
 
 <p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
-
-    </div>
-  </div>
-
+</div>
 
 
   <footer>
-    <hr>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn"><a href="/about" title="About the author (Ward Bekker)" rel="author">Ward Bekker</a></span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-25T14:58:00+02:00" pubdate data-updated="true">Apr 25<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/erlang/'>Erlang</a>
+  
+</span>
+
+
+    </p>
     
-    <div class="row-fluid">
-      
-      <div class="span6">
-        <p class="meta">
-        
-        
-
-
-
-  <a href="/blog/categories/erlang/"><span class="badge">Erlang</span></a>
-
-
-
-
-        </p>
-      </div>
-      
-      <div class="span6 social-sharing">
-        <div class="sharing">
-  <div class="addthis_toolbox addthis_default_style ">
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/" >Tweet</a>
   
   
-  <a class="addthis_button_tweet"></a>
+  <div class="g-plusone" data-size="medium"></div>
   
   
-  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-  
-  <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
-      </div>
-      
-      
-    </div>
     
-    <div class="row-fluid">
-      <div class="span12">
-        <p class="meta">
-          
-            <a class="basic-alignment left" href="/blog/2013/04/25/erlang-testing/" title="Previous Post: Video: Automated testing with Erlang">&laquo; Video: Automated testing with Erlang</a>
-          
-          
-            <a class="basic-alignment right" href="/blog/2013/04/25/enable-spdy-for-your-erlang-website/" title="Next Post: Enable SPDY for your Erlang website">Enable SPDY for your Erlang website &raquo;</a>
-          
-        </p>
-      </div>
-    </div>
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/04/25/erlang-testing/" title="Previous Post: Video: Automated testing with Erlang">&laquo; Video: Automated testing with Erlang</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/04/25/enable-spdy-for-your-erlang-website/" title="next Post: Enable SPDY for your Erlang website">Enable SPDY for your Erlang website &raquo;</a>
+      
+    </p>
   </footer>
 </article>
 
@@ -433,20 +414,14 @@ rapporteerd:</p>
 </div>
 
 
-
-        </div>
-      </div>
-      <div class="row-fluid">
-        <footer class="footer-page" role="contentinfo">
-          <p>
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
   Copyright &copy; 2014 - Ward Bekker -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-
-        </footer>
-      </div>
-  </div>
+</footer>
   
 
 <script type="text/javascript">

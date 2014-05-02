@@ -8,10 +8,9 @@
   <title>Inverted index compression techniques - Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
 
-   
-  <meta name="description" content="">
   
-  <meta name="keywords" content="">
+  <meta name="description" content="Today I presented at at the Dutch Erlang Usergroup meeting, hosted by Spilgames. In this presentation I explained: How to build a inverted index that &hellip;">
+  
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -20,16 +19,13 @@
 
   
   <link rel="canonical" href="http://blog.equanimity.nl/blog/2012/07/12/inverted-index-compression-techniques">
-  <link href="/favicon.png" rel="icon">
-  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <link href="/favicon.ico" rel="icon">
+  
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
-  <script src="/js/jquery.js"></script>
-  <script src="/js/bootstrap-collapse.js"></script>
-  <script src="/js/modernizr-2.0.js"></script>
-  <script src="/js/octopress.js" type="text/javascript"></script>
-  <script src="/js/application.js"></script>
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
@@ -50,57 +46,43 @@
 
 </head>
 
-<body   >
-  <div class="navbar navbar-inverse navbar-static-top">
-  	<div class="navbar-inner">
-  	  <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="fui-menu-24"></span>
-        </a>
-  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
-  	      <ul class="nav">
-    
-        <li ><a href="/">Home</a></li>
-    
-        <li ><a href="/blog/archives/">Archive</a></li>
-    
-        <li ><a href="/about/">About</a></li>
-    
+<body   class="no-sidebar"  >
+  <header role="banner"><hgroup>
+  <h1>Ward Bekker</h1>
+  
+    <h2><a href="/">WB</a></h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation">
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.equanimity.nl" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About Me</a></li>
 </ul>
 
-<ul class="nav pull-right">
-    
-    <li><a href="http://github.com/wardbekker" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
-    
-    
-    
-    
-    <li><a href="http://twitter.com/wardbekker" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
-    
-    
-    <li><a href="http://plus.google.com/wardbekker@gmail.com" title="Google+ Profile"><i class="icon-google-plus-sign social-navbar"></i></a></li>
-    
-    
-    
-
-    
-</ul>
-
-  	    </div>
-  	  </div>
-  	</div>
-  </div>
-  <div class="container" id="main">
-      <div class="row-fluid">
-        <div id="content">
-          <div>
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
 <article class="hentry" role="article">
   
-
   <header>
-  <div class="jumbotron">
-    Inverted Index Compression Techniques
-	<h5>
+    
+      <h1 class="entry-title">Inverted Index Compression Techniques</h1>
+    
+    
+      <p class="meta">
+        
 
 
 
@@ -112,12 +94,16 @@
   
 
 
-<i class="icon-calendar-empty"></i> <time datetime="2012-07-12T15:55:00+02:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time></h5>
-  </div>
-</header>
-  <div class="row-fluid">
-    <div class="span12">
-      <p>Today I presented at at the Dutch Erlang Usergroup meeting, hosted by <a href="http://www.spilgames.com/">Spilgames</a>.</p>
+<time datetime="2012-07-12T15:55:00+02:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Today I presented at at the Dutch Erlang Usergroup meeting, hosted by <a href="http://www.spilgames.com/">Spilgames</a>.</p>
 
 <p>In this presentation I explained:</p>
 
@@ -128,58 +114,53 @@
 
 
 <p><a href="http://blog.tty.nl/files/2012/07/presentatie_search_compression.pdf">The Slides</a></p>
-
-    </div>
-  </div>
-
+</div>
 
 
   <footer>
-    <hr>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn"><a href="/about" title="About the author (Ward Bekker)" rel="author">Ward Bekker</a></span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-12T15:55:00+02:00" pubdate data-updated="true">Jul 12<span>th</span>, 2012</time>
+      
+
+
+    </p>
     
-    <div class="row-fluid">
-      
-      <div class="span6">
-        <p class="meta">
-        
-        
-
-
-        </p>
-      </div>
-      
-      <div class="span6 social-sharing">
-        <div class="sharing">
-  <div class="addthis_toolbox addthis_default_style ">
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2012/07/12/inverted-index-compression-techniques/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2012/07/12/inverted-index-compression-techniques/" >Tweet</a>
   
   
-  <a class="addthis_button_tweet"></a>
+  <div class="g-plusone" data-size="medium"></div>
   
   
-  <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-  
-  <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid="></script>
 </div>
 
-      </div>
-      
-      
-    </div>
     
-    <div class="row-fluid">
-      <div class="span12">
-        <p class="meta">
-          
-            <a class="basic-alignment left" href="/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/" title="Previous Post: A basic full text search server in Erlang">&laquo; A basic full text search server in Erlang</a>
-          
-          
-            <a class="basic-alignment right" href="/blog/2013/04/24/fprof-kcachegrind/" title="Next Post: Erlang Fprof output confusing? Try KCachegrind.">Erlang Fprof output confusing? Try KCachegrind. &raquo;</a>
-          
-        </p>
-      </div>
-    </div>
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/" title="Previous Post: A basic full text search server in Erlang">&laquo; A basic full text search server in Erlang</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/04/24/fprof-kcachegrind/" title="next Post: Erlang Fprof output confusing? Try KCachegrind.">Erlang Fprof output confusing? Try KCachegrind. &raquo;</a>
+      
+    </p>
   </footer>
 </article>
 
@@ -192,20 +173,14 @@
 </div>
 
 
-
-        </div>
-      </div>
-      <div class="row-fluid">
-        <footer class="footer-page" role="contentinfo">
-          <p>
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
   Copyright &copy; 2014 - Ward Bekker -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span> - Theme by <a href="http://alexgaribay.com">Alex Garibay</a>
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
-
-        </footer>
-      </div>
-  </div>
+</footer>
   
 
 <script type="text/javascript">
