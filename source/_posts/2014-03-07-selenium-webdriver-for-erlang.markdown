@@ -16,27 +16,35 @@ It's trivial to get started with the following steps:
 
 Open `rebar.config` in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:
 
-    {deps, [
-       {webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
+```erlang
+{deps, [
+    {webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
        ]}.
-
+```
+       
 ## Step 2: Get and compile webdrv
 
 Go to the root of your Erlang project and execute:
 
-    $ rebar get-deps compile
+```bash
+$ rebar get-deps compile
+```
 
 ## Step 3: Get & start the Google chromedriver
 
 For this quick start we will be using the [Google Chromedriver](https://sites.google.com/a/chromium.org/chromedriver/). Get the right package for your environment [here](http://chromedriver.storage.googleapis.com/index.html?path=2.9/). I'm now on a Mac, so:
 
-    $ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
-    $ unzip chromedriver_mac32.zip
-    $ ./chromedriver
+```bash
+$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
+$ unzip chromedriver_mac32.zip
+$ ./chromedriver
+```
 
 The last line starts up the Chromedriver server and if all went well, you should get the following output:
 
-    Starting ChromeDriver (v2.9.248307) on port 9515
+```bash
+Starting ChromeDriver (v2.9.248307) on port 9515
+```
 
 Important! This server needs to be running during test execution.
 
@@ -72,11 +80,15 @@ test() ->
 
 Run your test by opening up the Erlang shell..
 
-    $ erl -pa ebin deps/*/ebin
+```bash
+$ erl -pa ebin deps/*/ebin
+```
     
 ..and execute the test function
 
-    1> random_org_test:test().
+```bash
+1> random_org_test:test().
+```
     
 You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output `ok`.
     
