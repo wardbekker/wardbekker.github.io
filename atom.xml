@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-05-28T19:23:17+02:00</updated>
+  <updated>2014-06-13T11:39:07+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -12,6 +12,103 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Notes on CloudKit Storage and Data Transfers]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/"/>
+    <updated>2014-06-13T10:32:45+02:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers</id>
+    <content type="html"><![CDATA[<p>At WWDC14 Apple announced Cloudkit, a new <a href="http://en.wikipedia.org/wiki/Backend_as_a_service">Backend as a Service</a>(Baas). Storage of structured data and assets are offered for free, with limits. In this post I&rsquo;m attempting to give you more detail and background on this free plan.</p>
+
+<!-- more -->
+
+
+<h1>Cloudkit free storage and data transfer plan</h1>
+
+<p>For every Cloudkit container, you start out with:</p>
+
+<p>Storage
+&ndash; 5 GB for assets
+&ndash; 50 MB for database</p>
+
+<p>Data Transfer
+&ndash; 25 MB/day for assets
+&ndash; 250 KB/day for database</p>
+
+<p>And for every user you get a bonus of:</p>
+
+<p>Storage
+&ndash; 100 MB for assets
+&ndash; 1 MB for database</p>
+
+<p>Data Transfer
+&ndash; 0.5 MB/day for assets
+&ndash; 5 KB/day for database</p>
+
+<h1>Sample calculations</h1>
+
+<p>To get a better feel of the numbers, I&rsquo;ve created a few sample calculations.</p>
+
+<p><strong>With 1K Cloudkit users you get</strong></p>
+
+<p>Storage
+&ndash; 105 GB for assets
+&ndash; 1 GB for database</p>
+
+<p>Data Transfer
+&ndash; 505 MB/day for assets
+&ndash; 5.25 MB/day for database</p>
+
+<p><strong>With 10K Cloudkit users you get</strong></p>
+
+<p>Storage
+&ndash; 1 TB for assets
+&ndash; 10 GB for database</p>
+
+<p>Data Transfer
+&ndash; 5 GB/day for assets
+&ndash; 50 MB/day for database</p>
+
+<p><strong>With 100K Cloudkit users you get</strong></p>
+
+<p>Storage
+&ndash; 10 TB for assets
+&ndash; 0.1 TB for database</p>
+
+<p>Data Transfer
+&ndash; 50 GB/day for assets
+&ndash; 500 MB/day for database</p>
+
+<p><strong>With 10 Million(!) Cloudkit users you get</strong></p>
+
+<p>Storage
+&ndash; 1 PB for assets
+&ndash; 10 TB for database</p>
+
+<p>Data Transfer
+&ndash; 5 TB/day for assets
+&ndash; 50 GB/day for database</p>
+
+<p>And this is also the upper limit for the free plan. So, if you have 10 million folks usings your CloudKit backed app. Apple takes up the hosting bill, and you have a lot more money to waste on Sushi.</p>
+
+<h1>Details, details</h1>
+
+<p>But what is actually is a CloudKit user? There is no official information yet, but my guess Apple counts all users that installed your app and authenticated at least once. That would mean that your CloudKit user count can only increase and never drop. Makes sense, as you don&rsquo;t want data to be removed in the public database, just becaused the user de-installed the app. (Sidenode, if you uninstall an app from your phone, It give the standard warning that all app data will be removed, but as far as I can see, uninstalling an app doesn&rsquo;t affect the public or private data in the CloudKit container of the app.</p>
+
+<p>And regarding the data tranfer plan. Do they mean data in, data out or both? Again, no official information yet. Optimistic case Data out only, but Data IN &amp; OUT is very likely.</p>
+
+<p>Oh, and private asset and database storage is not counted as this data resides on the iCloud account of the user. Hurray!</p>
+
+<p>Other things that are not clear yet:</p>
+
+<ul>
+<li>What happens when you reach limits? Will your app be broken for your users when the daily tranfer limits are overrun? No official information yet, but my guess is that Apple will allow an incidental overrun of limits, and they will give you a call when there is a structural overrun of limits. They want happy App users as much as you, so these limits are probably soft limits, with higher hard limits to prevent abuse.</li>
+<li>It&rsquo;s not yet possible to get insight in real world data usage, even on development, as Apple did not yet enable usage stats on the CloudKit dashboard. Let&rsquo;s see if they can get that out for the fall release.</li>
+<li>In the iCloud documentation, Apple says you can call them for custom (premium?) plans. I&rsquo;ve just send them a request for more information. Until I get a response, it&rsquo;s unclear what the non-free/custom options are.</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[5 great Pomodoro Apps for Mac]]></title>
