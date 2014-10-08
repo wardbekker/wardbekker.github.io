@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Notes on CloudKit Storage and Data Transfers - Ward Bekker</title>
+  <title>My 5 tips for new runners - Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
   <a href="https://plus.google.com/104578455602310184371" rel="publisher" />
 
   
-  <meta name="description" content="At WWDC14 Apple announced Cloudkit, a new Backend as a Service(Baas). Storage of structured data and assets are offered for free, with limits. In &hellip;">
+  <meta name="description" content="Yours truly started running just over 7 months ago with the goal to get into shape. I dropped 17 KG. Now really enjoying running and even finished my &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers">
+  <link rel="canonical" href="http://blog.equanimity.nl/blog/2014/10/08/my-5-tips-for-new-runners">
 <link rel="apple-touch-icon" sizes="57x57" href="//apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="114x114" href="//apple-touch-icon-114x114.png">
 <link rel="apple-touch-icon" sizes="72x72" href="//apple-touch-icon-72x72.png">
@@ -93,7 +93,7 @@
   
   <header>
     
-      <h1 class="entry-title">Notes on CloudKit Storage and Data Transfers</h1>
+      <h1 class="entry-title">My 5 Tips for New Runners</h1>
     
     
       <p class="meta">
@@ -109,7 +109,7 @@
   
 
 
-<time datetime="2014-06-13T10:32:45+02:00" pubdate data-updated="true">Jun 13<span>th</span>, 2014</time>
+<time datetime="2014-10-08T10:19:32+02:00" pubdate data-updated="true">Oct 8<span>th</span>, 2014</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -118,96 +118,32 @@
   </header>
 
 
-<div class="entry-content"><p>At WWDC14 Apple announced Cloudkit, a new <a href="http://en.wikipedia.org/wiki/Backend_as_a_service">Backend as a Service</a>(Baas). Storage of structured data and assets are offered for free, with limits. In this post I&rsquo;m attempting to give you more detail and background on this free plan.</p>
+<div class="entry-content"><p>Yours truly started running just over 7 months ago with the goal to get into shape. I dropped 17 KG. Now really enjoying running and even finished my first 10 miles race (1:21:05). Here are 5 things that I learned in the process;</p>
 
-<!-- more -->
+<h2>How to drop weight with this one weird trick</h2>
+
+<p>I dropped 17 KG by running three days a week and eating less and better. Sorry, not shortcuts here. I eat muesli with milk in the morning, a big green salad in the afternoon, and a small dinner with lots of veggies. No food/snack intake after dinner really helped to increase my weight loss.</p>
+
+<p>I tracked my progress and future progress using trend lines in a spreadsheet with graphs. This made my weight goals achievable and predictable, which really motivated me.</p>
+
+<div class="thumbnail"><a href="https://www.evernote.com/shard/s48/sh/21dc30f3-f5a1-41ac-b88b-b40b760a67b0/102f7f87f94c39de4e897876e76a9edc"><img src="https://www.evernote.com/shard/s48/sh/21dc30f3-f5a1-41ac-b88b-b40b760a67b0/102f7f87f94c39de4e897876e76a9edc/deep/0/gewicht.png?width=600" alt="gewicht" /></a><br /><span>Weight graph with trendlines</span></div>
 
 
-<h1>Cloudkit free storage and data transfer plan</h1>
+<h2>Buy good running shoes</h2>
 
-<p>For every Cloudkit container, you start out with:</p>
+<p>I started running in old sport shoes. After 20 minutes running my feed became numb. I blamed the shoes. So I went to a nearby running store and walked out with a great pair of Asics and friction reducing <a href="http://store.nike.com/gb/en_gb/pd/elite-lightweight-quarter-running-socks/pid-754222/pgid-754223">Nike running socks</a>. Never experienced numb feet again. I did get HUGE blisters, as I’m stupid and didn’t broke them in properly.</p>
 
-<p>Storage
-&ndash; 5 GB for assets
-&ndash; 50 MB for database</p>
+<h2>How to get overuse injuries</h2>
 
-<p>Data Transfer
-&ndash; 25 MB/day for assets
-&ndash; 250 KB/day for database</p>
+<p>After five-ish months of running, I felt super fit, and started to increase my weekly mileage way to fast. Turns out that the quote <a href="http://runnersconnect.net/running-injury-prevention/why-runners-get-hurt/">“metabolic fitness precedes structural readiness”</a> by running coach Jay Johnsen is a correct observation. The overuse resulted in <a href="http://www.runnersworld.com/tag/itbs-iliotibial-band-syndrome">ITBS symptoms</a> and I couldn’t run my planned first half marathon. I stopped running for two weeks, and did a lot of hip strength exercises. I’m now very gradually building up a good base. The goal is a first HM race in the spring of 2015. No more overuse injuries if I can help it.</p>
 
-<p>And for every user you get a bonus of:</p>
+<h2>Hydrate on long runs</h2>
 
-<p>Storage
-&ndash; 100 MB for assets
-&ndash; 1 MB for database</p>
+<p>I ran for over two hours once, which was really an achievement for me, but didn’t hydrate properly. So, I totally crashed afterwards. My body was telling me to put some water and salt in it. I did, an after an hour I felt much better. The next day I ordered the <a href="http://www.nathansports.com/hydration/hydration-belts/trail-mix">Nathan Trail Mix hydration belt</a>, and I never go out on a long run without it since.</p>
 
-<p>Data Transfer
-&ndash; 0.5 MB/day for assets
-&ndash; 5 KB/day for database</p>
+<h2>Learn to run negative splits</h2>
 
-<h1>Sample calculations</h1>
-
-<p>To get a better feel of the numbers, I&rsquo;ve created a few sample calculations.</p>
-
-<p><strong>With 1K Cloudkit users you get</strong></p>
-
-<p>Storage
-&ndash; 105 GB for assets
-&ndash; 1 GB for database</p>
-
-<p>Data Transfer
-&ndash; 505 MB/day for assets
-&ndash; 5.25 MB/day for database</p>
-
-<p><strong>With 10K Cloudkit users you get</strong></p>
-
-<p>Storage
-&ndash; 1 TB for assets
-&ndash; 10 GB for database</p>
-
-<p>Data Transfer
-&ndash; 5 GB/day for assets
-&ndash; 50 MB/day for database</p>
-
-<p><strong>With 100K Cloudkit users you get</strong></p>
-
-<p>Storage
-&ndash; 10 TB for assets
-&ndash; 0.1 TB for database</p>
-
-<p>Data Transfer
-&ndash; 50 GB/day for assets
-&ndash; 500 MB/day for database</p>
-
-<p><strong>With 10 Million(!) Cloudkit users you get</strong></p>
-
-<p>Storage
-&ndash; 1 PB for assets
-&ndash; 10 TB for database</p>
-
-<p>Data Transfer
-&ndash; 5 TB/day for assets
-&ndash; 50 GB/day for database</p>
-
-<p>And this is also the upper limit for the free plan. So, if you have 10 million folks usings your CloudKit backed app. Apple takes up the hosting bill, and you have a lot more money to waste on Sushi.</p>
-
-<h1>Details, details</h1>
-
-<p>But what is actually is a CloudKit user? There is no official information yet, but my guess Apple counts all users that installed your app and authenticated at least once. That would mean that your CloudKit user count can only increase and never drop. Makes sense, as you don&rsquo;t want data to be removed in the public database, just becaused the user de-installed the app. (Sidenode, if you uninstall an app from your phone, It give the standard warning that all app data will be removed, but as far as I can see, uninstalling an app doesn&rsquo;t affect the public or private data in the CloudKit container of the app.</p>
-
-<p>Public asset and databage storage is pooled, and so is are the data transfers. Private asset and database storage is not counted as this data resides on the iCloud account of the user. Hurray! Though it&rsquo;s not clear yet clear if that also implies that all private data transfer does not count. I sure hope so.</p>
-
-<p>And regarding the data tranfer plan. Do they mean data in, data out or both? Again, no official information yet. Optimistic case Data out only, but Data IN &amp; OUT is very likely.</p>
-
-<p>Other things that are not clear yet:</p>
-
-<ul>
-<li></li>
-<li>What happens when you reach limits? Will your app be broken for your users when the daily tranfer limits are overrun? No official information yet, but my guess is that Apple will allow an incidental overrun of limits, and they will give you a call when there is a structural overrun of limits. They want happy App users as much as you, so these limits are probably soft limits, with higher hard limits to prevent abuse.</li>
-<li>It&rsquo;s not yet possible to get insight in real world data usage, even on development, as Apple did not yet enable usage stats on the CloudKit dashboard. Let&rsquo;s see if they can get that out for the fall release.</li>
-<li>In the iCloud documentation, Apple says you can call them for custom (premium?) plans. I&rsquo;ve just send them a request for more information. Until I get a response, it&rsquo;s unclear what the non-free/custom options are.</li>
-</ul>
-
+<p>My best long runs start with a easy pace (~5:30 min/km for me). After a few KM’s I very gradually step up the pace and finish strong with a fast pace (4:40-50 min/km). In running slang this is called a <a href="http://www.runnersworld.com/race-training/positives-negative-splits?page=single">negative split</a>. In my limited race experience, I noticed that a lot of folks go out way too fast in the beginning of the race and they have a extra hard time towards the end of their race.</p>
 </div>
 
 
@@ -230,15 +166,21 @@
   
 
 
-<time datetime="2014-06-13T10:32:45+02:00" pubdate data-updated="true">Jun 13<span>th</span>, 2014</time>
+<time datetime="2014-10-08T10:19:32+02:00" pubdate data-updated="true">Oct 8<span>th</span>, 2014</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/running/'>running</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2014/10/08/my-5-tips-for-new-runners/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2014/10/08/my-5-tips-for-new-runners/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -249,10 +191,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/05/08/5-great-pomodoro-apps-for-mac/" title="Previous Post: 5 great Pomodoro Apps for Mac">&laquo; 5 great Pomodoro Apps for Mac</a>
+        <a class="basic-alignment left" href="/blog/2014/06/13/cloudkit-storage-and-data-transfers/" title="Previous Post: Notes on CloudKit Storage and Data Transfers">&laquo; Notes on CloudKit Storage and Data Transfers</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/10/08/my-5-tips-for-new-runners/" title="next Post: My 5 tips for new runners">My 5 tips for new runners &raquo;</a>
       
     </p>
   </footer>
@@ -282,8 +222,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/';
-        var disqus_url = 'http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/';
+        var disqus_identifier = 'http://blog.equanimity.nl/blog/2014/10/08/my-5-tips-for-new-runners/';
+        var disqus_url = 'http://blog.equanimity.nl/blog/2014/10/08/my-5-tips-for-new-runners/';
         var disqus_script = 'embed.js';
       
     (function () {
