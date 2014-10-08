@@ -3,7 +3,8 @@ layout: post
 title: "Runkeeper review"
 date: 2014-07-23 09:21:22 +0200
 comments: true
-categories: 
+categories:
+published: false 
 ---
 
 Intro:
