@@ -20,21 +20,27 @@
 
   
   <link rel="canonical" href="http://blog.equanimity.nl/posts">
-<link rel="apple-touch-icon" sizes="57x57" href="//apple-touch-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="114x114" href="//apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="72x72" href="//apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="144x144" href="//apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="60x60" href="//apple-touch-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="120x120" href="//apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="76x76" href="//apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="152x152" href="//apple-touch-icon-152x152.png">
-<link rel="icon" type="image/png" href="//favicon-196x196.png" sizes="196x196">
-<link rel="icon" type="image/png" href="//favicon-160x160.png" sizes="160x160">
-<link rel="icon" type="image/png" href="//favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="//favicon-16x16.png" sizes="16x16">
-<link rel="icon" type="image/png" href="//favicon-32x32.png" sizes="32x32">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="/mstile-144x144.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
   
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -1550,7 +1556,7 @@ scalable, soft-realtime systems with high availability. Testing such systems is 
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erlang // This project is an Erlang project</span>
 </span><span class='line'><span class="l-Scalar-Plain">notifications</span><span class="p-Indicator">:</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#121;&#x6f;&#x75;&#x40;&#x65;&#120;&#97;&#x6d;&#112;&#x6c;&#101;&#46;&#x6f;&#114;&#x67;">&#121;&#x6f;&#x75;&#x40;&#101;&#120;&#x61;&#x6d;&#112;&#x6c;&#101;&#46;&#111;&#x72;&#x67;</a> // Notify this e-mail address on build failures</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#121;&#111;&#x75;&#64;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#101;&#x2e;&#x6f;&#x72;&#103;">&#x79;&#x6f;&#x75;&#x40;&#101;&#x78;&#x61;&#109;&#112;&#108;&#x65;&#46;&#x6f;&#x72;&#103;</a> // Notify this e-mail address on build failures</span>
 </span><span class='line'><span class="l-Scalar-Plain">otp_release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">// The Erlang/OTP versions to run your test against.</span>
 </span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B01</span>
 </span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B</span>
@@ -2202,7 +2208,7 @@ build</em></p>
 </span><span class='line'>Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty Ltd<span class="o">]</span>:Awesome Inc
 </span><span class='line'>Organizational Unit Name <span class="o">(</span>eg, section<span class="o">)</span> <span class="o">[]</span>:Dept of Merriment
 </span><span class='line'>Common Name <span class="o">(</span>e.g. server FQDN or YOUR name<span class="o">)</span> <span class="o">[]</span>:example.org
-</span><span class='line'>Email Address <span class="o">[]</span>:<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#119;&#x65;&#x62;&#109;&#x61;&#x73;&#x74;&#101;&#114;&#x40;&#x65;&#120;&#x61;&#x6d;&#112;&#108;&#x65;&#46;&#111;&#x72;&#103;">&#119;&#101;&#98;&#109;&#x61;&#x73;&#x74;&#x65;&#x72;&#64;&#101;&#120;&#x61;&#109;&#x70;&#108;&#x65;&#x2e;&#x6f;&#x72;&#103;</a>
+</span><span class='line'>Email Address <span class="o">[]</span>:<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#119;&#101;&#98;&#x6d;&#97;&#x73;&#116;&#101;&#114;&#x40;&#x65;&#x78;&#x61;&#109;&#x70;&#108;&#101;&#x2e;&#111;&#114;&#x67;">&#x77;&#x65;&#x62;&#109;&#97;&#x73;&#116;&#101;&#114;&#64;&#101;&#x78;&#97;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#x6f;&#x72;&#x67;</a>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>After generating the required encryption keys, we re-edit the <code>reverse_proxy</code> site:</p>
@@ -2616,7 +2622,7 @@ build</em></p>
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erlang // De repository bevat een Erlang project</span>
 </span><span class='line'><span class="l-Scalar-Plain">notifications</span><span class="p-Indicator">:</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#121;&#111;&#117;&#64;&#101;&#120;&#97;&#x6d;&#x70;&#x6c;&#101;&#46;&#x6f;&#114;&#103;">&#121;&#111;&#117;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#x6c;&#x65;&#46;&#111;&#x72;&#x67;</a> // Build success en failures stuurt Travis-CI naar dit adres.</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#x79;&#x6f;&#117;&#64;&#101;&#x78;&#x61;&#x6d;&#112;&#x6c;&#x65;&#x2e;&#x6f;&#114;&#103;">&#x79;&#x6f;&#x75;&#x40;&#x65;&#x78;&#97;&#x6d;&#112;&#x6c;&#x65;&#x2e;&#x6f;&#114;&#103;</a> // Build success en failures stuurt Travis-CI naar dit adres.</span>
 </span><span class='line'><span class="l-Scalar-Plain">otp_release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">// Travis-CI test/bouwt je project voor meerdere Erlang/OTP versies.</span>
 </span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B01</span>
 </span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B</span>
