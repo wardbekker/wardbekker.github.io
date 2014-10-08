@@ -4,104 +4,108 @@
         <loc>
             http://blog.equanimity.nl/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/
         </loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.equanimity.nl/blog/2012/07/12/inverted-index-compression-techniques/
         </loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2013/04/24/fprof-kcachegrind/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2013/04/25/erlang-testing/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2013/04/25/enable-spdy-for-your-erlang-website/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2013/04/25/scrum-2009-not-scrum-2012/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/
         </loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2014/01/08/4k-retina-monitors-at-ces-2014/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment/
         </loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/
         </loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2014/03/29/your-first-erlang-program/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>
             http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/
         </loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2014/05/08/5-great-pomodoro-apps-for-mac/</loc>
-        <lastmod>2014-05-08T20:51:24+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/</loc>
-        <lastmod>2014-06-14T13:47:38+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
+    </url>
+    <url>
+        <loc>http://blog.equanimity.nl/blog/2014/07/23/runkeeper-review/</loc>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/404.html</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/about/</loc>
-        <lastmod>2014-05-02T16:09:55+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/blog/archives/</loc>
-        <lastmod>2014-06-14T13:47:38+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/</loc>
-        <lastmod>2014-06-14T13:47:38+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/posts/</loc>
-        <lastmod>2014-06-14T13:47:38+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
     <url>
         <loc>http://blog.equanimity.nl/robots.txt</loc>
-        <lastmod>2014-05-02T16:00:32+02:00</lastmod>
+        <lastmod>2014-10-08T10:14:46+02:00</lastmod>
     </url>
 </urlset>

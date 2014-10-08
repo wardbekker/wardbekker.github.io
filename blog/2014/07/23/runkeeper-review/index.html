@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Notes on CloudKit Storage and Data Transfers - Ward Bekker</title>
+  <title>Runkeeper review - Ward Bekker</title>
   <meta name="author" content="Ward Bekker">
   <a href="https://plus.google.com/104578455602310184371" rel="publisher" />
 
   
-  <meta name="description" content="At WWDC14 Apple announced Cloudkit, a new Backend as a Service(Baas). Storage of structured data and assets are offered for free, with limits. In &hellip;">
+  <meta name="description" content="Intro: 31575 calories. That&rsquo;s 83 liters of coca cola, or 8 kg of sugar. 343 KM or 213 mi with runkeeper on a 5S
+For running use only.
+Didn& &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers">
+  <link rel="canonical" href="http://blog.equanimity.nl/blog/2014/07/23/runkeeper-review">
 <link rel="apple-touch-icon" sizes="57x57" href="//apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="114x114" href="//apple-touch-icon-114x114.png">
 <link rel="apple-touch-icon" sizes="72x72" href="//apple-touch-icon-72x72.png">
@@ -93,7 +95,7 @@
   
   <header>
     
-      <h1 class="entry-title">Notes on CloudKit Storage and Data Transfers</h1>
+      <h1 class="entry-title">Runkeeper Review</h1>
     
     
       <p class="meta">
@@ -109,7 +111,7 @@
   
 
 
-<time datetime="2014-06-13T10:32:45+02:00" pubdate data-updated="true">Jun 13<span>th</span>, 2014</time>
+<time datetime="2014-07-23T09:21:22+02:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2014</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -118,96 +120,56 @@
   </header>
 
 
-<div class="entry-content"><p>At WWDC14 Apple announced Cloudkit, a new <a href="http://en.wikipedia.org/wiki/Backend_as_a_service">Backend as a Service</a>(Baas). Storage of structured data and assets are offered for free, with limits. In this post I&rsquo;m attempting to give you more detail and background on this free plan.</p>
+<div class="entry-content"><p>Intro:</p>
 
-<!-- more -->
+<p>31575 calories. That&rsquo;s 83 liters of coca cola, or 8 kg of sugar.</p>
 
+<p>343 KM or 213 mi with runkeeper on a 5S
+For running use only.
+Didn&rsquo;t connect with HR monitor.
+For weight loss first. lost about 14Kilo (from 98KG to 84KG). Run my first 10K, ran and now less focused on weight loss, and now training for a sub 1:45 HM in 21 september. Fingers crossed.
+I generally run by myself.
+What&rsquo;s runkeeper</p>
 
-<h1>Cloudkit free storage and data transfer plan</h1>
-
-<p>For every Cloudkit container, you start out with:</p>
-
-<p>Storage
-&ndash; 5 GB for assets
-&ndash; 50 MB for database</p>
-
-<p>Data Transfer
-&ndash; 25 MB/day for assets
-&ndash; 250 KB/day for database</p>
-
-<p>And for every user you get a bonus of:</p>
-
-<p>Storage
-&ndash; 100 MB for assets
-&ndash; 1 MB for database</p>
-
-<p>Data Transfer
-&ndash; 0.5 MB/day for assets
-&ndash; 5 KB/day for database</p>
-
-<h1>Sample calculations</h1>
-
-<p>To get a better feel of the numbers, I&rsquo;ve created a few sample calculations.</p>
-
-<p><strong>With 1K Cloudkit users you get</strong></p>
-
-<p>Storage
-&ndash; 105 GB for assets
-&ndash; 1 GB for database</p>
-
-<p>Data Transfer
-&ndash; 505 MB/day for assets
-&ndash; 5.25 MB/day for database</p>
-
-<p><strong>With 10K Cloudkit users you get</strong></p>
-
-<p>Storage
-&ndash; 1 TB for assets
-&ndash; 10 GB for database</p>
-
-<p>Data Transfer
-&ndash; 5 GB/day for assets
-&ndash; 50 MB/day for database</p>
-
-<p><strong>With 100K Cloudkit users you get</strong></p>
-
-<p>Storage
-&ndash; 10 TB for assets
-&ndash; 0.1 TB for database</p>
-
-<p>Data Transfer
-&ndash; 50 GB/day for assets
-&ndash; 500 MB/day for database</p>
-
-<p><strong>With 10 Million(!) Cloudkit users you get</strong></p>
-
-<p>Storage
-&ndash; 1 PB for assets
-&ndash; 10 TB for database</p>
-
-<p>Data Transfer
-&ndash; 5 TB/day for assets
-&ndash; 50 GB/day for database</p>
-
-<p>And this is also the upper limit for the free plan. So, if you have 10 million folks usings your CloudKit backed app. Apple takes up the hosting bill, and you have a lot more money to waste on Sushi.</p>
-
-<h1>Details, details</h1>
-
-<p>But what is actually is a CloudKit user? There is no official information yet, but my guess Apple counts all users that installed your app and authenticated at least once. That would mean that your CloudKit user count can only increase and never drop. Makes sense, as you don&rsquo;t want data to be removed in the public database, just becaused the user de-installed the app. (Sidenode, if you uninstall an app from your phone, It give the standard warning that all app data will be removed, but as far as I can see, uninstalling an app doesn&rsquo;t affect the public or private data in the CloudKit container of the app.</p>
-
-<p>Public asset and databage storage is pooled, and so is are the data transfers. Private asset and database storage is not counted as this data resides on the iCloud account of the user. Hurray! Though it&rsquo;s not clear yet clear if that also implies that all private data transfer does not count. I sure hope so.</p>
-
-<p>And regarding the data tranfer plan. Do they mean data in, data out or both? Again, no official information yet. Optimistic case Data out only, but Data IN &amp; OUT is very likely.</p>
-
-<p>Other things that are not clear yet:</p>
+<p>Screenshots:</p>
 
 <ul>
-<li></li>
-<li>What happens when you reach limits? Will your app be broken for your users when the daily tranfer limits are overrun? No official information yet, but my guess is that Apple will allow an incidental overrun of limits, and they will give you a call when there is a structural overrun of limits. They want happy App users as much as you, so these limits are probably soft limits, with higher hard limits to prevent abuse.</li>
-<li>It&rsquo;s not yet possible to get insight in real world data usage, even on development, as Apple did not yet enable usage stats on the CloudKit dashboard. Let&rsquo;s see if they can get that out for the fall release.</li>
-<li>In the iCloud documentation, Apple says you can call them for custom (premium?) plans. I&rsquo;ve just send them a request for more information. Until I get a response, it&rsquo;s unclear what the non-free/custom options are.</li>
+<li>Running records</li>
+<li>Configurable audio cues</li>
+<li>Limited custom training options</li>
 </ul>
 
+
+<p>Things I like:</p>
+
+<p>Audio Cues: must have feature and very configurable</p>
+
+<p>During running, Your phone is probably stowed away in an arband.  It&rsquo;s not as easy to look at and control your phone. Making it difficult.. That&rsquo;s why Runkeeper has audio cues. A woman voice will give you useful data like your overall time and distance, average pace &amp; speed, current pace &amp; speed and split pace &amp; speed. The audio cues are very configurable. During training I like to get an update every 5 minutes, with my overall time and distance, and my current and my split pace. During the audio cue any music will be slitly muted, so you can hear it probably.  On my previous (and first ever) race, I set it to 2 minutes, so I&rsquo;m sure I stick to my pace.</p>
+
+<p>Personal records are great motivators.</p>
+
+<p>As I just started running, and you make a lot of progress, Runkeeper will show me almost on every run something to celebrate or motivate me. Things like distance, calories burned, split places, avarage speed. [screenshot here].</p>
+
+<p>Sharing with Facebook and Twitter of great runs.</p>
+
+<p>Great that your activities are visible on their website.
+Doesn&rsquo;t crash during running. I did have that problem on my iPhone4, but that hardware is ancient.</p>
+
+<p>Free plan offers a lot of value, even for heavy users.</p>
+
+<p>Things that can be improved:</p>
+
+<p>Limited custom training options, my workaround is not to track the whole training, but only the important parts.
+Audio cues timings are off
+Elite upgrade price per month high and for me didn&rsquo;t add that much value.
+Warmup duration cannot be changed. 5 minutes is not sufficient.</p>
+
+<p>Things I didn&rsquo;t use yet:</p>
+
+<p>Adding routes. During my warmup I generally decide on a direction. I do look at google Maps for inspiration.
+Adding music.
+Friends.
+Broadcasting my run to friends.</p>
 </div>
 
 
@@ -230,7 +192,7 @@
   
 
 
-<time datetime="2014-06-13T10:32:45+02:00" pubdate data-updated="true">Jun 13<span>th</span>, 2014</time>
+<time datetime="2014-07-23T09:21:22+02:00" pubdate data-updated="true">Jul 23<span>rd</span>, 2014</time>
       
 
 
@@ -238,7 +200,7 @@
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2014/07/23/runkeeper-review/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2014/07/23/runkeeper-review/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -249,10 +211,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/05/08/5-great-pomodoro-apps-for-mac/" title="Previous Post: 5 great Pomodoro Apps for Mac">&laquo; 5 great Pomodoro Apps for Mac</a>
+        <a class="basic-alignment left" href="/blog/2014/06/13/cloudkit-storage-and-data-transfers/" title="Previous Post: Notes on CloudKit Storage and Data Transfers">&laquo; Notes on CloudKit Storage and Data Transfers</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/07/23/runkeeper-review/" title="next Post: Runkeeper review">Runkeeper review &raquo;</a>
       
     </p>
   </footer>
@@ -282,8 +242,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/';
-        var disqus_url = 'http://blog.equanimity.nl/blog/2014/06/13/cloudkit-storage-and-data-transfers/';
+        var disqus_identifier = 'http://blog.equanimity.nl/blog/2014/07/23/runkeeper-review/';
+        var disqus_url = 'http://blog.equanimity.nl/blog/2014/07/23/runkeeper-review/';
         var disqus_script = 'embed.js';
       
     (function () {
