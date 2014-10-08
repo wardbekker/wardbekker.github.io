@@ -1,0 +1,81 @@
+---
+layout: post
+title: "CloudKit"
+date: 2014-06-13 09:45:29 +0200
+comments: true
+categories:
+published: false
+---
+
+Why CloudKit is cool for users
+- No onboarding
+- Friend discovery
+- Privacy
+- 
+
+Why Cloudkit is cool for developers.
+
+
+
+
+Is Cloudkit Evil?
+- Vendor lock-in argument is easy to make
+-- Apple does the full banana, which enables them to offer such a powerfull, seamless experience. Control. Also, without vendor support this level of integration and ease of use is near impossible. 
+- Current CloudKit is a walled garden, no API call provided to share images a la instagram, webhooks or other external consumable API. 
+-- I can think of several reasons why this is now the case:
+--- CloudKit is not even 1.0. The current scope of CloudKit is already huge. You  
+
+
+Free, with Limits
+- Plan details.
+- Some example user calculations.
+- Active users vs all time user.
+- Private vs public data.
+- Unclear what happens when limit is reached. No stats visible (yet)
+- Unclear what the limits are in development mode.
+- Unclear how to view the DB limits, they might be generous, but as there are no usage stats yet, no conclusion can be made.
+- Because premium plans are not announced, it's not sure what will happen when you go over the current thresholds. My optimistic guess is when you have a nice, representative app that is pretty popular and communicates efficiently with CloudKit, Apple is more than happy to relax some of the limit for you. They like a nice showcase for their system.
+- Efficiency tips
+-- Only query for what you need
+-- Cache retrieved data and assets
+-- Use subscriptions to invalidate caches and get fresh data.
+-- Downsample iPhone images. Don't let users store video's or big files in the public database.
+
+
+
+
+Missing stuff
+- Aggregate queries
+- Usage stats
+- Record pagination (?)
+- Server side logic or trigger. They do have cascading delete.
+- Public sharing of assets.
+
+
+
+- Some calculations on the allotments
+
+Why I think Cloudkit matters
+- iCloud user system.
+
+
+Current Cloudkit sweetspot
+
+
+CloudKit alternatives
+
+
+
+
+
+Current limitations:
+
+- no usage stats
+- not clear what development limits are
+-
+
+Video and PDF links + link to cloudkit announcement, API details, Sample application
+
+See also
+- Brent notes.
+- 
