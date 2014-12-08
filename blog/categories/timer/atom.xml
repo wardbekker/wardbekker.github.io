@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: pomodoro | Ward Bekker]]></title>
-  <link href="http://blog.equanimity.nl/blog/categories/pomodoro/atom.xml" rel="self"/>
+  <title><![CDATA[Category: timer | Ward Bekker]]></title>
+  <link href="http://blog.equanimity.nl/blog/categories/timer/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
   <updated>2014-12-08T14:27:42+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
