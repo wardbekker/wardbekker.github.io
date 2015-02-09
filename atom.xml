@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2014-12-08T14:29:10+01:00</updated>
+  <updated>2015-02-09T16:05:31+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -48,6 +48,7 @@
 <h2>And you might also like..</h2>
 
 <ul>
+<li><a href="http://appfelstrudel.com/q-Pomodoro-Apps-for-iPhone-and-iPad.html">Top 20 Pomodoro Timer Apps for iPhone &amp; iPad</a></li>
 <li><strong>Pomodrone</strong>. Pretty, but a bit to basic. <a href="https://itunes.apple.com/us/app/pomodrone/id733300214?mt=8&uo=4&at=10lGf" target="itunes_store" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets//images/web/linkmaker/badge_appstore-sm.png) no-repeat;width:61px;height:15px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets//images/web/linkmaker/badge_appstore-sm.svg);}"></a></li>
 <li><strong>Flat Tomato</strong>. Again, very pretty, but non-intuative because of it&rsquo;s unconventional user interface. <a href="https://itunes.apple.com/us/app/flat-tomato-time-management/id719462746?mt=8&uo=4" target="itunes_store" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets//images/web/linkmaker/badge_appstore-sm.png) no-repeat;width:61px;height:15px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets//images/web/linkmaker/badge_appstore-sm.svg);}"></a></li>
 </ul>
@@ -1953,7 +1954,53 @@ to locate the bottlenecks. Below a truncated
 sample of an actual fprof trace.</p>
 
 <div><script src='https://gist.github.com/5458222.js'></script>
-<noscript><pre><code></code></pre></noscript></div>
+<noscript><pre><code>%% Analysis results:
+{  analysis_options,
+ [{callers, true},
+  {sort, acc},
+  {totals, false},
+  {details, true}]}.
+
+%                                               CNT       ACC       OWN        
+[{ totals,                                     275978,  888.505,  872.193}].  %%%
+
+
+%                                               CNT       ACC       OWN        
+[{ &quot;&lt;7082.15229.0&gt;&quot;,                           275978,undefined,  872.193}].   %%
+
+{[{{qlc,eval,2},                                  0,  843.539,    0.148},      
+  {{mnesia_tm,execute_transaction,5},            48,   14.085,    0.128}],     
+ { {mnesia_tm,apply_fun,3},                      48,  857.624,    0.276},     %
+ [{{mnesia_tm,execute_transaction,5},             0,  837.267,    0.479},      
+  {{search_index,'-get_document_field_value/1-fun-13-',1},  46,  689.082,    0.259},      
+  {{mnesia_tm,t_commit,1},                       48,    6.327,    0.361},      
+  {{search_index,'-get_field_facet_document/2-fun-1-',1},   1,    1.397,    0.002},      
+  {{search_index,'-get_term_document_field_frequencies/1-fun-0-',1},   1,    0.114,    0.002}]}.    
+
+{[{{qlc,post_funs,1},                            46,  844.225,    0.083},      
+  {{qlc,eval,1},                                 46,   12.254,    0.963}],     
+ { {qlc,eval,2},                                 92,  856.479,    1.046},     %
+ [{{mnesia_tm,apply_fun,3},                       0,  843.539,    0.148},      
+  {{qlc,collect,1},                              46,  630.839,    0.176},      
+  {{qlc,prepare_qlc,7},                          46,   33.384,    0.399},      
+  {{qlc,setup_qlc,2},                            46,    5.028,    0.086},      
+  {{qlc,options,2},                              46,    4.862,    0.093},      
+  {{qlc,local_post,1},                           46,    0.603,    0.086},      
+  {{qlc,get_handle,1},                           46,    0.087,    0.087},      
+  {{qlc,post_funs,1},                            46,    0.022,    0.075}]}.    
+
+{[{{mnesia_tm,apply_fun,3},                       0,  837.267,    0.479},      
+  {{mnesia_tm,execute_outer,6},                  48,   14.139,    0.140}],     
+ { {mnesia_tm,execute_transaction,5},            48,  851.406,    0.619},     %
+ [{{search_index,get_document_field_value,1},     0,  835.968,    0.077},      
+  {{mnesia_tm,apply_fun,3},                      48,   14.085,    0.128},      
+  {{mnesia_lib,incr_counter,1},                  48,    0.333,    0.156},      
+  {{erlang,unlink,1},                            48,    0.281,    0.281},      
+  {{mnesia_tm,flush_downs,0},                    48,    0.086,    0.086},      
+  {{erlang,whereis,1},                           48,    0.073,    0.073},      
+  {{erlang,erase,1},                             48,    0.004,    0.078}]}.    
+
+%% 1714 lines truncated </code></pre></noscript></div>
 
 
 <h2>KCachegrind</h2>
