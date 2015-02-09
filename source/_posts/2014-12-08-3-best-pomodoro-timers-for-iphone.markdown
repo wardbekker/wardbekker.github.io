@@ -35,5 +35,6 @@ Focus time isn't the most visually appealing app, but does offer you a detailed 
 
 ## And you might also like..
 
+- [Top 20 Pomodoro Timer Apps for iPhone & iPad](http://appfelstrudel.com/q-Pomodoro-Apps-for-iPhone-and-iPad.html)
 - **Pomodrone**. Pretty, but a bit to basic. <a href="https://itunes.apple.com/us/app/pomodrone/id733300214?mt=8&uo=4&at=10lGf" target="itunes_store" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets//images/web/linkmaker/badge_appstore-sm.png) no-repeat;width:61px;height:15px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets//images/web/linkmaker/badge_appstore-sm.svg);}"></a>
 - **Flat Tomato**. Again, very pretty, but non-intuative because of it's unconventional user interface. <a href="https://itunes.apple.com/us/app/flat-tomato-time-management/id719462746?mt=8&uo=4" target="itunes_store" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets//images/web/linkmaker/badge_appstore-sm.png) no-repeat;width:61px;height:15px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets//images/web/linkmaker/badge_appstore-sm.svg);}"></a>
