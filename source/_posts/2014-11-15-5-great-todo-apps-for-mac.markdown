@@ -53,4 +53,6 @@ With 2DO you can keep your lists secret by password protecting the whole app, or
 
 <a href="https://itunes.apple.com/nl/app/2do/id477670270?l=en&mt=12&at=10lGfI" target="itunes_store" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_macappstore-lrg.png) no-repeat;width:165px;height:40px;@media only screen{background-image:url(https://linkmaker.itunes.apple.com/htmlResources/assets/en_us//images/web/linkmaker/badge_macappstore-lrg.svg);}"></a>
 
+## And you might also like..
 
+- [Top 20 Pomodoro Timer Apps for iPhone & iPad](http://appfelstrudel.com/q-Pomodoro-Apps-for-iPhone-and-iPad.html)
