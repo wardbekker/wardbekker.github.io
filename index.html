@@ -10,7 +10,7 @@
   <a href="https://plus.google.com/104578455602310184371" rel="publisher" />
 
   
-  <meta name="description" content="There are plenty of Pomodoro apps out there, but only a few great ones. If you are a fan of the Pomodoro technique, you probably should be using one &hellip;">
+  <meta name="description" content="Erlang ‘One weird trick’ Goodiebag (Draft) I&rsquo;ve asked the Erlang twittersphere what they think every Erlang developer should know about. The &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,311 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/03/15/erlang-one-weird-trick-goodiebag/">Erlang ‘One Weird Trick’ Goodiebag</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-15T08:47:22+01:00" pubdate data-updated="true">Mar 15<span>th</span>, 2015</time>
+        
+         | <a href="/blog/2015/03/15/erlang-one-weird-trick-goodiebag/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h1>Erlang ‘One weird trick’ Goodiebag (Draft)</h1>
+
+<p>I&rsquo;ve asked the Erlang twittersphere what they think every Erlang developer should know about. The result is this Erlang random goodiebag. I would love to hear you &lsquo;One weird trick&rsquo; in the comments!</p>
+
+<p><a href="https://twitter.com/wardbekker">Follow me on Twitter</a></p>
+
+<h2>etop &ndash; Erlang Top</h2>
+
+<p>Erlang Top, <code>etop</code> is an Erlang application for presenting information about erlang processes similar to the information presented by <code>top</code> in UNIX.</p>
+
+<p>You start it with the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>erl -sname etop  -hidden -s etop -s erlang halt -output text node@host</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(Replace <code>node@host</code> with the correct node name).</p>
+
+<p>Output shows you the CPU load, memory allocation and more:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Erlang/OTP 17 [erts-6.3] [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>Eshell V6.3  (abort with ^G)
+</span><span class='line'>(etop@appfelstrudelUSA)1&gt;
+</span><span class='line'>========================================================================================
+</span><span class='line'> etop@appfelstrudelUSA                                                     07:32:52
+</span><span class='line'>  Load:  cpu         0               Memory:  total       12642    binary        699
+</span><span class='line'>          procs      34                        processes    4315    code         4321
+</span><span class='line'>                  runq        0                        atom          198    ets           240
+</span><span class='line'>
+</span><span class='line'>Pid            Name or Initial Func    Time    Reds  Memory    MsgQ Current Function
+</span><span class='line'>----------------------------------------------------------------------------------------
+</span><span class='line'>&lt;0.3.0&gt;        erl_prim_loader          '-'  159565  109232       0 erl_prim_loader:loop
+</span><span class='line'>&lt;0.26.0&gt;       code_server              '-'   88670  142784       0 code_server:loop/1
+</span><span class='line'>&lt;0.11.0&gt;       kernel_sup               ‘-‘   53137  197408       0 gen_server:loop/6
+</span><span class='line'>&lt;0.7.0&gt;        application_controll     ‘-‘    6790  263984       0 gen_server:loop/6
+</span><span class='line'>&lt;0.0.0&gt;        init                     ‘-‘    5223   18624       0 init:boot_loop/2
+</span><span class='line'>&lt;0.33.0&gt;       erlang:apply/2           ‘-‘    4026  197048       0 shell:get_command1/5
+</span><span class='line'>&lt;0.2.0&gt;        etop_server              ‘-‘    1622   34360       0 etop:data_handler/2
+</span><span class='line'>&lt;0.20.0&gt;       auth                     ‘-‘     831    7688       0 gen_server:loop/6
+</span><span class='line'>&lt;0.21.0&gt;       net_kernel               ‘-‘     710    7136       0 gen_server:loop/6
+</span><span class='line'>&lt;0.30.0&gt;       user_drv                 ‘-‘     409   13800       0 user_drv:server_loop
+</span><span class='line'>========================================================================================</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://www.erlang.org/doc/apps/observer/etop_ug.html">More information about <code>etop</code> can be found in the docs</a></p>
+
+<p>h/t to <a href="https://twitter.com/mmzeeman">@mmzeeman</a></p>
+
+<h2>Erlang Remote Shell</h2>
+
+<p>As you can <code>ssh</code> into another server, you can also connect to the <a href="http://www.erlang.org/doc/man/shell.html">shell</a> of a remote Erlang node. This allows you to inspect the live state of the system. Very powerful.</p>
+
+<p>Below an example session where stop the <code>mnesia</code> application on the live node from the remote shell</p>
+
+<p>Start up the ‘live’ node and start the <code>mnesia</code> application:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$&gt; erl -sname live@localhost
+</span><span class='line'>Erlang/OTP 17 [erts-6.2] [source-aaaefb3] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>Eshell V6.2  (abort with ^G)
+</span><span class='line'>(live@localhost)1&gt; application:start(mnesia).
+</span><span class='line'>ok
+</span><span class='line'>(live@localhost)2&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In another terminal window, connect to the live shell and try to start mnesia again. Notice it is already started, and we can stop the application.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$&gt; erl -remsh live@localhost -sname debug@localhost
+</span><span class='line'>Erlang/OTP 17 [erts-6.2] [source-aaaefb3] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>Eshell V6.2  (abort with ^G)
+</span><span class='line'>(live@localhost)1&gt; application:start(mnesia).
+</span><span class='line'>{error,{already_started,mnesia}}
+</span><span class='line'>(live@localhost)2&gt; application:stop(mnesia).
+</span><span class='line'>ok
+</span><span class='line'>(live@localhost)2&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice the info report on the previous terminal:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>live@localhost)2&gt;
+</span><span class='line'>=INFO REPORT==== 11-Mar-2015::09:46:08 ===
+</span><span class='line'>application: mnesia
+</span><span class='line'>exited: stopped
+</span><span class='line'>type: temporary
+</span><span class='line'>=INFO REPORT==== 11-Mar-2015::09:46:08 ===</span></code></pre></td></tr></table></div></figure>
+
+
+<p>h/t to <a href="https://twitter.com/aeden">@aeden</a></p>
+
+<h2>Throw As Default Value</h2>
+
+<p>Erlang, and OTP, is build on the coding philosophy <a href="http://c2.com/cgi/wiki?LetItCrash">“Let It Crash”</a>. The view is that you don’t need to program defensively. If there are any errors, the process is automatically terminated, and this is reported to any processes that were monitoring the crashed process. In fact, defensive programming in Erlang is frowned upon.</p>
+
+<p>Record fields that are not given a value, are initialized with the value <code>undefined</code>. Like <code>null</code> in other programming languages, <code>undefined</code> is <a href="http://c2.com/cgi/wiki?NullIsaHack">considered a hack</a>.</p>
+
+<p>So to prevent <code>undefined</code> field values in records, why not just make throw the default?</p>
+
+<p>Example module:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">test</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">do1</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">do2</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">foobar</span><span class="p">,</span> <span class="p">{</span> <span class="n">bla</span> <span class="o">=</span> <span class="n">throw</span><span class="p">(</span><span class="err">“</span><span class="n">record</span> <span class="n">field</span> <span class="ow">not</span> <span class="n">assigned</span> <span class="n">a</span> <span class="n">value</span><span class="err">”</span><span class="p">)</span> <span class="p">}).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">do1</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="nv">F</span> <span class="o">=</span> <span class="nl">#foobar</span><span class="p">{},</span>
+</span><span class='line'>        <span class="nv">F</span><span class="nl">#foobar.bla</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">do2</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="nv">F</span> <span class="o">=</span> <span class="nl">#foobar</span><span class="p">{</span> <span class="n">bla</span> <span class="o">=</span> <span class="err">“</span><span class="n">orange</span><span class="err">”</span><span class="p">},</span>
+</span><span class='line'>        <span class="nv">F</span><span class="nl">#foobar.bla</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">test</span><span class="p">:</span><span class="nf">do1</span><span class="p">().</span>
+</span><span class='line'><span class="o">**</span> <span class="n">exception</span> <span class="nn">throw</span><span class="p">:</span> <span class="err">“</span><span class="n">record</span> <span class="n">field</span> <span class="ow">not</span> <span class="n">assigned</span> <span class="n">a</span> <span class="n">value</span><span class="err">”</span>
+</span><span class='line'><span class="n">in</span> <span class="n">function</span>  <span class="nn">test</span><span class="p">:</span><span class="n">do1</span><span class="o">/</span><span class="mi">0</span> <span class="p">(</span><span class="n">test</span><span class="p">.</span><span class="n">erl</span><span class="p">,</span> <span class="n">line</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class='line'><span class="mi">3</span><span class="o">&gt;</span> <span class="nn">test</span><span class="p">:</span><span class="nf">do2</span><span class="p">().</span>
+</span><span class='line'><span class="err">“</span><span class="n">orange</span><span class="err">”</span>
+</span><span class='line'><span class="mi">4</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>h/t to <a href="https://twitter.com/lambdadmitry">@lambdadmitry</a></p>
+
+<h2>List Comprehension without generators</h2>
+
+<p>A typical <a href="http://www.erlang.org/doc/programming_examples/list_comprehensions.html">list comprehension</a> expression, like <code>Xs = [X ||| X &lt;- [1,2,3]]</code>, contains the generator <code>X &lt;- [1,2,3]</code>. But a list comprehension is <em>not required</em> to contain one or more generators.</p>
+
+<p>This allows you to rewrite this case expression:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nv">Z</span> <span class="o">=</span> <span class="k">case</span> <span class="nv">Y</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">of</span>
+</span><span class='line'>      <span class="n">true</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nv">X</span><span class="p">];</span>
+</span><span class='line'>      <span class="n">false</span> <span class="o">-&gt;</span> <span class="p">[]</span>
+</span><span class='line'>   <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Into this short list comprehension: <code>Z = [X || Y &gt; 2]</code>.</p>
+
+<p>A real world example of this pattern can be found in the OTP code base:</p>
+
+<p><a href="https://github.com/erlang/otp/blob/735871e6/lib/compiler/src/compile.erl#L1713-1714">https://github.com/erlang/otp/..src/compile.erl#L1713-1714</a>
+<a href="https://github.com/erlang/otp/blob/735871e6/lib/compiler/src/v3_codegen.erl#L970-973">https://github.com/erlang/otp/..src/v3_codegen.erl#L970-973</a></p>
+
+<p>h/t to <a href="https://twitter.com/nokusu">@nokusu</a></p>
+
+<h2>Inspecting process status in remote shell</h2>
+
+<p>With <a href="http://www.erlang.org/doc/man/sys.html#get_status-1"><code>sys:get_status</code></a> you can quickly inspect the process status on your live node through <a href="#erlang-remote-shell-by-aeden">a remote shell</a>.</p>
+
+<p>Below we inspect the status of a sample <code>test_foo_ser</code> process, which implements the <code>gen_server</code> behaviour. Among the information we get the callback module’s state <code>{“State”,{state,”bar”,”oranges”}</code>. A <code>gen_fsm</code> process returns information such as its current state name and state data, and a <code>gen_event</code> process returns information about each of its registered handlers.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">sys</span><span class="p">:</span><span class="nf">get_status</span><span class="p">(</span><span class="n">test_foo_ser</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">status</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">38</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span>
+</span><span class='line'><span class="p">{</span><span class="n">module</span><span class="p">,</span><span class="n">gen_server</span><span class="p">},</span>
+</span><span class='line'><span class="p">[[{</span><span class="err">‘</span><span class="sc">$a</span><span class="n">ncestors</span><span class="err">’</span><span class="p">,[</span><span class="n">test_sup</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">36</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">]},</span>
+</span><span class='line'><span class="p">{</span><span class="err">‘</span><span class="sc">$i</span><span class="n">nitial_call</span><span class="err">’</span><span class="p">,{</span><span class="n">test_foo_ser</span><span class="p">,</span><span class="n">init</span><span class="p">,</span><span class="mi">1</span><span class="p">}}],</span>
+</span><span class='line'><span class="n">running</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">37</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,[],</span>
+</span><span class='line'><span class="p">[{</span><span class="n">header</span><span class="p">,</span><span class="err">”</span><span class="nv">Status</span> <span class="n">for</span> <span class="n">generic</span> <span class="n">server</span> <span class="n">test_foo_ser</span><span class="err">”</span><span class="p">},</span>
+</span><span class='line'><span class="p">{</span><span class="n">data</span><span class="p">,[{</span><span class="err">“</span><span class="nv">Status</span><span class="err">”</span><span class="p">,</span><span class="n">running</span><span class="p">},</span>
+</span><span class='line'><span class="p">{</span><span class="err">“</span><span class="nv">Parent</span><span class="err">”</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">37</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">},</span>
+</span><span class='line'><span class="p">{</span><span class="err">“</span><span class="nv">Logged</span> <span class="n">events</span><span class="err">”</span><span class="p">,[]}]},</span>
+</span><span class='line'><span class="p">{</span><span class="n">data</span><span class="p">,[{</span><span class="err">“</span><span class="nv">State</span><span class="err">”</span><span class="p">,{</span><span class="n">state</span><span class="p">,</span><span class="err">”</span><span class="n">bar</span><span class="err">”</span><span class="p">,</span><span class="err">”</span><span class="n">oranges</span><span class="err">”</span><span class="p">}}]}]]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>h/t to <a href="https://twitter.com/OliverFerrigni">@OliverFerrigni</a></p>
+
+<h2>Recon, dialyzer, quickcheck &amp; use iolists to save memory</h2>
+
+<p>A bunch of good tips by <a href="https://twitter.com/zkessin">@zkessin</a>:</p>
+
+<ul>
+<li>Recon (<a href="http://ferd.github.io/recon/">docs</a>, <a href="https://github.com/ferd/recon">github</a>) aims “to be a set of tools usable in production to diagnose Erlang problems or inspect production environment <em>safely</em>”. Safely, as you don’t want to endanger the uptime of a live node.</li>
+<li>Dialyzer: In the past, very smart people tried to come up with a good static type system for Erlang. They couldn’t create one without throwing away some of Erlang’s magic, like hot code loading. Bummer, dude. Instead you can add type-annotations to your code, and check them with a tool called <a href="http://learnyousomeerlang.com/dialyzer">Dialyzer</a>. It’s a sweet alternative to a static type system.</li>
+<li>Quickcheck: Unit testing is nice, but it has a big weakness for which Quickcheck is the solution. I’ve tried to explain this issue in a previous post <a href="http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Continuous Integration for Erlang With Travis-CI</a>. Also, <a href="https://twitter.com/zkessin">@zkessin</a> just published a <a href="http://www.erlang-quickcheck-book.com">Testing Erlang With Quickcheck e-book</a> that you might want to check out.</li>
+<li>Using iolists to save memory. //TODO</li>
+</ul>
+
+
+<h2>Observer via X11</h2>
+
+<p>//TODO</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -897,153 +1202,6 @@
 <li><a href="https://github.com/Quviq/webdrv">Erlang Webdrvr Github repository</a></li>
 <li><a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium Webdriver documentation</a></li>
 </ul>
-
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">Erlang R17-rc1 on OSX Mavericks With WX and a Working Observer</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-09T08:53:00+01:00" pubdate data-updated="true">Feb 9<span>th</span>, 2014</time>
-        
-         | <a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>Update 15 April 2014</strong> Erlang/OTP 17.0 is released. <a href="/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/">Read the updated HOWTO here</a>.</p>
-
-<p><strong>Update 11 Feb 2014</strong> <a href="https://twitter.com/SpiffDgud">Dan GudMundsson</a> pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of this blog post with the instructions found in the official <a href="https://github.com/erlang/otp/blob/maint/HOWTO/INSTALL.md">Erlang/OTP installation HOWTO</a>.</p>
-
-<p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r16b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a> by <a href="https://twitter.com/MSch">Martin Schuerrer</a></p>
-
-<p>Erlang R17-rc1 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
-
-<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-R17, especially for 64-bit Erlang. However, R17 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
-
-<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
-
-<h2>Set correct Xcode path for compilation</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select -s /Applications/Xcode.app/Contents/Developer
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>or if you installed a beta version (in my case <code>51-Beta5</code>):</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Install wxWidgets</h2>
-
-<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
-
-<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
-</span><span class='line'><span class="nv">$ </span>tar xvjf wxWidgets-3.0.0.tar.bz2
-</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>wxWidgets-3.0.0.tar.bz2
-</span><span class='line'><span class="nv">$ </span>./configure --with-cocoa --prefix<span class="o">=</span>/usr/local
-</span><span class='line'><span class="nv">$ </span>make <span class="o">&amp;&amp;</span> sudo make install
-</span><span class='line'><span class="nv">$ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Check that you got the correct wx-config</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>which wx-config
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Install kerl</h2>
-
-<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O https://raw.github.com/spawngrid/kerl/master/kerl
-</span><span class='line'><span class="nv">$ </span>chmod a+x kerl
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
-
-<p>Add these lines:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">KERL_CONFIGURE_OPTIONS</span><span class="o">=</span><span class="s2">&quot;--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx&quot;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Build &amp; Install Erlang with kerl</h2>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl update releases
-</span><span class='line'><span class="nv">$ </span>kerl build 17.0-rc1 17rc1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;-arch i386&quot;</span> kerl build 17.0-rc1 17rc1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Install:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl install 17rc1 ~/17rc1
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Activate:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>. ~/17rc1/activate
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And bliss out on your new wx-enabled Erlang:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>erl -s observer start
-</span></code></pre></td></tr></table></div></figure>
 
 </div>
   

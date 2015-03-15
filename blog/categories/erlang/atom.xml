@@ -4,7 +4,7 @@
   <title><![CDATA[Category: erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2015-03-15T08:55:46+01:00</updated>
+  <updated>2015-03-15T08:57:20+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -30,7 +30,7 @@
 
 <p>You start it with the following command:</p>
 
-<p><code>shell
+<p><code>
 erl -sname etop  -hidden -s etop -s erlang halt -output text node@host
 </code></p>
 
@@ -38,7 +38,7 @@ erl -sname etop  -hidden -s etop -s erlang halt -output text node@host
 
 <p>Output shows you the CPU load, memory allocation and more:</p>
 
-<p>```shell
+<p>```
 Erlang/OTP 17 [erts-6.3] [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [kernel-poll:false]</p>
 
 <p>Eshell V6.3  (abort with ^G)</p>
@@ -80,7 +80,7 @@ Erlang/OTP 17 [erts-6.3] [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [
 
 <p>Start up the ‘live’ node and start the <code>mnesia</code> application:</p>
 
-<p>```shell
+<p>```
 $> erl -sname live@localhost
 Erlang/OTP 17 [erts-6.2] [source-aaaefb3] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]</p>
 
@@ -92,7 +92,7 @@ ok
 
 <p>In another terminal window, connect to the live shell and try to start mnesia again. Notice it is already started, and we can stop the application.</p>
 
-<p>```shell
+<p>```
 $> erl -remsh live@localhost -sname debug@localhost
 Erlang/OTP 17 [erts-6.2] [source-aaaefb3] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]</p>
 

@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Erlang ‘One weird trick’ Goodiebag - Ward Bekker</title>
+  <meta name="author" content="Ward Bekker">
+  <a href="https://plus.google.com/104578455602310184371" rel="publisher" />
+
+  
+  <meta name="description" content="Erlang ‘One weird trick’ Goodiebag (Draft) I&rsquo;ve asked the Erlang twittersphere what they think every Erlang developer should know about. The &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag">
+
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
+<link rel="icon" type="image/png" href="favicon-196x196.png" sizes="196x196" />
+<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+<link rel="icon" type="image/png" href="favicon-128.png" sizes="128x128" />
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+
+  
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Ward Bekker" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-40429950-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   class="no-sidebar"  >
+  <header role="banner"><hgroup>
+  <h1>Ward Bekker</h1>
+  
+    <h2><a href="/">WB</a></h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation">
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.equanimity.nl" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Home</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/about">About Me</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Erlang ‘One Weird Trick’ Goodiebag</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-15T08:47:22+01:00" pubdate data-updated="true">Mar 15<span>th</span>, 2015</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h1>Erlang ‘One weird trick’ Goodiebag (Draft)</h1>
+
+<p>I&rsquo;ve asked the Erlang twittersphere what they think every Erlang developer should know about. The result is this Erlang random goodiebag. I would love to hear you &lsquo;One weird trick&rsquo; in the comments!</p>
+
+<p><a href="https://twitter.com/wardbekker">Follow me on Twitter</a></p>
+
+<h2>etop &ndash; Erlang Top</h2>
+
+<p>Erlang Top, <code>etop</code> is an Erlang application for presenting information about erlang processes similar to the information presented by <code>top</code> in UNIX.</p>
+
+<p>You start it with the following command:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>erl -sname etop  -hidden -s etop -s erlang halt -output text node@host</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(Replace <code>node@host</code> with the correct node name).</p>
+
+<p>Output shows you the CPU load, memory allocation and more:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Erlang/OTP 17 [erts-6.3] [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>Eshell V6.3  (abort with ^G)
+</span><span class='line'>(etop@appfelstrudelUSA)1&gt;
+</span><span class='line'>========================================================================================
+</span><span class='line'> etop@appfelstrudelUSA                                                     07:32:52
+</span><span class='line'>  Load:  cpu         0               Memory:  total       12642    binary        699
+</span><span class='line'>          procs      34                        processes    4315    code         4321
+</span><span class='line'>                  runq        0                        atom          198    ets           240
+</span><span class='line'>
+</span><span class='line'>Pid            Name or Initial Func    Time    Reds  Memory    MsgQ Current Function
+</span><span class='line'>----------------------------------------------------------------------------------------
+</span><span class='line'>&lt;0.3.0&gt;        erl_prim_loader          '-'  159565  109232       0 erl_prim_loader:loop
+</span><span class='line'>&lt;0.26.0&gt;       code_server              '-'   88670  142784       0 code_server:loop/1
+</span><span class='line'>&lt;0.11.0&gt;       kernel_sup               ‘-‘   53137  197408       0 gen_server:loop/6
+</span><span class='line'>&lt;0.7.0&gt;        application_controll     ‘-‘    6790  263984       0 gen_server:loop/6
+</span><span class='line'>&lt;0.0.0&gt;        init                     ‘-‘    5223   18624       0 init:boot_loop/2
+</span><span class='line'>&lt;0.33.0&gt;       erlang:apply/2           ‘-‘    4026  197048       0 shell:get_command1/5
+</span><span class='line'>&lt;0.2.0&gt;        etop_server              ‘-‘    1622   34360       0 etop:data_handler/2
+</span><span class='line'>&lt;0.20.0&gt;       auth                     ‘-‘     831    7688       0 gen_server:loop/6
+</span><span class='line'>&lt;0.21.0&gt;       net_kernel               ‘-‘     710    7136       0 gen_server:loop/6
+</span><span class='line'>&lt;0.30.0&gt;       user_drv                 ‘-‘     409   13800       0 user_drv:server_loop
+</span><span class='line'>========================================================================================</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://www.erlang.org/doc/apps/observer/etop_ug.html">More information about <code>etop</code> can be found in the docs</a></p>
+
+<p>h/t to <a href="https://twitter.com/mmzeeman">@mmzeeman</a></p>
+
+<h2>Erlang Remote Shell</h2>
+
+<p>As you can <code>ssh</code> into another server, you can also connect to the <a href="http://www.erlang.org/doc/man/shell.html">shell</a> of a remote Erlang node. This allows you to inspect the live state of the system. Very powerful.</p>
+
+<p>Below an example session where stop the <code>mnesia</code> application on the live node from the remote shell</p>
+
+<p>Start up the ‘live’ node and start the <code>mnesia</code> application:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$&gt; erl -sname live@localhost
+</span><span class='line'>Erlang/OTP 17 [erts-6.2] [source-aaaefb3] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>Eshell V6.2  (abort with ^G)
+</span><span class='line'>(live@localhost)1&gt; application:start(mnesia).
+</span><span class='line'>ok
+</span><span class='line'>(live@localhost)2&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In another terminal window, connect to the live shell and try to start mnesia again. Notice it is already started, and we can stop the application.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$&gt; erl -remsh live@localhost -sname debug@localhost
+</span><span class='line'>Erlang/OTP 17 [erts-6.2] [source-aaaefb3] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
+</span><span class='line'>
+</span><span class='line'>Eshell V6.2  (abort with ^G)
+</span><span class='line'>(live@localhost)1&gt; application:start(mnesia).
+</span><span class='line'>{error,{already_started,mnesia}}
+</span><span class='line'>(live@localhost)2&gt; application:stop(mnesia).
+</span><span class='line'>ok
+</span><span class='line'>(live@localhost)2&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Notice the info report on the previous terminal:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>live@localhost)2&gt;
+</span><span class='line'>=INFO REPORT==== 11-Mar-2015::09:46:08 ===
+</span><span class='line'>application: mnesia
+</span><span class='line'>exited: stopped
+</span><span class='line'>type: temporary
+</span><span class='line'>=INFO REPORT==== 11-Mar-2015::09:46:08 ===</span></code></pre></td></tr></table></div></figure>
+
+
+<p>h/t to <a href="https://twitter.com/aeden">@aeden</a></p>
+
+<h2>Throw As Default Value</h2>
+
+<p>Erlang, and OTP, is build on the coding philosophy <a href="http://c2.com/cgi/wiki?LetItCrash">“Let It Crash”</a>. The view is that you don’t need to program defensively. If there are any errors, the process is automatically terminated, and this is reported to any processes that were monitoring the crashed process. In fact, defensive programming in Erlang is frowned upon.</p>
+
+<p>Record fields that are not given a value, are initialized with the value <code>undefined</code>. Like <code>null</code> in other programming languages, <code>undefined</code> is <a href="http://c2.com/cgi/wiki?NullIsaHack">considered a hack</a>.</p>
+
+<p>So to prevent <code>undefined</code> field values in records, why not just make throw the default?</p>
+
+<p>Example module:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">test</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">do1</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">do2</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">-</span><span class="ni">record</span><span class="p">(</span><span class="nl">foobar</span><span class="p">,</span> <span class="p">{</span> <span class="n">bla</span> <span class="o">=</span> <span class="n">throw</span><span class="p">(</span><span class="err">“</span><span class="n">record</span> <span class="n">field</span> <span class="ow">not</span> <span class="n">assigned</span> <span class="n">a</span> <span class="n">value</span><span class="err">”</span><span class="p">)</span> <span class="p">}).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">do1</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="nv">F</span> <span class="o">=</span> <span class="nl">#foobar</span><span class="p">{},</span>
+</span><span class='line'>        <span class="nv">F</span><span class="nl">#foobar.bla</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">do2</span><span class="p">()</span> <span class="o">-&gt;</span>
+</span><span class='line'>    <span class="nv">F</span> <span class="o">=</span> <span class="nl">#foobar</span><span class="p">{</span> <span class="n">bla</span> <span class="o">=</span> <span class="err">“</span><span class="n">orange</span><span class="err">”</span><span class="p">},</span>
+</span><span class='line'>        <span class="nv">F</span><span class="nl">#foobar.bla</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Output:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">test</span><span class="p">:</span><span class="nf">do1</span><span class="p">().</span>
+</span><span class='line'><span class="o">**</span> <span class="n">exception</span> <span class="nn">throw</span><span class="p">:</span> <span class="err">“</span><span class="n">record</span> <span class="n">field</span> <span class="ow">not</span> <span class="n">assigned</span> <span class="n">a</span> <span class="n">value</span><span class="err">”</span>
+</span><span class='line'><span class="n">in</span> <span class="n">function</span>  <span class="nn">test</span><span class="p">:</span><span class="n">do1</span><span class="o">/</span><span class="mi">0</span> <span class="p">(</span><span class="n">test</span><span class="p">.</span><span class="n">erl</span><span class="p">,</span> <span class="n">line</span> <span class="mi">5</span><span class="p">)</span>
+</span><span class='line'><span class="mi">3</span><span class="o">&gt;</span> <span class="nn">test</span><span class="p">:</span><span class="nf">do2</span><span class="p">().</span>
+</span><span class='line'><span class="err">“</span><span class="n">orange</span><span class="err">”</span>
+</span><span class='line'><span class="mi">4</span><span class="o">&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>h/t to <a href="https://twitter.com/lambdadmitry">@lambdadmitry</a></p>
+
+<h2>List Comprehension without generators</h2>
+
+<p>A typical <a href="http://www.erlang.org/doc/programming_examples/list_comprehensions.html">list comprehension</a> expression, like <code>Xs = [X ||| X &lt;- [1,2,3]]</code>, contains the generator <code>X &lt;- [1,2,3]</code>. But a list comprehension is <em>not required</em> to contain one or more generators.</p>
+
+<p>This allows you to rewrite this case expression:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nv">Z</span> <span class="o">=</span> <span class="k">case</span> <span class="nv">Y</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">of</span>
+</span><span class='line'>      <span class="n">true</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nv">X</span><span class="p">];</span>
+</span><span class='line'>      <span class="n">false</span> <span class="o">-&gt;</span> <span class="p">[]</span>
+</span><span class='line'>   <span class="k">end</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Into this short list comprehension: <code>Z = [X || Y &gt; 2]</code>.</p>
+
+<p>A real world example of this pattern can be found in the OTP code base:</p>
+
+<p><a href="https://github.com/erlang/otp/blob/735871e6/lib/compiler/src/compile.erl#L1713-1714">https://github.com/erlang/otp/..src/compile.erl#L1713-1714</a>
+<a href="https://github.com/erlang/otp/blob/735871e6/lib/compiler/src/v3_codegen.erl#L970-973">https://github.com/erlang/otp/..src/v3_codegen.erl#L970-973</a></p>
+
+<p>h/t to <a href="https://twitter.com/nokusu">@nokusu</a></p>
+
+<h2>Inspecting process status in remote shell</h2>
+
+<p>With <a href="http://www.erlang.org/doc/man/sys.html#get_status-1"><code>sys:get_status</code></a> you can quickly inspect the process status on your live node through <a href="#erlang-remote-shell-by-aeden">a remote shell</a>.</p>
+
+<p>Below we inspect the status of a sample <code>test_foo_ser</code> process, which implements the <code>gen_server</code> behaviour. Among the information we get the callback module’s state <code>{“State”,{state,”bar”,”oranges”}</code>. A <code>gen_fsm</code> process returns information such as its current state name and state data, and a <code>gen_event</code> process returns information about each of its registered handlers.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">sys</span><span class="p">:</span><span class="nf">get_status</span><span class="p">(</span><span class="n">test_foo_ser</span><span class="p">).</span>
+</span><span class='line'><span class="p">{</span><span class="n">status</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">38</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,</span>
+</span><span class='line'><span class="p">{</span><span class="n">module</span><span class="p">,</span><span class="n">gen_server</span><span class="p">},</span>
+</span><span class='line'><span class="p">[[{</span><span class="err">‘</span><span class="sc">$a</span><span class="n">ncestors</span><span class="err">’</span><span class="p">,[</span><span class="n">test_sup</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">36</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">]},</span>
+</span><span class='line'><span class="p">{</span><span class="err">‘</span><span class="sc">$i</span><span class="n">nitial_call</span><span class="err">’</span><span class="p">,{</span><span class="n">test_foo_ser</span><span class="p">,</span><span class="n">init</span><span class="p">,</span><span class="mi">1</span><span class="p">}}],</span>
+</span><span class='line'><span class="n">running</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">37</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">,[],</span>
+</span><span class='line'><span class="p">[{</span><span class="n">header</span><span class="p">,</span><span class="err">”</span><span class="nv">Status</span> <span class="n">for</span> <span class="n">generic</span> <span class="n">server</span> <span class="n">test_foo_ser</span><span class="err">”</span><span class="p">},</span>
+</span><span class='line'><span class="p">{</span><span class="n">data</span><span class="p">,[{</span><span class="err">“</span><span class="nv">Status</span><span class="err">”</span><span class="p">,</span><span class="n">running</span><span class="p">},</span>
+</span><span class='line'><span class="p">{</span><span class="err">“</span><span class="nv">Parent</span><span class="err">”</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">.</span><span class="mi">37</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">},</span>
+</span><span class='line'><span class="p">{</span><span class="err">“</span><span class="nv">Logged</span> <span class="n">events</span><span class="err">”</span><span class="p">,[]}]},</span>
+</span><span class='line'><span class="p">{</span><span class="n">data</span><span class="p">,[{</span><span class="err">“</span><span class="nv">State</span><span class="err">”</span><span class="p">,{</span><span class="n">state</span><span class="p">,</span><span class="err">”</span><span class="n">bar</span><span class="err">”</span><span class="p">,</span><span class="err">”</span><span class="n">oranges</span><span class="err">”</span><span class="p">}}]}]]}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>h/t to <a href="https://twitter.com/OliverFerrigni">@OliverFerrigni</a></p>
+
+<h2>Recon, dialyzer, quickcheck &amp; use iolists to save memory</h2>
+
+<p>A bunch of good tips by <a href="https://twitter.com/zkessin">@zkessin</a>:</p>
+
+<ul>
+<li>Recon (<a href="http://ferd.github.io/recon/">docs</a>, <a href="https://github.com/ferd/recon">github</a>) aims “to be a set of tools usable in production to diagnose Erlang problems or inspect production environment <em>safely</em>”. Safely, as you don’t want to endanger the uptime of a live node.</li>
+<li>Dialyzer: In the past, very smart people tried to come up with a good static type system for Erlang. They couldn’t create one without throwing away some of Erlang’s magic, like hot code loading. Bummer, dude. Instead you can add type-annotations to your code, and check them with a tool called <a href="http://learnyousomeerlang.com/dialyzer">Dialyzer</a>. It’s a sweet alternative to a static type system.</li>
+<li>Quickcheck: Unit testing is nice, but it has a big weakness for which Quickcheck is the solution. I’ve tried to explain this issue in a previous post <a href="http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Continuous Integration for Erlang With Travis-CI</a>. Also, <a href="https://twitter.com/zkessin">@zkessin</a> just published a <a href="http://www.erlang-quickcheck-book.com">Testing Erlang With Quickcheck e-book</a> that you might want to check out.</li>
+<li>Using iolists to save memory. //TODO</li>
+</ul>
+
+
+<h2>Observer via X11</h2>
+
+<p>//TODO</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn"><a href="/about" title="About the author (Ward Bekker)" rel="author">Ward Bekker</a></span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-03-15T08:47:22+01:00" pubdate data-updated="true">Mar 15<span>th</span>, 2015</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/erlang/'>erlang</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag/" data-via="wardbekker" data-counturl="http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/12/08/3-best-pomodoro-timers-for-iphone/" title="Previous Post: 3 Best Pomodoro Timer Apps for iPhone">&laquo; 3 Best Pomodoro Timer Apps for iPhone</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Ward Bekker -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'wardbekkerblog';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag/';
+        var disqus_url = 'http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
