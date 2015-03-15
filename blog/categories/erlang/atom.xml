@@ -4,7 +4,7 @@
   <title><![CDATA[Category: erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2015-03-15T08:57:20+01:00</updated>
+  <updated>2015-03-15T09:05:01+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -18,9 +18,10 @@
     <link href="http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag/"/>
     <updated>2015-03-15T08:47:22+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag</id>
-    <content type="html"><![CDATA[<h1>Erlang ‘One weird trick’ Goodiebag (Draft)</h1>
+    <content type="html"><![CDATA[<p>I&rsquo;ve asked the Erlang twittersphere what they think every Erlang developer should know about. The result is this Erlang random goodiebag. I would love to hear you &lsquo;One weird trick&rsquo; in the comments!</p>
 
-<p>I&rsquo;ve asked the Erlang twittersphere what they think every Erlang developer should know about. The result is this Erlang random goodiebag. I would love to hear you &lsquo;One weird trick&rsquo; in the comments!</p>
+<!-- more -->
+
 
 <p><a href="https://twitter.com/wardbekker">Follow me on Twitter</a></p>
 
