@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: erlang | Ward Bekker]]></title>
+  <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2015-03-17T09:55:47+01:00</updated>
+  <updated>2015-03-17T10:50:42+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -18,7 +18,7 @@
     <link href="http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag/"/>
     <updated>2015-03-15T08:47:22+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve asked the Erlang twittersphere what they think every Erlang developer should know about. The result is this Erlang random goodiebag. I would love to hear you &lsquo;One weird trick&rsquo; in the comments!</p>
+    <content type="html"><![CDATA[<p>I&rsquo;ve asked the Erlang twittersphere what they think every Erlang developer should know about. The result is this Erlang random goodiebag. I would love to hear your &lsquo;One weird trick&rsquo; in the comments!</p>
 
 <!-- more -->
 
@@ -220,6 +220,494 @@ running,&lt;0.37.0&gt;,[],
 <li>Using iolists to save memory. //TODO</li>
 </ul>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Erlang/OTP 17.0 on OSX Mavericks with WX and a working Observer]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/"/>
+    <updated>2014-04-09T19:53:00+02:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer</id>
+    <content type="html"><![CDATA[<p><em>Update April 15 &ndash; 2014: Erlang/OTP 17.0 with a working WX library is now also available through <a href="http://brew.sh">Homebrew</a>: <code>brew install wxmac erlang</code>. HT <a href="https://twitter.com/dch__">@dhc_</a></em></p>
+
+<p><em>This post is an update of <a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">HOWTO: &ldquo;Erlang R17-RC2 on OSX Mavericks with WX and a working Observer&rdquo;</a>.</em></p>
+
+<h2>The best Erlang yet</h2>
+
+<p>Today&rsquo;s Erlang/OTP 17.0 release is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://learnyousomeerlang.com/maps">Maps</a> and <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Named arguments in funs</a>.</p>
+
+<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-17, especially for 64-bit Erlang. However, 17.0 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
+
+<h2>Set correct Xcode path for compilation</h2>
+
+<p>As far as I know you need have Xcode install to compile Erlang from source. You can <a href="https://itunes.apple.com/nl/app/xcode/id497799835?mt=12">download Xcode</a> via the Mac App Store</p>
+
+<p>If you have multiple versions of Xcode installed (beta&rsquo;s for example), make sure the <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">Command Line Tools</a> are installed and are pointing to the correct Xcode version.</p>
+
+<p>Initiating an install of the Xcode Command Line Tools:</p>
+
+<p><code>bash
+$ xcode-select --install
+</code></p>
+
+<p>And verify that the CL-tools point to the correct Xcode install</p>
+
+<p><code>bash
+$ xcode-select -s /Applications/Xcode.app/Contents/Developer
+</code></p>
+
+<h2>Install wxWidgets</h2>
+
+<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+<p><code>bash
+$ curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
+$ tar xvjf wxWidgets-3.0.0.tar.bz2
+$ cd wxWidgets-3.0.0.tar.bz2
+$ ./configure --with-cocoa --prefix=/usr/local
+$ make &amp;&amp; sudo make install
+$ export PATH=/usr/local/bin:$PATH
+</code></p>
+
+<p>Check that you got the correct wx-config</p>
+
+<p><code>bash
+$ which wx-config
+</code></p>
+
+<h2>Install kerl</h2>
+
+<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
+
+<p><code>bash
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></p>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<p><code>bash
+KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx"
+</code></p>
+
+<h2>Build &amp; Install Erlang with kerl</h2>
+
+<p><code>bash
+$ kerl update releases
+$ kerl build 17.0 17.0
+</code></p>
+
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+<p><code>bash
+$ CPPFLAGS="-arch i386" kerl build 17.0 17.0
+</code></p>
+
+<p>Install:</p>
+
+<p><code>bash
+$ kerl install 17.0 ~/erlang_17_0
+</code></p>
+
+<p>Activate:</p>
+
+<p><code>bash
+$ . ~/erlang_17_0/activate
+</code></p>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<p><code>bash
+$ erl -s observer start
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Your first Erlang program (in style).]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/03/29/your-first-erlang-program/"/>
+    <updated>2014-03-29T20:21:15+01:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/03/29/your-first-erlang-program</id>
+    <content type="html"><![CDATA[<p>Always wanted to learn <a href="http://www.erlang.org">Erlang</a>? Let&rsquo;s create your first Erlang &ldquo;Hello World&rdquo; program in style!</p>
+
+<p>In this HOWTO I&rsquo;ll show you how to setup a bleeding edge Erlang development VPS and how to run you first Erlang program.</p>
+
+<h1>Main ingredient: Cores</h1>
+
+<p>Erlang&rsquo;s main strength is it&rsquo;s concurrency support. It likes cores, so for our &lsquo;Hello World&rsquo; program we obviously need cores. Lot&rsquo;s! Not 4, not 8, 20!</p>
+
+<p>Create an account on <a href="https://www.digitalocean.com/?refcode=0d0404fa1c5c">Digital Ocean</a> if you don&rsquo;t have one yet (love them) and we&rsquo;re going to boot up their biggest instance. It&rsquo;s a steal at less than 1 dollar per hour. Just make sure you destroy it when done.</p>
+
+<p>64GB and 20 cores will make our Hello World so snappy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/b5a389c7-cd10-4e3f-a099-7f87968e2ec3/211a356f730703fcad9d4c6eb16ba1c7/deep/0/Fullscreen-29-03-14-21-36.png" alt="Fullscreen%2029/03/14%2021:36" /></p>
+
+<ul>
+<li>Pick a datacenter location near you.</li>
+<li>Select the latest version of Ubuntu: 13.10 x64.</li>
+<li>Create the Droplet.</li>
+<li>And ssh to your Droplet with the credentials received from Digital Ocean: <code>ssh root@your_ip_address</code>.</li>
+</ul>
+
+
+<h1>Bleeding Edge Erlang</h1>
+
+<p>We&rsquo;re going to compile Erlang from it&rsquo;s github repository master branch, At the time of writing it&rsquo;s a few commits after R17 release candidate 2 which comes with a Hipe LLVM backend, maps and named funs. If that doesn&rsquo;t make any sense, no worries, just remember it&rsquo;s the fastest Erlang yet. And fast is good.</p>
+
+<p>Install the required Ubuntu packages:</p>
+
+<p><code>bash
+$ apt-get install tmux build-essential emacs24 git-core libncurses5-dev libssl-dev autconf htop
+</code></p>
+
+<p>Fire up <a href="http://tmux.sourceforge.net">Tmux</a>:</p>
+
+<p><code>bash
+$ tmux
+</code></p>
+
+<p>Install <a href="https://github.com/spawngrid/kerl">Kerl</a>, a tool which makes building and switching Erlang versions easy.</p>
+
+<p><code>bash
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></p>
+
+<p>Let&rsquo;s add some good configuration options for our Erlang installation</p>
+
+<p><code>bash
+$ emacs .kerlrc
+</code>
+And add</p>
+
+<p><code>text
+KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll"
+</code></p>
+
+<p>And because we can, we forge our Erlang installation on 20 cores. <strong>Muahahaha.</strong></p>
+
+<p>To see those cores sweat for you on compilation, create another tmux window <code>CTRL-b c</code> and run <code>htop</code>.</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/49c6830d-6d0f-45e6-958a-6d262050b709/0b252a604ad067fa75f37345d8f59a84/deep/0/Fullscreen-29-03-14-21-52.png" alt="Fullscreen%2029/03/14%2021:52" /></p>
+
+<p>Besides the eye candy, compilation finishes under 5 minutes on a 20 core Digital Ocean Droplet. Whoop!</p>
+
+<p>To start compilation of Erlang:</p>
+
+<p><code>bash
+$ export MAKEFLAGS=-j20 &amp;&amp; ./kerl build git git://github.com/erlang/otp.git master erlang_llvm
+</code>
+After compilation we need to install the build and activate it:</p>
+
+<p><code>bash
+$ kerl install erlang_llvm erlang_llvm
+$ . ~/erlang_llvm/activate
+</code></p>
+
+<p>Great! We are now ready for our Pièce de résistance.</p>
+
+<h1>Just say: Hello!</h1>
+
+<p>Real Erlang hacker use Emacs, so let&rsquo;s setup Emacs for Erlang development.</p>
+
+<p>Fetch a good base config for Emacs:</p>
+
+<p><code>bash
+$ curl -o https://gist.githubusercontent.com/wardbekker/22a1bd79eb93af85fde0/raw/41eb32cbe1bc231c21fba8ec090e537805de2c58/.emacs
+</code></p>
+
+<p>Start up Emacs <code>emacs</code>. It will complain that it can&rsquo;t find <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a>. Let&rsquo;s fix that:</p>
+
+<p><code>
+[ESC]-x package-install [Enter] projmake-mode
+</code></p>
+
+<p>Exit emacs:</p>
+
+<p><code>
+[CTRL]-x [CTRL]-c
+</code></p>
+
+<p>Start up Emacs again <code>emacs</code>. Great! We can finally start writing our &ldquo;Hello World&rdquo; program. Oh, not, wait. First, we create a <code>projmake</code> file. The file is needed by <a href="https://github.com/ericbmerritt/projmake-mode">Projmake-mode</a>, a Flymake inspired mode that compiles your program on every save and shows build errors and warnings inline. Really useful!</p>
+
+<p><code>
+[CRTL]-x f projmake [Enter]
+</code></p>
+
+<p>Add these line and save the file</p>
+
+<p><code>cl
+(projmake
+ :name  "Hello"
+ :shell "erlc +native hello.erl")
+</code></p>
+
+<p>Ok, now we can really start writing our &ldquo;Hello World&rdquo; program and put those 20 cores and 64GB RAM to good use.</p>
+
+<p><code>
+[CTRL]-x f hello.erl [Enter]
+</code></p>
+
+<p>And type or paste:</p>
+
+<p>```erlang
+-module(hello).
+-export([just_say/0]).</p>
+
+<p>just_say() &ndash;></p>
+
+<pre><code>io_format("hello~n", []).
+</code></pre>
+
+<p>```</p>
+
+<p>And save with <code>[CTRL]-x [CTRL]-s</code>.</p>
+
+<p>Whoops. We made an error as projmake-mode shows:</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/ef7fb886-9179-40ea-966e-cdffb8d5d303/b1b324c0e4021c9dac5b320f79f168ab/deep/0/Fullscreen-29-03-14-21-24.png" alt="Fullscreen%2029/03/14%2021:24" /></p>
+
+<p>Replace <code>io_format</code> with <code>io:format</code> and save again. That fixes our error!.</p>
+
+<p>Let&rsquo;s run our program. Fire up the Erlang shell with:</p>
+
+<p><code>
+[ESC]-x erlang-shell
+</code></p>
+
+<p>Load the <code>hello</code> module with:</p>
+
+<p><code>
+1&gt; m(hello). [Enter]
+</code></p>
+
+<p>And run you first Erlang function&hellip;.</p>
+
+<p><code>
+2&gt; hello:just_say(). [Enter]
+</code></p>
+
+<p>Bliss!</p>
+
+<p><img src="http://i.imgur.com/1Sk0c.gif" /></p>
+
+<p>Congratulations. You now have a powerful Erlang development environment in your hands.</p>
+
+<p>Check out <a href="/blog/2013/05/29/a-beginners-guide-to-erlang/">A beginners guide to Erlang</a> to continue your Erlang binge.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Selenium Webdriver for Erlang quick start]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/"/>
+    <updated>2014-03-07T08:18:00+01:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang</id>
+    <content type="html"><![CDATA[<p><a href="http://docs.seleniumhq.org">Selenium</a> is the industry standard for automated testing of web applications. Together with <a href="http://docs.seleniumhq.org/projects/webdriver/">Webdriver</a>, a &lsquo;remote control&rsquo; API for all major browsers, it enables you to create robust integration test for the browser.</p>
+
+<p>The great people of <a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">QuviQ</a>, creators of the unique <a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Quickcheck</a> test framework, created an Erlang Webdriver client implementation (<a href="https://github.com/Quviq/webdrv">Github repository</a>).</p>
+
+<p>It&rsquo;s trivial to get started with the following steps:</p>
+
+<h2>Step 1: Add webdrv to the rebar.config of your project</h2>
+
+<p>Open <code>rebar.config</code> in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:</p>
+
+<p>```erlang
+{deps, [</p>
+
+<pre><code>{webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
+   ]}.
+</code></pre>
+
+<p>```</p>
+
+<h2>Step 2: Get and compile webdrv</h2>
+
+<p>Go to the root of your Erlang project and execute:</p>
+
+<p><code>bash
+$ rebar get-deps compile
+</code></p>
+
+<h2>Step 3: Get &amp; start the Google chromedriver</h2>
+
+<p>For this quick start we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
+
+<p><code>bash
+$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
+$ unzip chromedriver_mac32.zip
+$ ./chromedriver
+</code></p>
+
+<p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
+
+<p><code>bash
+Starting ChromeDriver (v2.9.248307) on port 9515
+</code></p>
+
+<p>Important! This server needs to be running during test execution.</p>
+
+<h2>Step 4:  Your first Erlang webdrvr test!</h2>
+
+<p>Save the following module in <code>src/random_org_test.erl</code>. In this test we open a page, fill in a form, submit the form, and check if an expected piece of text is indeed present in the response:</p>
+
+<p>```erlang
+-module(random_org_test).</p>
+
+<p>-compile(export_all).</p>
+
+<p>-include_lib(&ldquo;webdrv/include/webdrv.hrl&rdquo;).</p>
+
+<p>-define(CHROMEDRIVER, &ldquo;<a href="http://localhost:9515/">http://localhost:9515/</a>&rdquo;).</p>
+
+<p>test() &ndash;></p>
+
+<pre><code>{ok, _Pid} = webdrv_session:start_session(test, ?CHROMEDRIVER,  webdrv_cap:default_chrome(), 10000),
+webdrv_session:set_url(test, "http://www.random.org/integers/"),
+{ok, Emin} = webdrv_session:find_element(test, "name", "min"),
+webdrv_session:clear_element(test, Emin),
+webdrv_session:send_value(test, Emin, "5"),
+{ok, Emax} = webdrv_session:find_element(test, "name", "max"),
+webdrv_session:clear_element(test, Emax),
+webdrv_session:send_value(test, Emax, "15"),
+webdrv_session:submit(test, Emax),  
+{ok, PageSource} = webdrv_session:get_page_source(test),
+string:str(PageSource, "Here are your random numbers") &gt; 0,
+webdrv_session:stop_session(test).
+</code></pre>
+
+<p>```</p>
+
+<h2>Step 5: Run the test</h2>
+
+<p>Run your test by opening up the Erlang shell..</p>
+
+<p><code>bash
+$ erl -pa ebin deps/*/ebin
+</code></p>
+
+<p>..and execute the test function</p>
+
+<p><code>bash
+1&gt; random_org_test:test().
+</code></p>
+
+<p>You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output <code>ok</code>.</p>
+
+<h2>Further information</h2>
+
+<ul>
+<li><a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">Watch the Erlang Factory presentation by Hans Svensson from Quviq</a></li>
+<li><a href="https://github.com/Quviq/webdrv">Erlang Webdrvr Github repository</a></li>
+<li><a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium Webdriver documentation</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Erlang R17-rc1 on OSX Mavericks with WX and a working Observer]]></title>
+    <link href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/"/>
+    <updated>2014-02-09T08:53:00+01:00</updated>
+    <id>http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer</id>
+    <content type="html"><![CDATA[<p><strong>Update 15 April 2014</strong> Erlang/OTP 17.0 is released. <a href="/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/">Read the updated HOWTO here</a>.</p>
+
+<p><strong>Update 11 Feb 2014</strong> <a href="https://twitter.com/SpiffDgud">Dan GudMundsson</a> pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of this blog post with the instructions found in the official <a href="https://github.com/erlang/otp/blob/maint/HOWTO/INSTALL.md">Erlang/OTP installation HOWTO</a>.</p>
+
+<p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r16b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a> by <a href="https://twitter.com/MSch">Martin Schuerrer</a></p>
+
+<p>Erlang R17-rc1 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
+
+<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-R17, especially for 64-bit Erlang. However, R17 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
+
+<h2>Set correct Xcode path for compilation</h2>
+
+<p><code>bash
+$ xcode-select -s /Applications/Xcode.app/Contents/Developer
+</code></p>
+
+<p>or if you installed a beta version (in my case <code>51-Beta5</code>):</p>
+
+<p><code>bash
+$ xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
+</code></p>
+
+<h2>Install wxWidgets</h2>
+
+<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+<p><code>bash
+$ curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
+$ tar xvjf wxWidgets-3.0.0.tar.bz2
+$ cd wxWidgets-3.0.0.tar.bz2
+$ ./configure --with-cocoa --prefix=/usr/local
+$ make &amp;&amp; sudo make install
+$ export PATH=/usr/local/bin:$PATH
+</code></p>
+
+<p>Check that you got the correct wx-config</p>
+
+<p><code>bash
+$ which wx-config
+</code></p>
+
+<h2>Install kerl</h2>
+
+<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
+
+<p><code>bash
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></p>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<p><code>bash
+KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx"
+</code></p>
+
+<h2>Build &amp; Install Erlang with kerl</h2>
+
+<p><code>bash
+$ kerl update releases
+$ kerl build 17.0-rc1 17rc1
+</code></p>
+
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+<p><code>bash
+$ CPPFLAGS="-arch i386" kerl build 17.0-rc1 17rc1
+</code></p>
+
+<p>Install:</p>
+
+<p><code>bash
+$ kerl install 17rc1 ~/17rc1
+</code></p>
+
+<p>Activate:</p>
+
+<p><code>bash
+$ . ~/17rc1/activate
+</code></p>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<p><code>bash
+$ erl -s observer start
+</code></p>
 ]]></content>
   </entry>
   
