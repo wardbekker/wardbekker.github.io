@@ -4,7 +4,7 @@
   <title><![CDATA[Category: erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2015-03-15T09:05:01+01:00</updated>
+  <updated>2015-03-17T09:55:47+01:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -220,10 +220,6 @@ running,&lt;0.37.0&gt;,[],
 <li>Using iolists to save memory. //TODO</li>
 </ul>
 
-
-<h2>Observer via X11</h2>
-
-<p>//TODO</p>
 ]]></content>
   </entry>
   
