@@ -3,12 +3,12 @@ layout: post
 title: "Erlang ‘One weird trick’ Goodiebag"
 date: 2015-03-15 08:47:22 +0100
 comments: true
-categories: erlang
+categories: Erlang
 ---
 
-# Erlang ‘One weird trick’ Goodiebag (Draft)
+I've asked the Erlang twittersphere what they think every Erlang developer should know about. The result is this Erlang random goodiebag. I would love to hear your 'One weird trick' in the comments!
 
-I've asked the Erlang twittersphere what they think every Erlang developer should know about. The result is this Erlang random goodiebag. I would love to hear you 'One weird trick' in the comments!
+<!-- more -->
 
 [Follow me on Twitter](https://twitter.com/wardbekker)
 
@@ -18,7 +18,7 @@ Erlang Top, `etop` is an Erlang application for presenting information about erl
 
 You start it with the following command:
 
-```shell
+```
 erl -sname etop  -hidden -s etop -s erlang halt -output text node@host
 ```
 
@@ -26,7 +26,7 @@ erl -sname etop  -hidden -s etop -s erlang halt -output text node@host
 
 Output shows you the CPU load, memory allocation and more:
 
-```shell
+```
 Erlang/OTP 17 [erts-6.3] [source] [64-bit] [smp:2:2] [async-threads:10] [hipe] [kernel-poll:false]
 
 Eshell V6.3  (abort with ^G)
@@ -64,7 +64,7 @@ Below an example session where stop the `mnesia` application on the live node fr
 
 Start up the ‘live’ node and start the `mnesia` application:
 
-```shell
+```
 $> erl -sname live@localhost
 Erlang/OTP 17 [erts-6.2] [source-aaaefb3] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
 
@@ -76,7 +76,7 @@ ok
 
 In another terminal window, connect to the live shell and try to start mnesia again. Notice it is already started, and we can stop the application.
 
-```shell
+```
 $> erl -remsh live@localhost -sname debug@localhost
 Erlang/OTP 17 [erts-6.2] [source-aaaefb3] [64-bit] [smp:4:4] [async-threads:10] [hipe] [kernel-poll:false]
 
@@ -193,13 +193,6 @@ A bunch of good tips by [@zkessin](https://twitter.com/zkessin):
 - Dialyzer: In the past, very smart people tried to come up with a good static type system for Erlang. They couldn’t create one without throwing away some of Erlang’s magic, like hot code loading. Bummer, dude. Instead you can add type-annotations to your code, and check them with a tool called [Dialyzer](http://learnyousomeerlang.com/dialyzer). It’s a sweet alternative to a static type system.
 - Quickcheck: Unit testing is nice, but it has a big weakness for which Quickcheck is the solution. I’ve tried to explain this issue in a previous post [Continuous Integration for Erlang With Travis-CI](http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/). Also, [@zkessin](https://twitter.com/zkessin) just published a [Testing Erlang With Quickcheck e-book](http://www.erlang-quickcheck-book.com) that you might want to check out.
 - Using iolists to save memory. //TODO
-
-## Observer via X11
-
-//TODO
-
-
-
 
 
 
