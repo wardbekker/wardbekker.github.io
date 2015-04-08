@@ -626,259 +626,6 @@ in
 
 
 
-<h1>Main ingredient: Cores</h1>
-
-
-
-
-<p>Erlang&rsquo;s main strength is it&rsquo;s concurrency support. It likes cores, so for our &lsquo;Hello World&rsquo; program we obviously need cores. Lot&rsquo;s! Not 4, not 8, 20!</p>
-
-
-
-
-<p>Create an account on <a href="https://www.digitalocean.com/?refcode=0d0404fa1c5c">Digital Ocean</a> if you don&rsquo;t have one yet (love them) and we&rsquo;re going to boot up their biggest instance. It&rsquo;s a steal at less than 1 dollar per hour. Just make sure you destroy it when done.</p>
-
-
-
-
-<p>64GB and 20 cores will make our Hello World so snappy!</p>
-
-
-
-
-<p><img src="https://www.evernote.com/shard/s48/sh/b5a389c7-cd10-4e3f-a099-7f87968e2ec3/211a356f730703fcad9d4c6eb16ba1c7/deep/0/Fullscreen-29-03-14-21-36.png" alt="Fullscreen%2029/03/14%2021:36" /></p>
-
-
-
-
-<ul>
-<li>Pick a datacenter location near you.</li>
-<li>Select the latest version of Ubuntu: 13.10 x64.</li>
-<li>Create the Droplet.</li>
-<li>And ssh to your Droplet with the credentials received from Digital Ocean: <code>ssh root@your_ip_address</code>.</li>
-</ul>
-
-
-
-
-<h1>Bleeding Edge Erlang</h1>
-
-
-
-
-<p>We&rsquo;re going to compile Erlang from it&rsquo;s github repository master branch, At the time of writing it&rsquo;s a few commits after R17 release candidate 2 which comes with a Hipe LLVM backend, maps and named funs. If that doesn&rsquo;t make any sense, no worries, just remember it&rsquo;s the fastest Erlang yet. And fast is good.</p>
-
-
-
-
-<p>Install the required Ubuntu packages:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>apt-get install tmux build-essential emacs24 git-core libncurses5-dev libssl-dev autconf htop
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Fire up <a href="http://tmux.sourceforge.net">Tmux</a>:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>tmux
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Install <a href="https://github.com/spawngrid/kerl">Kerl</a>, a tool which makes building and switching Erlang versions easy.</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O <a href="https://raw.github.com/spawngrid/kerl/master/kerl">https://raw.github.com/spawngrid/kerl/master/kerl</a>
-</span><span class='line'><span class="nv">$ </span>chmod a+x kerl
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Let&rsquo;s add some good configuration options for our Erlang installation</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>emacs .kerlrc
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>And add</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='text'><span class='line'>KERL_CONFIGURE_OPTIONS=&quot;&mdash;disable-debug &mdash;without-javac &mdash;enable-shared-zlib &mdash;enable-dynamic-ssl-lib &mdash;enable-hipe &mdash;enable-smp-support &mdash;enable-threads &mdash;enable-kernel-poll&quot;
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>And because we can, we forge our Erlang installation on 20 cores. <strong>Muahahaha.</strong></p>
-
-
-
-
-<p>To see those cores sweat for you on compilation, create another tmux window <code>CTRL-b c</code> and run <code>htop</code>.</p>
-
-
-
-
-<p><img src="https://www.evernote.com/shard/s48/sh/49c6830d-6d0f-45e6-958a-6d262050b709/0b252a604ad067fa75f37345d8f59a84/deep/0/Fullscreen-29-03-14-21-52.png" alt="Fullscreen%2029/03/14%2021:52" /></p>
-
-
-
-
-<p>Besides the eye candy, compilation finishes under 5 minutes on a 20 core Digital Ocean Droplet. Whoop!</p>
-
-
-
-
-<p>To start compilation of Erlang:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">export </span><span class="nv">MAKEFLAGS</span><span class="o">=</span>-j20 <span class="o">&amp;&amp;</span> ./kerl build git git://github.com/erlang/otp.git master erlang_llvm
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>After compilation we need to install the build and activate it:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl install erlang_llvm erlang_llvm
-</span><span class='line'><span class="nv">$ </span>. ~/erlang_llvm/activate
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Great! We are now ready for our Pièce de résistance.</p>
-
-
-
-
-<h1>Just say: Hello!</h1>
-
-
-
-
-<p>Real Erlang hacker use Emacs, so let&rsquo;s setup Emacs for Erlang development.</p>
-
-
-
-
-<p>Fetch a good base config for Emacs:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -o <a href="https://gist.githubusercontent.com/wardbekker/22a1bd79eb93af85fde0/raw/41eb32cbe1bc231c21fba8ec090e537805de2c58/.emacs">https://gist.githubusercontent.com/wardbekker/22a1bd79eb93af85fde0/raw/41eb32cbe1bc231c21fba8ec090e537805de2c58/.emacs</a>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Start up Emacs <code>emacs</code>. It will complain that it can&rsquo;t find <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a>. Let&rsquo;s fix that:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>ESC<span class="o">]</span>-x package-install <span class="o">[</span>Enter<span class="o">]</span> projmake-mode
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Exit emacs:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>CTRL<span class="o">]</span>-x <span class="o">[</span>CTRL<span class="o">]</span>-c
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Start up Emacs again <code>emacs</code>. Great! We can finally start writing our &ldquo;Hello World&rdquo; program. Oh, not, wait. First, we create a <code>projmake</code> file. The file is needed by <a href="https://github.com/ericbmerritt/projmake-mode">Projmake-mode</a>, a Flymake inspired mode that compiles your program on every save and shows build errors and warnings inline. Really useful!</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>CRTL<span class="o">]</span>-x f projmake <span class="o">[</span>Enter<span class="o">]</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Add these line and save the file</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">projmake</span>
-</span><span class='line'> <span class="ss">:name</span>  <span class="s">&quot;Hello&quot;</span>
-</span><span class='line'> <span class="ss">:shell</span> <span class="s">&quot;erlc +native hello.erl&quot;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Ok, now we can really start writing our &ldquo;Hello World&rdquo; program and put those 20 cores and 64GB RAM to good use.</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="nv">[CTRL]-x</span> <span class="nv">f</span> <span class="nv">hello.erl</span> <span class="nv">[Enter]</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>And type or paste:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">&ndash;</span><span class="ni">module</span><span class="p">(</span><span class="n">hello</span><span class="p">).</span>
-</span><span class='line'><span class="p">&ndash;</span><span class="ni">export</span><span class="p">([</span><span class="n">just_say</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
-</span><span class='line'>
-</span><span class='line'><span class="nf">just_say</span><span class="p">()</span> <span class="o">&ndash;&gt;</span>
-</span><span class='line'>    <span class="n">io_format</span><span class="p">(</span><span class="s">&quot;hello</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[]).</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>And save with <code>[CTRL]-x [CTRL]-s</code>.</p>
-
-
-
-
-<p>Whoops. We made an error as projmake-mode shows:</p>
-
-
-
-
-<p><img src="https://www.evernote.com/shard/s48/sh/ef7fb886-9179-40ea-966e-cdffb8d5d303/b1b324c0e4021c9dac5b320f79f168ab/deep/0/Fullscreen-29-03-14-21-24.png" alt="Fullscreen%2029/03/14%2021:24" /></p>
-
-
-
-
-<p>Replace <code>io_format</code> with <code>io:format</code> and save again. That fixes our error!.</p>
-
-
-
-
-<p>Let&rsquo;s run our program. Fire up the Erlang shell with:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">[</span><span class="nv">ESC</span><span class="p">]</span><span class="o">&ndash;</span><span class="n">x</span> <span class="n">erlang</span><span class="o">&ndash;</span><span class="n">shell</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Load the <code>hello</code> module with:</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">1</span><span class="o">&gt;</span> <span class="n">m</span><span class="p">(</span><span class="n">hello</span><span class="p">).</span> <span class="p">[</span><span class="nv">Enter</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>And run you first Erlang function&hellip;.</p>
-
-
-<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">hello</span><span class="p">:</span><span class="nf">just_say</span><span class="p">().</span> <span class="p">[</span><span class="nv">Enter</span><span class="p">]</span>
-</span></code></pre></td></tr></table></div></figure></p>
-
-<p>Bliss!</p>
-
-
-
-
-<p><img src="http://i.imgur.com/1Sk0c.gif" /></p>
-
-
-
-
-<p>Congratulations. You now have a powerful Erlang development environment in your hands.</p>
-
-
-
-
-<p>Check out <a href="/blog/2013/05/29/a-beginners-guide-to-erlang/">A beginners guide to Erlang</a> to continue your Erlang binge.</p>
-
-
   </p>
   <span class="meta">
     written 
@@ -907,6 +654,8 @@ in
 
   </span>
 
+  
+    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/03/29/your-first-erlang-program/">Read on &rarr;</a>
   
 </article>
 
@@ -1463,7 +1212,7 @@ scalable, soft-realtime systems with high availability. Testing such systems is 
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erlang // This project is an Erlang project</span>
 </span><span class='line'><span class="l-Scalar-Plain">notifications</span><span class="p-Indicator">:</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x79;&#111;&#117;&#x40;&#101;&#x78;&#97;&#x6d;&#112;&#108;&#x65;&#x2e;&#111;&#114;&#x67;">&#x79;&#x6f;&#117;&#64;&#101;&#120;&#97;&#x6d;&#112;&#108;&#x65;&#46;&#111;&#114;&#x67;</a> // Notify this e-mail address on build failures</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x79;&#x6f;&#117;&#64;&#x65;&#120;&#x61;&#109;&#112;&#x6c;&#x65;&#x2e;&#111;&#x72;&#x67;">&#121;&#111;&#x75;&#64;&#101;&#x78;&#97;&#x6d;&#x70;&#108;&#x65;&#46;&#x6f;&#114;&#x67;</a> // Notify this e-mail address on build failures</span>
 </span><span class='line'><span class="l-Scalar-Plain">otp_release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">// The Erlang/OTP versions to run your test against.</span>
 </span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B01</span>
 </span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B</span>
@@ -2120,7 +1869,7 @@ in
 </span><span class='line'>Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty Ltd<span class="o">]</span>:Awesome Inc
 </span><span class='line'>Organizational Unit Name <span class="o">(</span>eg, section<span class="o">)</span> <span class="o">[]</span>:Dept of Merriment
 </span><span class='line'>Common Name <span class="o">(</span>e.g. server FQDN or YOUR name<span class="o">)</span> <span class="o">[]</span>:example.org
-</span><span class='line'>Email Address <span class="o">[]</span>:<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x77;&#101;&#x62;&#x6d;&#97;&#115;&#x74;&#101;&#x72;&#64;&#x65;&#x78;&#97;&#109;&#112;&#108;&#x65;&#46;&#111;&#114;&#103;">&#119;&#101;&#x62;&#x6d;&#97;&#115;&#116;&#x65;&#x72;&#x40;&#101;&#x78;&#97;&#x6d;&#x70;&#108;&#101;&#x2e;&#x6f;&#x72;&#x67;</a>
+</span><span class='line'>Email Address <span class="o">[]</span>:<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#58;&#119;&#101;&#98;&#x6d;&#97;&#115;&#116;&#x65;&#x72;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#108;&#101;&#x2e;&#111;&#x72;&#x67;">&#x77;&#x65;&#x62;&#109;&#97;&#x73;&#116;&#x65;&#x72;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#108;&#x65;&#x2e;&#111;&#x72;&#103;</a>
 </span></code></pre></td></tr></table></div></figure></p>
 
 <p>After generating the required encryption keys, we re-edit the <code>reverse_proxy</code> site:</p>
@@ -2535,7 +2284,7 @@ in
 <span class='line-number'>7</span>
 </pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erlang // De repository bevat een Erlang project</span>
 </span><span class='line'><span class="l-Scalar-Plain">notifications</span><span class="p-Indicator">:</span>
-</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#109;&#x61;&#x69;&#108;&#116;&#111;&#58;&#121;&#111;&#117;&#x40;&#x65;&#x78;&#97;&#x6d;&#x70;&#x6c;&#101;&#46;&#111;&#114;&#103;">&#121;&#x6f;&#x75;&#64;&#x65;&#x78;&#x61;&#109;&#112;&#x6c;&#101;&#x2e;&#111;&#114;&#x67;</a> // Build success en failures stuurt Travis-CI naar dit adres.</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#x79;&#111;&#x75;&#64;&#x65;&#120;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#x6f;&#x72;&#x67;">&#x79;&#111;&#x75;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#108;&#x65;&#x2e;&#x6f;&#x72;&#103;</a> // Build success en failures stuurt Travis-CI naar dit adres.</span>
 </span><span class='line'><span class="l-Scalar-Plain">otp_release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">// Travis-CI test/bouwt je project voor meerdere Erlang/OTP versies.</span>
 </span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B01</span>
 </span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B</span>
