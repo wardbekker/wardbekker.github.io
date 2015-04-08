@@ -119,101 +119,6 @@ in
 
 <p><em>This post is an update of <a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">HOWTO: &ldquo;Erlang R17-RC2 on OSX Mavericks with WX and a working Observer&rdquo;</a>.</em></p>
 
-<h2>The best Erlang yet</h2>
-
-<p>Today&rsquo;s Erlang/OTP 17.0 release is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://learnyousomeerlang.com/maps">Maps</a> and <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Named arguments in funs</a>.</p>
-
-<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-17, especially for 64-bit Erlang. However, 17.0 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
-
-<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
-
-<h2>Set correct Xcode path for compilation</h2>
-
-<p>As far as I know you need have Xcode install to compile Erlang from source. You can <a href="https://itunes.apple.com/nl/app/xcode/id497799835?mt=12">download Xcode</a> via the Mac App Store</p>
-
-<p>If you have multiple versions of Xcode installed (beta&rsquo;s for example), make sure the <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">Command Line Tools</a> are installed and are pointing to the correct Xcode version.</p>
-
-<p>Initiating an install of the Xcode Command Line Tools:</p>
-
-<p><code>bash
-$ xcode-select --install
-</code></p>
-
-<p>And verify that the CL-tools point to the correct Xcode install</p>
-
-<p><code>bash
-$ xcode-select -s /Applications/Xcode.app/Contents/Developer
-</code></p>
-
-<h2>Install wxWidgets</h2>
-
-<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
-
-<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
-
-<p><code>bash
-$ curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
-$ tar xvjf wxWidgets-3.0.0.tar.bz2
-$ cd wxWidgets-3.0.0.tar.bz2
-$ ./configure --with-cocoa --prefix=/usr/local
-$ make &amp;&amp; sudo make install
-$ export PATH=/usr/local/bin:$PATH
-</code></p>
-
-<p>Check that you got the correct wx-config</p>
-
-<p><code>bash
-$ which wx-config
-</code></p>
-
-<h2>Install kerl</h2>
-
-<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
-
-<p><code>bash
-$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
-$ chmod a+x kerl
-</code></p>
-
-<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
-
-<p>Add these lines:</p>
-
-<p><code>bash
-KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx"
-</code></p>
-
-<h2>Build &amp; Install Erlang with kerl</h2>
-
-<p><code>bash
-$ kerl update releases
-$ kerl build 17.0 17.0
-</code></p>
-
-<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
-
-<p><code>bash
-$ CPPFLAGS="-arch i386" kerl build 17.0 17.0
-</code></p>
-
-<p>Install:</p>
-
-<p><code>bash
-$ kerl install 17.0 ~/erlang_17_0
-</code></p>
-
-<p>Activate:</p>
-
-<p><code>bash
-$ . ~/erlang_17_0/activate
-</code></p>
-
-<p>And bliss out on your new wx-enabled Erlang:</p>
-
-<p><code>bash
-$ erl -s observer start
-</code></p>
-
   </p>
   <span class="meta">
     written 
@@ -242,6 +147,8 @@ in
 
   </span>
 
+  
+    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/">Read on &rarr;</a>
   
 </article>
 

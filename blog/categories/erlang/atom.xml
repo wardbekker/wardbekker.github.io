@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Erlang | Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/blog/categories/erlang/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2015-04-08T09:50:14+02:00</updated>
+  <updated>2015-04-08T09:56:20+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -231,6 +231,9 @@ running,&lt;0.37.0&gt;,[],
     <content type="html"><![CDATA[<p><em>Update April 15 &ndash; 2014: Erlang/OTP 17.0 with a working WX library is now also available through <a href="http://brew.sh">Homebrew</a>: <code>brew install wxmac erlang</code>. HT <a href="https://twitter.com/dch__">@dhc_</a></em></p>
 
 <p><em>This post is an update of <a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">HOWTO: &ldquo;Erlang R17-RC2 on OSX Mavericks with WX and a working Observer&rdquo;</a>.</em></p>
+
+<!-- more -->
+
 
 <h2>The best Erlang yet</h2>
 
