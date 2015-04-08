@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2015-03-17T10:50:42+01:00</updated>
+  <updated>2015-04-08T09:43:56+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Erlang ‘One weird trick’ Goodiebag]]></title>
+    <title type="html"><![CDATA[Erlang ‘One Weird Trick’ Goodiebag]]></title>
     <link href="http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag/"/>
     <updated>2015-03-15T08:47:22+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2015/03/15/erlang-one-weird-trick-goodiebag</id>
@@ -445,7 +445,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[My 5 tips for new runners]]></title>
+    <title type="html"><![CDATA[My 5 Tips for New Runners]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/10/08/my-5-tips-for-new-runners/"/>
     <updated>2014-10-08T10:19:32+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/10/08/my-5-tips-for-new-runners</id>
@@ -580,7 +580,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[5 great Pomodoro Apps for Mac]]></title>
+    <title type="html"><![CDATA[5 Great Pomodoro Apps for Mac]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/05/08/5-great-pomodoro-apps-for-mac/"/>
     <updated>2014-05-08T16:04:14+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/05/08/5-great-pomodoro-apps-for-mac</id>
@@ -631,7 +631,7 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Erlang/OTP 17.0 on OSX Mavericks with WX and a working Observer]]></title>
+    <title type="html"><![CDATA[Erlang/OTP 17.0 on OSX Mavericks With WX and a Working Observer]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/"/>
     <updated>2014-04-09T19:53:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer</id>
@@ -755,7 +755,7 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Your first Erlang program (in style).]]></title>
+    <title type="html"><![CDATA[Your First Erlang Program (in Style).]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/03/29/your-first-erlang-program/"/>
     <updated>2014-03-29T20:21:15+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/03/29/your-first-erlang-program</id>
@@ -953,7 +953,7 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Selenium Webdriver for Erlang quick start]]></title>
+    <title type="html"><![CDATA[Selenium Webdriver for Erlang Quick Start]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang/"/>
     <updated>2014-03-07T08:18:00+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/03/07/selenium-webdriver-for-erlang</id>
@@ -1086,7 +1086,7 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Erlang R17-rc1 on OSX Mavericks with WX and a working Observer]]></title>
+    <title type="html"><![CDATA[Erlang R17-rc1 on OSX Mavericks With WX and a Working Observer]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/"/>
     <updated>2014-02-09T08:53:00+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer</id>
@@ -1204,7 +1204,7 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[How Apple will implement Mobile Payments]]></title>
+    <title type="html"><![CDATA[How Apple Will Implement Mobile Payments]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment/"/>
     <updated>2014-01-30T17:30:00+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment</id>
@@ -1233,7 +1233,7 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Three affordable 4K retina monitors introduced at CES 2014]]></title>
+    <title type="html"><![CDATA[Three Affordable 4K Retina Monitors Introduced at CES 2014]]></title>
     <link href="http://blog.equanimity.nl/blog/2014/01/08/4k-retina-monitors-at-ces-2014/"/>
     <updated>2014-01-08T08:31:00+01:00</updated>
     <id>http://blog.equanimity.nl/blog/2014/01/08/4k-retina-monitors-at-ces-2014</id>
@@ -1253,7 +1253,7 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Continuous Integration for Erlang with Travis-CI]]></title>
+    <title type="html"><![CDATA[Continuous Integration for Erlang With Travis-CI]]></title>
     <link href="http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/"/>
     <updated>2013-06-04T06:01:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci</id>
@@ -1526,7 +1526,7 @@ build</em></p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[A beginners guide to Erlang]]></title>
+    <title type="html"><![CDATA[A Beginners Guide to Erlang]]></title>
     <link href="http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang/"/>
     <updated>2013-05-29T22:14:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2013/05/29/a-beginners-guide-to-erlang</id>
@@ -1719,7 +1719,7 @@ build</em></p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Enable SPDY for your Erlang website]]></title>
+    <title type="html"><![CDATA[Enable SPDY for Your Erlang Website]]></title>
     <link href="http://blog.equanimity.nl/blog/2013/04/25/enable-spdy-for-your-erlang-website/"/>
     <updated>2013-04-25T15:01:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2013/04/25/enable-spdy-for-your-erlang-website</id>
@@ -1942,7 +1942,7 @@ build</em></p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[Dutch] Geautomatiseerd testen met Erlang/OTP en Travis-CI - een introductie.]]></title>
+    <title type="html"><![CDATA[[Dutch] Geautomatiseerd Testen Met Erlang/OTP en Travis-CI - Een Introductie.]]></title>
     <link href="http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang/"/>
     <updated>2013-04-25T14:58:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2013/04/25/geautomatiseerd-testen-met-erlang</id>
@@ -2196,7 +2196,7 @@ rapporteerd:</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Video: Automated testing with Erlang]]></title>
+    <title type="html"><![CDATA[Video: Automated Testing With Erlang]]></title>
     <link href="http://blog.equanimity.nl/blog/2013/04/25/erlang-testing/"/>
     <updated>2013-04-25T14:52:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2013/04/25/erlang-testing</id>
@@ -2213,7 +2213,7 @@ allowFullScreen></iframe>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Erlang Fprof output confusing? Try KCachegrind.]]></title>
+    <title type="html"><![CDATA[Erlang Fprof Output Confusing? Try KCachegrind.]]></title>
     <link href="http://blog.equanimity.nl/blog/2013/04/24/fprof-kcachegrind/"/>
     <updated>2013-04-24T16:13:00+02:00</updated>
     <id>http://blog.equanimity.nl/blog/2013/04/24/fprof-kcachegrind</id>
@@ -2252,10 +2252,10 @@ sample of an actual fprof trace.</p>
   {{mnesia_tm,execute_transaction,5},            48,   14.085,    0.128}],     
  { {mnesia_tm,apply_fun,3},                      48,  857.624,    0.276},     %
  [{{mnesia_tm,execute_transaction,5},             0,  837.267,    0.479},      
-  {{search_index,'-get_document_field_value/1-fun-13-',1},  46,  689.082,    0.259},      
+  {{search_index,&#39;-get_document_field_value/1-fun-13-&#39;,1},  46,  689.082,    0.259},      
   {{mnesia_tm,t_commit,1},                       48,    6.327,    0.361},      
-  {{search_index,'-get_field_facet_document/2-fun-1-',1},   1,    1.397,    0.002},      
-  {{search_index,'-get_term_document_field_frequencies/1-fun-0-',1},   1,    0.114,    0.002}]}.    
+  {{search_index,&#39;-get_field_facet_document/2-fun-1-&#39;,1},   1,    1.397,    0.002},      
+  {{search_index,&#39;-get_term_document_field_frequencies/1-fun-0-&#39;,1},   1,    0.114,    0.002}]}.    
 
 {[{{qlc,post_funs,1},                            46,  844.225,    0.083},      
   {{qlc,eval,1},                                 46,   12.254,    0.963}],     
