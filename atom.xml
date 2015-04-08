@@ -4,7 +4,7 @@
   <title><![CDATA[Ward Bekker]]></title>
   <link href="http://blog.equanimity.nl/atom.xml" rel="self"/>
   <link href="http://blog.equanimity.nl/"/>
-  <updated>2015-04-08T09:56:20+02:00</updated>
+  <updated>2015-04-08T09:58:55+02:00</updated>
   <id>http://blog.equanimity.nl/</id>
   <author>
     <name><![CDATA[Ward Bekker]]></name>
@@ -1222,6 +1222,9 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
     <id>http://blog.equanimity.nl/blog/2014/01/30/how-apple-will-implement-mobile-payment</id>
     <content type="html"><![CDATA[<p>The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code <a href="http://recode.net/2014/01/30/paypal-wants-in-on-apples-mobile-payments-dreams/">claim</a> that Apple and Paypal are in talks about a partnership, perhaps Apple using a whitelabel version of Paypal as a backoffice for their new service.</p>
 
+<!-- more -->
+
+
 <p>If Paypal and Apple are going to partner, my best guess is that this will NOT be using a whitelabel, but a much more lightweight integration like this:</p>
 
 <ul>
@@ -1271,6 +1274,9 @@ Tadam lives in your Mac status bar. It&rsquo;s icon shows the progress of your c
     <id>http://blog.equanimity.nl/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci</id>
     <content type="html"><![CDATA[<p><a href="http://www.erlang.org">Erlang/OTP</a> is designed for building large,
 scalable, soft-realtime systems with high availability. Testing such systems is non-trivial, useful <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">automated testing</a> even more so. That&rsquo;s why Erlang comes with some advanced testing libraries.</p>
+
+<!-- more -->
+
 
 <p>The three most important methods are explained here by a few simple examples:</p>
 
@@ -1547,6 +1553,9 @@ build</em></p>
 
 <p>These starting points helped me getting up to speed with <a href="http://www.erlang.org/">Erlang</a>. I hope this information helps you too.</p>
 
+<!-- more -->
+
+
 <h3>How install Erlang/OTP</h3>
 
 <p>You can install Erlang/OTP from <a href="http://www.erlang.org/download.html">source</a>, but I like the <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">ready-to-go packages</a> provided by Erlang Solutions.</p>
@@ -1698,6 +1707,9 @@ build</em></p>
     <id>http://blog.equanimity.nl/blog/2013/04/25/scrum-2009-not-scrum-2012</id>
     <content type="html"><![CDATA[<p>Tijdens de recent bezochte Scrum Product Owner cursus werd duidelijk dat Scrum is veranderd. Mijn begrip van Scrum, zoals geleerd tijdens de Scrum Master training van <a href="http://en.wikipedia.org/wiki/Jeff_Sutherland">Jeff Sutherland</a> in 2009, was aan herziening toe. Hieronder mijn bevindingen:</p>
 
+<!-- more -->
+
+
 <h2>Scrum in 2009</h2>
 
 <p>Jeff Sutherland, één van de bedenkers van scrum, legde in de 2009 training de nadruk op de volgende concepten:</p>
@@ -1738,6 +1750,9 @@ build</em></p>
     <content type="html"><![CDATA[<p>Google&rsquo;s <a href="https://thestrangeloop.com">Strange Loop</a> presentation <a href="https://docs.google.com/presentation/d/1dPbm1lKjVqdYq3_z3Dgp4ChPNZuMyrL9uLWGL40HBhI/edit#slide=id.p19">Making the Web Faster</a> inspired me to enable SPDY on one of my side projects <a href="https://www.zininsushi.nl">Zin In Sushi</a>. This simple sushi restaurant review site is build in Erlang using <a href="http://wiki.basho.com/Webmachine.html">Basho&rsquo;s Webmachine</a> in combination with <a href="http://code.google.com/p/erlydtl/">Erlydtl</a>.</p>
 
 <p>Below is a quick writeup of the steps needed.</p>
+
+<!-- more -->
+
 
 <p><em>Assumptions:</em></p>
 
@@ -1967,6 +1982,9 @@ build</em></p>
 <li><a href="#quickcheck">Quickcheck</a></li>
 <li><a href="#common-test">Common test</a></li>
 </ul>
+
+
+<!-- more -->
 
 
 <p>Je <em>cloned</em> het project van Github met het volgende commando:</p>
@@ -2238,6 +2256,11 @@ code runs dog slow you probably profile the code with <a href="http://www.erlang
 </pre></td><td class='code'><pre><code class=''><span class='line'>(node@host)1> fprof:apply(module, function, [arguments]).
 </span><span class='line'>(node@host)1> fprof:profile().
 </span><span class='line'>(node@host)1> fprof:analyse({dest, "outfile.fprof"}).</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!-- more -->
 
 
 <p>The printout of fprof analyse is a text dump of the result, which can
