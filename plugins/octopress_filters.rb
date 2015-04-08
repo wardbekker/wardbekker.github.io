@@ -1,3 +1,4 @@
+# coding: utf-8
 #custom filters for Octopress
 require './plugins/backtick_code_block'
 require './plugins/post_filters'
@@ -127,7 +128,11 @@ module OctopressLiquidFilters
 
   # Returns a title cased string based on John Gruber's title case http://daringfireball.net/2008/08/title_case_update
   def titlecase(input)
-    input.titlecase
+    if input
+      input.titlecase
+    else
+      "NO TITLE"
+    end
   end
 
 end
