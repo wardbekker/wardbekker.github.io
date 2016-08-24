@@ -119,6 +119,101 @@ in
 
 <p><em>This post is an update of <a href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">HOWTO: &ldquo;Erlang R17-RC2 on OSX Mavericks with WX and a working Observer&rdquo;</a>.</em></p>
 
+<h2>The best Erlang yet</h2>
+
+<p>Today&rsquo;s Erlang/OTP 17.0 release is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://learnyousomeerlang.com/maps">Maps</a> and <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Named arguments in funs</a>.</p>
+
+<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-17, especially for 64-bit Erlang. However, 17.0 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
+
+<h2>Set correct Xcode path for compilation</h2>
+
+<p>As far as I know you need have Xcode install to compile Erlang from source. You can <a href="https://itunes.apple.com/nl/app/xcode/id497799835?mt=12">download Xcode</a> via the Mac App Store</p>
+
+<p>If you have multiple versions of Xcode installed (beta&rsquo;s for example), make sure the <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">Command Line Tools</a> are installed and are pointing to the correct Xcode version.</p>
+
+<p>Initiating an install of the Xcode Command Line Tools:</p>
+
+<p><code>bash
+$ xcode-select --install
+</code></p>
+
+<p>And verify that the CL-tools point to the correct Xcode install</p>
+
+<p><code>bash
+$ xcode-select -s /Applications/Xcode.app/Contents/Developer
+</code></p>
+
+<h2>Install wxWidgets</h2>
+
+<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+<p><code>bash
+$ curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
+$ tar xvjf wxWidgets-3.0.0.tar.bz2
+$ cd wxWidgets-3.0.0.tar.bz2
+$ ./configure --with-cocoa --prefix=/usr/local
+$ make &amp;&amp; sudo make install
+$ export PATH=/usr/local/bin:$PATH
+</code></p>
+
+<p>Check that you got the correct wx-config</p>
+
+<p><code>bash
+$ which wx-config
+</code></p>
+
+<h2>Install kerl</h2>
+
+<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
+
+<p><code>bash
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></p>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<p><code>bash
+KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx"
+</code></p>
+
+<h2>Build &amp; Install Erlang with kerl</h2>
+
+<p><code>bash
+$ kerl update releases
+$ kerl build 17.0 17.0
+</code></p>
+
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+<p><code>bash
+$ CPPFLAGS="-arch i386" kerl build 17.0 17.0
+</code></p>
+
+<p>Install:</p>
+
+<p><code>bash
+$ kerl install 17.0 ~/erlang_17_0
+</code></p>
+
+<p>Activate:</p>
+
+<p><code>bash
+$ . ~/erlang_17_0/activate
+</code></p>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<p><code>bash
+$ erl -s observer start
+</code></p>
+
   </p>
   <span class="meta">
     written 
@@ -148,8 +243,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/">Read on &rarr;</a>
-  
 </article>
 
           </div>
@@ -165,6 +258,169 @@ in
     <p>Always wanted to learn <a href="http://www.erlang.org">Erlang</a>? Let&rsquo;s create your first Erlang &ldquo;Hello World&rdquo; program in style!</p>
 
 <p>In this HOWTO I&rsquo;ll show you how to setup a bleeding edge Erlang development VPS and how to run you first Erlang program.</p>
+
+<h1>Main ingredient: Cores</h1>
+
+<p>Erlang&rsquo;s main strength is it&rsquo;s concurrency support. It likes cores, so for our &lsquo;Hello World&rsquo; program we obviously need cores. Lot&rsquo;s! Not 4, not 8, 20!</p>
+
+<p>Create an account on <a href="https://www.digitalocean.com/?refcode=0d0404fa1c5c">Digital Ocean</a> if you don&rsquo;t have one yet (love them) and we&rsquo;re going to boot up their biggest instance. It&rsquo;s a steal at less than 1 dollar per hour. Just make sure you destroy it when done.</p>
+
+<p>64GB and 20 cores will make our Hello World so snappy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/b5a389c7-cd10-4e3f-a099-7f87968e2ec3/211a356f730703fcad9d4c6eb16ba1c7/deep/0/Fullscreen-29-03-14-21-36.png" alt="Fullscreen%2029/03/14%2021:36" /></p>
+
+<ul>
+<li>Pick a datacenter location near you.</li>
+<li>Select the latest version of Ubuntu: 13.10 x64.</li>
+<li>Create the Droplet.</li>
+<li>And ssh to your Droplet with the credentials received from Digital Ocean: <code>ssh root@your_ip_address</code>.</li>
+</ul>
+
+
+<h1>Bleeding Edge Erlang</h1>
+
+<p>We&rsquo;re going to compile Erlang from it&rsquo;s github repository master branch, At the time of writing it&rsquo;s a few commits after R17 release candidate 2 which comes with a Hipe LLVM backend, maps and named funs. If that doesn&rsquo;t make any sense, no worries, just remember it&rsquo;s the fastest Erlang yet. And fast is good.</p>
+
+<p>Install the required Ubuntu packages:</p>
+
+<p><code>bash
+$ apt-get install tmux build-essential emacs24 git-core libncurses5-dev libssl-dev autconf htop
+</code></p>
+
+<p>Fire up <a href="http://tmux.sourceforge.net">Tmux</a>:</p>
+
+<p><code>bash
+$ tmux
+</code></p>
+
+<p>Install <a href="https://github.com/spawngrid/kerl">Kerl</a>, a tool which makes building and switching Erlang versions easy.</p>
+
+<p><code>bash
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></p>
+
+<p>Let&rsquo;s add some good configuration options for our Erlang installation</p>
+
+<p><code>bash
+$ emacs .kerlrc
+</code>
+And add</p>
+
+<p><code>text
+KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll"
+</code></p>
+
+<p>And because we can, we forge our Erlang installation on 20 cores. <strong>Muahahaha.</strong></p>
+
+<p>To see those cores sweat for you on compilation, create another tmux window <code>CTRL-b c</code> and run <code>htop</code>.</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/49c6830d-6d0f-45e6-958a-6d262050b709/0b252a604ad067fa75f37345d8f59a84/deep/0/Fullscreen-29-03-14-21-52.png" alt="Fullscreen%2029/03/14%2021:52" /></p>
+
+<p>Besides the eye candy, compilation finishes under 5 minutes on a 20 core Digital Ocean Droplet. Whoop!</p>
+
+<p>To start compilation of Erlang:</p>
+
+<p><code>bash
+$ export MAKEFLAGS=-j20 &amp;&amp; ./kerl build git git://github.com/erlang/otp.git master erlang_llvm
+</code>
+After compilation we need to install the build and activate it:</p>
+
+<p><code>bash
+$ kerl install erlang_llvm erlang_llvm
+$ . ~/erlang_llvm/activate
+</code></p>
+
+<p>Great! We are now ready for our Pièce de résistance.</p>
+
+<h1>Just say: Hello!</h1>
+
+<p>Real Erlang hacker use Emacs, so let&rsquo;s setup Emacs for Erlang development.</p>
+
+<p>Fetch a good base config for Emacs:</p>
+
+<p><code>bash
+$ curl -o https://gist.githubusercontent.com/wardbekker/22a1bd79eb93af85fde0/raw/41eb32cbe1bc231c21fba8ec090e537805de2c58/.emacs
+</code></p>
+
+<p>Start up Emacs <code>emacs</code>. It will complain that it can&rsquo;t find <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a>. Let&rsquo;s fix that:</p>
+
+<p><code>
+[ESC]-x package-install [Enter] projmake-mode
+</code></p>
+
+<p>Exit emacs:</p>
+
+<p><code>
+[CTRL]-x [CTRL]-c
+</code></p>
+
+<p>Start up Emacs again <code>emacs</code>. Great! We can finally start writing our &ldquo;Hello World&rdquo; program. Oh, not, wait. First, we create a <code>projmake</code> file. The file is needed by <a href="https://github.com/ericbmerritt/projmake-mode">Projmake-mode</a>, a Flymake inspired mode that compiles your program on every save and shows build errors and warnings inline. Really useful!</p>
+
+<p><code>
+[CRTL]-x f projmake [Enter]
+</code></p>
+
+<p>Add these line and save the file</p>
+
+<p><code>cl
+(projmake
+ :name  "Hello"
+ :shell "erlc +native hello.erl")
+</code></p>
+
+<p>Ok, now we can really start writing our &ldquo;Hello World&rdquo; program and put those 20 cores and 64GB RAM to good use.</p>
+
+<p><code>
+[CTRL]-x f hello.erl [Enter]
+</code></p>
+
+<p>And type or paste:</p>
+
+<p>```erlang
+-module(hello).
+-export([just_say/0]).</p>
+
+<p>just_say() &ndash;></p>
+
+<pre><code>io_format("hello~n", []).
+</code></pre>
+
+<p>```</p>
+
+<p>And save with <code>[CTRL]-x [CTRL]-s</code>.</p>
+
+<p>Whoops. We made an error as projmake-mode shows:</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/ef7fb886-9179-40ea-966e-cdffb8d5d303/b1b324c0e4021c9dac5b320f79f168ab/deep/0/Fullscreen-29-03-14-21-24.png" alt="Fullscreen%2029/03/14%2021:24" /></p>
+
+<p>Replace <code>io_format</code> with <code>io:format</code> and save again. That fixes our error!.</p>
+
+<p>Let&rsquo;s run our program. Fire up the Erlang shell with:</p>
+
+<p><code>
+[ESC]-x erlang-shell
+</code></p>
+
+<p>Load the <code>hello</code> module with:</p>
+
+<p><code>
+1&gt; m(hello). [Enter]
+</code></p>
+
+<p>And run you first Erlang function&hellip;.</p>
+
+<p><code>
+2&gt; hello:just_say(). [Enter]
+</code></p>
+
+<p>Bliss!</p>
+
+<p><img src="http://i.imgur.com/1Sk0c.gif" /></p>
+
+<p>Congratulations. You now have a powerful Erlang development environment in your hands.</p>
+
+<p>Check out <a href="/blog/2013/05/29/a-beginners-guide-to-erlang/">A beginners guide to Erlang</a> to continue your Erlang binge.</p>
 
   </p>
   <span class="meta">
@@ -195,8 +451,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/03/29/your-first-erlang-program/">Read on &rarr;</a>
-  
 </article>
 
           </div>
@@ -212,6 +466,103 @@ in
     <p><a href="http://docs.seleniumhq.org">Selenium</a> is the industry standard for automated testing of web applications. Together with <a href="http://docs.seleniumhq.org/projects/webdriver/">Webdriver</a>, a &lsquo;remote control&rsquo; API for all major browsers, it enables you to create robust integration test for the browser.</p>
 
 <p>The great people of <a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">QuviQ</a>, creators of the unique <a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Quickcheck</a> test framework, created an Erlang Webdriver client implementation (<a href="https://github.com/Quviq/webdrv">Github repository</a>).</p>
+
+<p>It&rsquo;s trivial to get started with the following steps:</p>
+
+<h2>Step 1: Add webdrv to the rebar.config of your project</h2>
+
+<p>Open <code>rebar.config</code> in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:</p>
+
+<p>```erlang
+{deps, [</p>
+
+<pre><code>{webdrv, "", {git, "https://github.com/ehedenst/webdrv.git", {branch, "master"}}},
+   ]}.
+</code></pre>
+
+<p>```</p>
+
+<h2>Step 2: Get and compile webdrv</h2>
+
+<p>Go to the root of your Erlang project and execute:</p>
+
+<p><code>bash
+$ rebar get-deps compile
+</code></p>
+
+<h2>Step 3: Get &amp; start the Google chromedriver</h2>
+
+<p>For this quick start we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
+
+<p><code>bash
+$ curl -O http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip
+$ unzip chromedriver_mac32.zip
+$ ./chromedriver
+</code></p>
+
+<p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
+
+<p><code>bash
+Starting ChromeDriver (v2.9.248307) on port 9515
+</code></p>
+
+<p>Important! This server needs to be running during test execution.</p>
+
+<h2>Step 4:  Your first Erlang webdrvr test!</h2>
+
+<p>Save the following module in <code>src/random_org_test.erl</code>. In this test we open a page, fill in a form, submit the form, and check if an expected piece of text is indeed present in the response:</p>
+
+<p>```erlang
+-module(random_org_test).</p>
+
+<p>-compile(export_all).</p>
+
+<p>-include_lib(&ldquo;webdrv/include/webdrv.hrl&rdquo;).</p>
+
+<p>-define(CHROMEDRIVER, &ldquo;<a href="http://localhost:9515/">http://localhost:9515/</a>&rdquo;).</p>
+
+<p>test() &ndash;></p>
+
+<pre><code>{ok, _Pid} = webdrv_session:start_session(test, ?CHROMEDRIVER,  webdrv_cap:default_chrome(), 10000),
+webdrv_session:set_url(test, "http://www.random.org/integers/"),
+{ok, Emin} = webdrv_session:find_element(test, "name", "min"),
+webdrv_session:clear_element(test, Emin),
+webdrv_session:send_value(test, Emin, "5"),
+{ok, Emax} = webdrv_session:find_element(test, "name", "max"),
+webdrv_session:clear_element(test, Emax),
+webdrv_session:send_value(test, Emax, "15"),
+webdrv_session:submit(test, Emax),  
+{ok, PageSource} = webdrv_session:get_page_source(test),
+string:str(PageSource, "Here are your random numbers") &gt; 0,
+webdrv_session:stop_session(test).
+</code></pre>
+
+<p>```</p>
+
+<h2>Step 5: Run the test</h2>
+
+<p>Run your test by opening up the Erlang shell..</p>
+
+<p><code>bash
+$ erl -pa ebin deps/*/ebin
+</code></p>
+
+<p>..and execute the test function</p>
+
+<p><code>bash
+1&gt; random_org_test:test().
+</code></p>
+
+<p>You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output <code>ok</code>.</p>
+
+<h2>Further information</h2>
+
+<ul>
+<li><a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">Watch the Erlang Factory presentation by Hans Svensson from Quviq</a></li>
+<li><a href="https://github.com/Quviq/webdrv">Erlang Webdrvr Github repository</a></li>
+<li><a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium Webdriver documentation</a></li>
+</ul>
+
 
   </p>
   <span class="meta">
@@ -242,8 +593,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/03/07/selenium-webdriver-for-erlang/">Read on &rarr;</a>
-  
 </article>
 
           </div>
@@ -261,6 +610,93 @@ in
 <p><strong>Update 11 Feb 2014</strong> <a href="https://twitter.com/SpiffDgud">Dan GudMundsson</a> pointed out that starting with R17 both 32 and 64 bit Erlang will work with wxWidgets. I&rsquo;ve updated part of this blog post with the instructions found in the official <a href="https://github.com/erlang/otp/blob/maint/HOWTO/INSTALL.md">Erlang/OTP installation HOWTO</a>.</p>
 
 <p>This post is based on <a href="http://featurebranch.com/howto-getting-wx-to-work-with-erlang-r16b02-on-os-x/">HOWTO: Getting wx to work with Erlang r16b02 on OS X</a> by <a href="https://twitter.com/MSch">Martin Schuerrer</a></p>
+
+<p>Erlang R17-rc1 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
+
+<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-R17, especially for 64-bit Erlang. However, R17 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
+
+<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
+
+<h2>Set correct Xcode path for compilation</h2>
+
+<p><code>bash
+$ xcode-select -s /Applications/Xcode.app/Contents/Developer
+</code></p>
+
+<p>or if you installed a beta version (in my case <code>51-Beta5</code>):</p>
+
+<p><code>bash
+$ xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
+</code></p>
+
+<h2>Install wxWidgets</h2>
+
+<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+<p><code>bash
+$ curl -O http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2
+$ tar xvjf wxWidgets-3.0.0.tar.bz2
+$ cd wxWidgets-3.0.0.tar.bz2
+$ ./configure --with-cocoa --prefix=/usr/local
+$ make &amp;&amp; sudo make install
+$ export PATH=/usr/local/bin:$PATH
+</code></p>
+
+<p>Check that you got the correct wx-config</p>
+
+<p><code>bash
+$ which wx-config
+</code></p>
+
+<h2>Install kerl</h2>
+
+<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
+
+<p><code>bash
+$ curl -O https://raw.github.com/spawngrid/kerl/master/kerl
+$ chmod a+x kerl
+</code></p>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+<p>Add these lines:</p>
+
+<p><code>bash
+KERL_CONFIGURE_OPTIONS="--disable-debug --without-javac --enable-shared-zlib --enable-dynamic-ssl-lib --enable-hipe --enable-smp-support --enable-threads --enable-kernel-poll --with-wx"
+</code></p>
+
+<h2>Build &amp; Install Erlang with kerl</h2>
+
+<p><code>bash
+$ kerl update releases
+$ kerl build 17.0-rc1 17rc1
+</code></p>
+
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+<p><code>bash
+$ CPPFLAGS="-arch i386" kerl build 17.0-rc1 17rc1
+</code></p>
+
+<p>Install:</p>
+
+<p><code>bash
+$ kerl install 17rc1 ~/17rc1
+</code></p>
+
+<p>Activate:</p>
+
+<p><code>bash
+$ . ~/17rc1/activate
+</code></p>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+<p><code>bash
+$ erl -s observer start
+</code></p>
 
   </p>
   <span class="meta">
@@ -291,8 +727,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">Read on &rarr;</a>
-  
 </article>
 
           </div>
@@ -307,6 +741,225 @@ in
   <p>
     <p><a href="http://www.erlang.org">Erlang/OTP</a> is designed for building large,
 scalable, soft-realtime systems with high availability. Testing such systems is non-trivial, useful <a href="http://en.wikipedia.org/wiki/Software_testing#Automated_testing">automated testing</a> even more so. That&rsquo;s why Erlang comes with some advanced testing libraries.</p>
+
+<p>The three most important methods are explained here by a few simple examples:</p>
+
+<ul>
+<li>Unit testing</li>
+<li>Quickcheck</li>
+<li>Common test</li>
+</ul>
+
+
+<p>First <em>clone</em>  the project from Github using the command:</p>
+
+<p><code>sh
+$ git clone git@github.com:wardbekker/ci_quickstart.git
+</code></p>
+
+<p>For compiling and executing the project we use <a href="https://github.com/basho/rebar">Rebar</a>, a <em>sophisticated build-tool for Erlang projects that follows OTP principles</em>.  Steps to build rebar:</p>
+
+<p><code>sh
+$ git clone git://github.com/basho/rebar.git
+$ cd rebar
+$ ./bootstrap
+Recompile: src/getopt
+...
+Recompile: src/rebar_utils
+==&gt; rebar (compile)
+Congratulations! You now have a self-contained script called "rebar" in
+your current working directory. Place this script anywhere in your path
+and you can use rebar to build OTP-compliant apps.
+</code></p>
+
+<h2>Unit testing with EUnit</h2>
+
+<p>Let&rsquo;s start with the most simple test method; <a href="http://www.erlang.org/doc/apps/eunit/chapter.html">EUnit</a>. It&rsquo;s Erlang unit testing library. A unit test check if a function returns the expected result for a given input. In the example below the function <code>addition</code> is defined in the module <code>ci_quickstart_math</code> and two <em>assertions</em> are used:</p>
+
+<ul>
+<li><code>?assertEqual(expected, actual)</code></li>
+<li><code>?assertNotEqual(expected, actual)</code>.</li>
+</ul>
+
+
+<p>Try it our yourself with executing EUnit from the command line: <code>rebar get-deps compile eunit</code>:</p>
+
+<p>```erlang
+-module(ci_quickstart_math).
+-export([addition/2]).</p>
+
+<p>-ifdef(TEST).
+-include_lib(&ldquo;eunit/include/eunit.hrl&rdquo;).
+-endif.</p>
+
+<p>addition(X, Y) &ndash;></p>
+
+<pre><code>X + Y.
+</code></pre>
+
+<p>-ifdef(TEST).</p>
+
+<p>simple_test() &ndash;></p>
+
+<pre><code>?assertEqual(4, addition(2,2)),
+?assertNotEqual(3, addition(1,1)).
+</code></pre>
+
+<p>-endif.
+```</p>
+
+<p>Did all test pass? Excellent! Now the bad news. The actual value of this type of test if quite low. Are we sure the addition function works correct for all possible input?  We are now only certain of these cases:</p>
+
+<ul>
+<li><code>addition(2,2) == 4</code></li>
+<li><code>addition(1,1) /= 3</code></li>
+</ul>
+
+
+<p>And even then, when I change the body of the <code>addition</code> function in obviously something totally wrong:</p>
+
+<p>```erlang
+ addition(X, Y) &ndash;></p>
+
+<pre><code>4.
+</code></pre>
+
+<p>```</p>
+
+<p>The tests will still pass!</p>
+
+<p>So, with unit tests our assertions may be correct, but the function body of <code>addition</code> can be a steaming pile of canis faeces.</p>
+
+<p>It&rsquo;s even worse; As in this case, the arguments of addition are <a href="http://www.erlang.org/doc/efficiency_guide/advanced.html">64-bit small integers</a>, which have a range of -576460752303423489 &ndash; 576460752303423488. With two arguments, that is a humongous amount of inputs we should test to be really sure our function works correctly.  In the example unit test we only check two? Even adding twenty more cases, the hard worker that you are, effectively have very little value.</p>
+
+<p>Depressed already?  On to the good stuff.</p>
+
+<h2>QuickCheck</h2>
+
+<p>Continuing with the addition example; what we actually want is a test method that generated all possible inputs, and checks the result. Erlang has this, and the method is called <a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a>. Erlang even has multiple QuickCheck-style libraries available:</p>
+
+<ul>
+<li><a href="http://www.quviq.com">Quvic QuickCheck</a></li>
+<li><a href="https://github.com/manopapad/proper">ProPEr</a></li>
+<li><a href="https://github.com/krestenkrab/triq">Triq</a></li>
+</ul>
+
+
+<p>A QuickCheck test, also called a <em>property</em>  for <code>addition</code> function looks like this:</p>
+
+<p>```erlang
+prop_sum() &ndash;></p>
+
+<pre><code>?FORALL(
+    {X, Y}, 
+    {int(), int()},
+    addition(X,Y) - Y == X
+).
+</code></pre>
+
+<p>```</p>
+
+<p>Test this example from the command line by executing <code>./shell.sh</code>. You will enter the Erlang shell. Then execute <code>proper:quickcheck(ci_quickstart_math:prop_sum()).</code>.</p>
+
+<p>If we look at the implementation of the QuickCheck test, notice that we are not testing specific numbers. We are testing a <em>property</em>  of the addition function, namely when we add int <em>X</em> and <em>Y</em>, and subtract <em>Y</em>  from the result of the addition, we should be left with <em>X</em> again.</p>
+
+<p>The code <code>{int(), int()}</code> specifies that the QuickCheck should generate <em>tuples</em> with two random integers. Each generated <em>tuple</em>  is bound to the pattern <code>{X, Y}</code> by <a href="http://erlang.org/doc/reference_manual/patterns.html">Erlang pattern matching</a>.  Quickcheck will generate 100 combinations by default.  With the <code>numtests</code> option we can increase this considerably: <code>proper:quickcheck(ci_quickstart_math:prop_sum(),[{numtests,10000}]).</code>.</p>
+
+<p>The challenge when using Quickcheck style testing, is to come up with good function properties. This is much harder than writing unit tests. It&rsquo;s even more difficult to reason about function properties than actually writing the actual function. So why bother?</p>
+
+<p>Reasons to use QuickCheck:</p>
+
+<ul>
+<li>Test correct functioning for all inputs.</li>
+<li>Compared to unit tests, QuickCheck test tend to find more bugs than unit tests.</li>
+<li>You need to reason about your code on a deeper level which improves your understanding of the problem you are solving, which tends to result in better code.</li>
+</ul>
+
+
+<h2>Common Test</h2>
+
+<p>As you might know, Erlang is a very good fit for building concurrent, distributed and fault tolerant systems. Testing if what you build is actually has those properties, is quite complex.</p>
+
+<p>For that, Erlang offers <a href="http://www.erlang.org/doc/apps/common_test/basics_chapter.html">Common Test</a>. This test frameworks can do the heavy lifting required for meaningful <a href="http://en.wikipedia.org/wiki/System_testing">system tests</a>.  The inherent complexity of concurrent, distributed en fault tolerant systems is reflected in Common Test. So, in this introduction we only take a very quick glance. In this example we mimic the initial unit test using pattern matching for assertions.</p>
+
+<p>```erlang
+-module(basic_SUITE).
+-include_lib(&ldquo;common_test/include/ct.hrl&rdquo;).</p>
+
+<p>-export([all/0]).
+-export([test1/1, test2/1]).</p>
+
+<p>all() &ndash;> [test1,test2].</p>
+
+<p>test1(_Config) &ndash;></p>
+
+<pre><code>3 = ci_quickstart_math:addition(1,2). %% validated using pattern matching
+</code></pre>
+
+<p>test2(_Config) &ndash;></p>
+
+<pre><code>2 = ci_quickstart_math:addition(1,1).  %% validated using pattern matching
+</code></pre>
+
+<p>```</p>
+
+<h2>Continuous integration with Travis-CI</h2>
+
+<p>During development, you run your Erlang automated tests on your own workstation. But there comes a point where that&rsquo;s no longer feasible because of the long duration or high load. Or you work in a team setting where it&rsquo;s important that only working code is integrated. In those cases and  <a href="http://en.wikipedia.org/wiki/Continuous_integration#Advantages_and_disadvantages">for several other good reasons</a>, you need to use a <a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a> system.</p>
+
+<p>There are several continuous integration systems that allow you to run automated tests for Erlang. In this example we use <a href="http://travis-ci.org">Travis-CI</a>. It&rsquo;s a free hosted continuous integration service for the open source community. Travis-CI integrates with the popular <a href="http://www.github.com">Github</a>.</p>
+
+<p>Let&rsquo;s add our example project to Travis-CI.</p>
+
+<h3>Preparation</h3>
+
+<p>The build process of Travis-CI is configured with a <code>.travis.yml</code> file in the <em>root</em>  of our repository:</p>
+
+<p><code>yaml
+language: erlang // This project is an Erlang project
+notifications:
+  email: you@example.org // Notify this e-mail address on build failures
+otp_release: // The Erlang/OTP versions to run your test against.
+  - R15B01
+  - R15B
+  - R14B04
+</code></p>
+
+<h3>Travis-CI Setup</h3>
+
+<p>This video shows how to register with Travis-CI:</p>
+
+<ul>
+<li>Log in with your Github account.</li>
+<li>Open the Travis-CI <em>profile</em> page.</li>
+<li>Enable the <em>repository</em>  that you want to test.</li>
+</ul>
+
+
+<p>That&rsquo;s it!</p>
+
+<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/aRQswLPaplg "></iframe></div></p>
+
+<h3>Travis-CI Success Run</h3>
+
+<p>This video shows how Travis-CI will report an successful <em>integration build</em></p>
+
+<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/VibylfHMCrg "></iframe></div></p>
+
+<h3>Travis-CI Failure Run</h3>
+
+<p>This video shows how Travis-CI will report an failed <em>integration
+build</em></p>
+
+<p><div class="embed-video-container"><iframe src="http://www.youtube.com/embed/3AlNH1CrIro "></iframe></div></p>
+
+<p>If you entered your e-mail address in <code>.travis.yml</code>, you will receive a mail about which <em>commit</em>  broke the build:</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/broken_email.png" width="400" height="200" alt="Broken build e-mail notification" /></p>
+
+<p>When your colleague fixed the build (you would never commit broken code, right?), you will receive a mail that the build is fixed by a new <em>commit</em>.</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
 
   </p>
   <span class="meta">
@@ -337,8 +990,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Read on &rarr;</a>
-  
 </article>
 
           </div>
@@ -354,6 +1005,148 @@ in
     <p><blockquote><p>In the beginner’s mind there are many possibilities, but in the expert’s there are few</p><footer><strong>Shunryu Suzuki</strong> <cite>Zen Mind Beginner&rsquo;s Mind</cite></footer></blockquote></p>
 
 <p>These starting points helped me getting up to speed with <a href="http://www.erlang.org/">Erlang</a>. I hope this information helps you too.</p>
+
+<h3>How install Erlang/OTP</h3>
+
+<p>You can install Erlang/OTP from <a href="http://www.erlang.org/download.html">source</a>, but I like the <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">ready-to-go packages</a> provided by Erlang Solutions.</p>
+
+<h3>Writing Erlang</h3>
+
+<p>I use <a href="http://aquamacs.org/">Aquamacs</a>, An Emacs for mac users, with the <a href="http://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html">Erlang mode</a> provided by Erlang/OTP.  Combined with Eric B Merritt&rsquo;s <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a> and Mochiweb <a href="https://github.com/oinksoft/reloader">reloader</a> this makes for a productive development environment.</p>
+
+<h3>Documentation</h3>
+
+<ul>
+<li>The <a href="http://www.erlang.org/doc/">official Erlang documentation</a> is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.</li>
+<li>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn&rsquo;t have an R16 copy and function signatures are not shown fully correct, but it works for me.</li>
+<li><a href="http://learnyousomeerlang.com/">Learn you some erlang</a> is a free online guide (and available as a dead tree version). It&rsquo;s a very good intro for learning Erlang.</li>
+</ul>
+
+
+<h3>Best places to ask for help</h3>
+
+<p>The <a href="http://erlang.org/mailman/listinfo/erlang-questions">Erlang Questions Mailinglist</a> is the best place to ask your Erlang questions. Don&rsquo;t be surprised if you question is answered by Erlang inventors themselves!</p>
+
+<p>As with other programming languages <a href="http://stackoverflow.com/questions/tagged/erlang">Stack overflow</a> is also a great place to get answers to your pressing Erlang questions.</p>
+
+<h3>Erlang books</h3>
+
+<p>Compared to Java, the quantity of Erlang books is low. But the quality is pretty good! And a little birdy told me that some great new books will be published in the near future. <em>Warning: affiliate links to Amazon ahead. You will be sponsoring my caffeine intake. Thank you.</em></p>
+
+<table>
+            <tr>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/0596518188/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0596518188&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=0596518188&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0596518188" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/0596518188/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0596518188&linkCode=as2&tag=dotnettaxi-20">Erlang Programming by Francesco Cesarini</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0596518188" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+                <td>
+                    <a href="http://learnyousomeerlang.com"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1593274351&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1593274351" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://learnyousomeerlang.com/">Learn you some Erlang by Fred Hebert</a><br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449309968&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1449309968&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449309968" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449309968&linkCode=as2&tag=dotnettaxi-20">Building Web Applications with Erlang: Working with REST and Web Sockets on Yaws</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449309968" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/193435600X/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=193435600X&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=193435600X&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=193435600X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/193435600X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=193435600X&linkCode=as2&tag=dotnettaxi-20">Programming Erlang: Software for a Concurrent World</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=193435600X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/1933988789/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1933988789&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1933988789&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1933988789" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/1933988789/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1933988789&linkCode=as2&tag=dotnettaxi-20">Erlang and OTP in Action</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1933988789" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/0321636465/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321636465&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=0321636465&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0321636465" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/0321636465/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321636465&linkCode=as2&tag=dotnettaxi-20">Building Scalable Applications with Erlang (Developer's Library)</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0321636465" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/1449331769/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449331769&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1449331769&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449331769" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/1449331769/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449331769&linkCode=as2&tag=dotnettaxi-20">Introducing Erlang</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449331769" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/3941841459/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=3941841459&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=3941841459&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=3941841459" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/3941841459/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=3941841459&linkCode=as2&tag=dotnettaxi-20">Erlang/OTP</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=3941841459" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+            </tr>
+</table>
+
+
+<br /><br />
+
+
+<h3>Testing and Continuous integration</h3>
+
+<p>I recently gave a talk introducing the great automated testing facilities of Erlang. Check out the <a href="/blog/2013/04/25/erlang-testing/">video and slides</a></p>
+
+<p>With help from former collegue &amp; friend <a href="https://twitter.com/j2h">Josh Kalderimis</a> I&rsquo;ve added the first iteration of Erlang support to <a href="https://travis-ci.org/">Travis-CI</a>. It&rsquo;s a free continuous integration service for open source projects. It&rsquo;s used by well known Erlang projects like <a href="http://basho.com/riak/">Basho Riak</a>, <a href="http://elixir-lang.org/">Elixir</a> and <a href="https://github.com/mochi/mochiweb">Mochiweb</a>.
+<a href="http://about.travis-ci.org/docs/user/languages/erlang/">See the documentation how to add your project</a>.</p>
+
+<p>If you can read Dutch, you can also read my blog post about <a href="blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Geautomatiseerd testen met Erlang/OTP en Travis-CI</a> which covers the same ground.</p>
+
+<h3>Who to follow on twitter</h3>
+
+<p>Two of the three Erlang inventors are active tweeps:</p>
+
+<ul>
+<li><a href="https://twitter.com/joeerl">Joe Armstrong</a></li>
+<li><a href="https://twitter.com/rvirding">Robert Virding</a></li>
+</ul>
+
+
+<p>Want more?  <a href="https://twitter.com/bryan_hunter">Bryan Hunter</a> maintains <a href="https://twitter.com/bryan_hunter/erlang/members">a list of Erlang folks on twitter</a> .</p>
+
+<p><a href="https://twitter.com/wardbekker">I&rsquo;m also on twitter</a></p>
+
+<h3>Popular Erlang projects</h3>
+
+<p>Want to learn Erlang from the absolute best? Most popular Erlang projects are open source. Make some coffee, clone the repositories and learn from the code of the Erlang gods. Below a selection:</p>
+
+<ul>
+<li><a href="https://github.com/erlang/otp">Erlang OTP</a> &ndash; The full Erlang/OTP sourcecode.</li>
+<li><a href="https://github.com/basho/riak">Basho Riak</a> &ndash; A decentralized datastore.</li>
+<li><a href="https://github.com/extend/cowboy">Cowboy</a> &ndash; Small, fast, modular HTTP server written in Erlang.</li>
+<li><a href="https://github.com/rebar/rebar">Rebar</a> &ndash; A sophisticated build-tool for Erlang projects that follows OTP principles.</li>
+<li><a href="https://github.com/mochi/mochiweb">Mochiweb</a> &ndash; MochiWeb is an Erlang library for building lightweight HTTP servers.</li>
+<li><a href="https://github.com/basho/webmachine">Webmachine</a> &ndash; A REST-based system for building web applications.</li>
+</ul>
+
+
+<p>Explore more popular Erlang projects on <a href="https://github.com/languages/Erlang">Github&rsquo;s Erlang page</a></p>
+
+<h3>Conferences &amp; User groups</h3>
+
+<p>The <a href="http://www.erlang-factory.com/">Erlang Factory</a> conferences are the best places to meet professional Erlang developers. I&rsquo;ve attended a few of them, and I am always amazed by the quality of the speakers and the <em>hallway</em> discussions. Pro tip: make sure you have a substantial lunch and then stay for the drinks.</p>
+
+<p>A few local active user groups that I&rsquo;m aware of:</p>
+
+<ul>
+<li><a href="http://www.meetup.com/ErlangChicago/">Chicago Erlang User Group</a></li>
+<li><a href="http://www.meetup.com/funadam/">Cross Functional Amsterdam</a> &ndash; I help organize this one. We have frequent Erlang focused talks.</li>
+<li><a href="http://www.meetup.com/erlangusergroup/">London Erlang User Group</a> &ndash;</li>
+</ul>
+
+
+<p>Explore more Erlang user groups on <a href="http://www.meetup.com/find/?offset=0&amp;psize=64&amp;currentpage=1&amp;allMeetups=true&amp;categories=&amp;keywords=erlang&amp;radius=Infinity&amp;userFreeform=&amp;mcId=&amp;mcName=&amp;lat=52.083298&amp;lon=4.300003&amp;sort=default">Meetup</a></p>
+
+<h3>Training</h3>
+
+<p>I attended the three day Erlang/OTP express course from <a href="https://www.erlang-solutions.com/services/training">Erlang Solutions</a> and got a much better understanding of OTP. Erlang Solutions also provide E-learning training.</p>
+
+<p>I also heard some good things from the <a href="http://erlangcamp.com/">Erlang Camp by Erlware</a>. This is a intensive two day trainings for beginners and intermediate Erlang programmers.</p>
 
   </p>
   <span class="meta">
@@ -384,8 +1177,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/05/29/a-beginners-guide-to-erlang/">Read on &rarr;</a>
-  
 </article>
 
           </div>
@@ -408,6 +1199,201 @@ in
 <li><a href="#common-test">Common test</a></li>
 </ul>
 
+
+<p>Je <em>cloned</em> het project van Github met het volgende commando:</p>
+
+<p><code>sh
+$ git clone git@github.com:wardbekker/ci_quickstart.git
+</code></p>
+
+<p>Voor het compileren van het project en uitvoeren van de testen gebruik je <a href="https://github.com/basho/rebar">Rebar</a>, een <em>sophisticated build-tool for Erlang projects that follows OTP principles</em>.  Je bouwt Rebar als volgt:</p>
+
+<p><code>sh
+$ git clone git://github.com/basho/rebar.git
+$ cd rebar
+$ ./bootstrap
+Recompile: src/getopt
+...
+Recompile: src/rebar_utils
+==&gt; rebar (compile)
+Congratulations! You now have a self-contained script called "rebar" in
+your current working directory. Place this script anywhere in your path
+and you can use rebar to build OTP-compliant apps.
+</code></p>
+
+<h2>Unit testing met EUnit</h2>
+
+<p>Je begint met de eenvoudigste test methode; <a href="http://www.erlang.org/doc/apps/eunit/chapter.html">EUnit</a>. Dit is een unit testing bibliotheek voor Erlang. In een unit test controleer je of de functie goed werkt bij bekende input en resultaat. In dit voorbeeld heb je de functie <code>addition</code> geimplementeerd in de module <code>ci_quickstart_math</code> en twee <em>assertions</em>. (Je voert deze test uit op de commandline met: <code>rebar get-deps compile eunit</code>):</p>
+
+<p>```erlang
+-module(ci_quickstart_math).
+-export([addition/2]).</p>
+
+<p>-ifdef(TEST).
+-include_lib(&ldquo;eunit/include/eunit.hrl&rdquo;).
+-endif.</p>
+
+<p>addition(X, Y) &ndash;></p>
+
+<pre><code>X + Y.
+</code></pre>
+
+<p>-ifdef(TEST).</p>
+
+<p>simple_test() &ndash;></p>
+
+<pre><code>?assertEqual(4, addition(2,2)),
+?assertNotEqual(3, addition(1,1)).
+</code></pre>
+
+<p>-endif.
+```</p>
+
+<p>Het slechte nieuws is dat de waarde van deze test zeer laag is. Weet je nu zeker dat optelling goed gaat in alle gevallen? Het enige wat de test nu aantoont is dat:</p>
+
+<ul>
+<li><code>addition(2,2) == 4</code></li>
+<li><code>addition(1,1) /= 3</code></li>
+</ul>
+
+
+<p>Stel, je verandert de implementatie van de function <code>addition</code> in:</p>
+
+<p>```erlang
+ addition(X, Y) &ndash;></p>
+
+<pre><code>4.
+</code></pre>
+
+<p>```</p>
+
+<p>De testen slagen in dit geval, maar dit betekend niet dat de implementatie van <code>addition</code> correct is.</p>
+
+<p>Sterker nog; De argumenten zijn in dit geval <a href="http://www.erlang.org/doc/efficiency_guide/advanced.html">64-bit small integers</a>, en die hebben een bereik van -576460752303423489 t/m 576460752303423488. Met twee argumenten, betekend dit dat er enorm veel verschillende input mogelijk is. En in de unit test controleer je er maar 3!?!?  Ook al ben je een harde werker en test je wel 10! addities, in feite is de waarde van de unit test niet verbeterd en nog steeds erg laag.</p>
+
+<p>Wat nu?</p>
+
+<h2>QuickCheck</h2>
+
+<p>Wat je eigenlijk wil is een test methode dat alle mogelijke input variaties genereerd en de bijbehorende output controleert. Deze methode heet <a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a>. Voor Erlang zijn er een aantal QuickCheck frameworks beschikbaar:</p>
+
+<ul>
+<li><a href="http://www.quviq.com">Quvic QuickCheck</a></li>
+<li><a href="https://github.com/manopapad/proper">ProPEr</a></li>
+<li><a href="https://github.com/krestenkrab/triq">Triq</a></li>
+</ul>
+
+
+<p>Een Quickcheck test voor de <code>addition</code> functie:</p>
+
+<p>```erlang
+prop_sum() &ndash;></p>
+
+<pre><code>?FORALL(
+    {X, Y}, 
+    {int(), int()},
+    addition(X,Y) - Y == X
+).
+</code></pre>
+
+<p>```</p>
+
+<p>Voer de test uit door de Erlang Shell op te starten met <code>./shell.sh</code> en de volgende functie aanroep <code>proper:quickcheck(ci_quickstart_math:prop_sum()).</code></p>
+
+<p>Specifieke nummers worden niet getest. Je gaat nu controleren of de functie voldoet aan de eigenschap dat als je Y weer er afhaalt, je X overhoud.</p>
+
+<p><code>{int(), int()}</code> genereerd <em>tuples</em> met twee random integers. De <em>tuple</em> wordt gebonden aan <code>{X, Y}</code> door <em>pattern matching</em>.  Standaard worden er 100 combinaties getest, en dit aantal voer je op met de <code>numtests</code> optie: <code>proper:quickcheck(ci_quickstart_math:prop_sum(),[{numtests,10000}]).</code>.</p>
+
+<p>De uitdaging bij het werken met QuickCheck is het bedenken van de eigenschappen van de functie. Dit is lastiger dan het maken van een unit test. Sterker nog, het schrijven van de functie is vaak nog eenvoudiger dan het redeneren over de eigenschappen. Het positieve effect van QuickCheck op de kwaliteit van je code, en de manier waarop je als developer over je code nadenkt maakt deze tool een zeer waardevol onderdeel van je test gereedschapskist.</p>
+
+<!---
+[[Naast testen van functie eigenschappen is Quickcheck erg goed in het testen van zgn .State Machine. Een goed voorbeeld hiervan is de controle van de beloofde eventual consistency van Basho's Riak, een populair distribueerd database systeem gemaakt in Erlang. Zie hiervoor de slides van xxxxx. ]]
+-->
+
+
+<h2>Common Test</h2>
+
+<p>Zoals bekend is Erlang uitermate geschikt voor het bouwen van concurrent, distributed en fault tolerant systemen. Om te controleren of je systeem werkt zoals verwacht, is complex.</p>
+
+<p>Hiervoor is <a href="http://www.erlang.org/doc/apps/common_test/basics_chapter.html">Common Test</a> in het leven geroepen. Dit krachtige test framework is uitermate geschikt voor de ontwikkeling van pittige <a href="http://en.wikipedia.org/wiki/System_testing">systeem tests</a>. De inherente complexiteit van concurrent, distributed en fault tolerant systemen maakt Common Test complex. Hoe je een serieuze OTP applicatie op de pijnbank legt met CT valt derhalve buiten de scope van deze blogpost. Hier onder wel een minimaal Comment Test waarin de EUnit testen worden nagebootst door gebruik van pattern matching.</p>
+
+<p>```erlang
+-module(basic_SUITE).
+-include_lib(&ldquo;common_test/include/ct.hrl&rdquo;).</p>
+
+<p>-export([all/0]).
+-export([test1/1, test2/1]).</p>
+
+<p>all() &ndash;> [test1,test2].</p>
+
+<p>test1(_Config) &ndash;></p>
+
+<pre><code>3 = ci_quickstart_math:addition(1,2). %% validated using pattern matching
+</code></pre>
+
+<p>test2(_Config) &ndash;></p>
+
+<pre><code>2 = ci_quickstart_math:addition(1,1).  %% validated using pattern matching
+</code></pre>
+
+<p>```</p>
+
+<h2>Continuous integration met Travis-CI</h2>
+
+<p>Stel, je hebt een flinke hoeveelheid Eunit, Common Test en Quickcheck testen geïmplementeerd. Het uitvoeren van alle geavanceerde testen duurt lang en belast je systeem fors. Om deze, en <a href="http://en.wikipedia.org/wiki/Continuous_integration#Advantages_and_disadvantages">nog meer goede redenen</a>, is <a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a> aan te raden.</p>
+
+<p>Er zijn legio systemen waarmee het mogelijk is om continuous integration voor Erlang op te zetten. In dit voorbeeld gebruik je het hosted systeem <a href="http://travis-ci.org">Travis-CI</a>. Deze dienst ondersteunt Erlang, integreert met het populaire Github en zorgt voor een vliegende start. En het is gratis voor open source projecten.</p>
+
+<h3>Voorbereiding</h3>
+
+<p>Het build proces van Travis-CI configureer je via het <code>.travis.yml</code>-bestand in de <em>root</em> van je repository. Een voorbeeld:</p>
+
+<p><code>yaml
+language: erlang // De repository bevat een Erlang project
+notifications:
+  email: you@example.org // Build success en failures stuurt Travis-CI naar dit adres.
+otp_release: // Travis-CI test/bouwt je project voor meerdere Erlang/OTP versies.
+  - R15B01
+  - R15B
+  - R14B04
+</code></p>
+
+<h3>Travis-CI Setup</h3>
+
+<p>Deze video toont hoe je start met Travis-CI:</p>
+
+<ul>
+<li>Log in met je Github account.</li>
+<li>Ga naar de Travis-CI <em>profile</em> pagina.</li>
+<li>Schakel de gewenste Github <em>repository</em> in.</li>
+</ul>
+
+
+<p>That&rsquo;s it!</p>
+
+<p><a href="http://www.youtube.com/watch?v=YxJJu6mShiA&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/signing_and_switch.png" alt="Setup" /></a></p>
+
+<h3>Travis-CI Success Run</h3>
+
+<p>Deze video toont hoe Travis-CI een geslaagde <em>integration build</em>
+rapporteerd:</p>
+
+<p><a href="http://www.youtube.com/watch?v=rJWRY1Uf_qg&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/success.png" alt="Success" /></a></p>
+
+<h3>Travis-CI Failure Run</h3>
+
+<p>Deze video toont hoe Travis-CI een mislukte <em>integration build</em>
+rapporteerd:</p>
+
+<p><a href="http://www.youtube.com/watch?v=5u8Kpz3m8ho&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fail.png" alt="Fail" /></a></p>
+
+<p>Als je e-mail adres in <code>.travis.yml</code> staat, krijg je ook een e-mail notificatie dat de laatste <em>commit</em> de build gebroken heeft:</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/broken_email.png" width="400" height="200" alt="Broken build e-mail notification" /></p>
+
+<p>Als de fout verholpen is, krijg je de volgende e-mail als de build weer slaagt:</p>
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
 
   </p>
   <span class="meta">
@@ -437,8 +1423,6 @@ in
 
   </span>
 
-  
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Read on &rarr;</a>
   
 </article>
 
@@ -513,6 +1497,108 @@ code runs dog slow you probably profile the code with <a href="http://www.erlang
 </span><span class='line'>(node@host)1> fprof:profile().
 </span><span class='line'>(node@host)1> fprof:analyse({dest, &ldquo;outfile.fprof&rdquo;}).</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
+<p>The printout of fprof analyse is a text dump of the result, which can
+grow over 1000 lines and contains a lot of noise which makes it hard
+to locate the bottlenecks. Below a truncated
+sample of an actual fprof trace.</p>
+
+<p><div><script src='https://gist.github.com/5458222.js'></script>
+<noscript><pre><code>%% Analysis results:
+{  analysis_options,
+ [{callers, true},
+  {sort, acc},
+  {totals, false},
+  {details, true}]}.
+
+%                                               CNT       ACC       OWN        
+[{ totals,                                     275978,  888.505,  872.193}].  %%%
+
+
+%                                               CNT       ACC       OWN        
+[{ &quot;&lt;7082.15229.0&gt;&quot;,                           275978,undefined,  872.193}].   %%
+
+{[{{qlc,eval,2},                                  0,  843.539,    0.148},      
+  {{mnesia_tm,execute_transaction,5},            48,   14.085,    0.128}],     
+ { {mnesia_tm,apply_fun,3},                      48,  857.624,    0.276},     %
+ [{{mnesia_tm,execute_transaction,5},             0,  837.267,    0.479},      
+  {{search_index,&#39;-get_document_field_value/1-fun-13-&#39;,1},  46,  689.082,    0.259},      
+  {{mnesia_tm,t_commit,1},                       48,    6.327,    0.361},      
+  {{search_index,&#39;-get_field_facet_document/2-fun-1-&#39;,1},   1,    1.397,    0.002},      
+  {{search_index,&#39;-get_term_document_field_frequencies/1-fun-0-&#39;,1},   1,    0.114,    0.002}]}.    
+
+{[{{qlc,post_funs,1},                            46,  844.225,    0.083},      
+  {{qlc,eval,1},                                 46,   12.254,    0.963}],     
+ { {qlc,eval,2},                                 92,  856.479,    1.046},     %
+ [{{mnesia_tm,apply_fun,3},                       0,  843.539,    0.148},      
+  {{qlc,collect,1},                              46,  630.839,    0.176},      
+  {{qlc,prepare_qlc,7},                          46,   33.384,    0.399},      
+  {{qlc,setup_qlc,2},                            46,    5.028,    0.086},      
+  {{qlc,options,2},                              46,    4.862,    0.093},      
+  {{qlc,local_post,1},                           46,    0.603,    0.086},      
+  {{qlc,get_handle,1},                           46,    0.087,    0.087},      
+  {{qlc,post_funs,1},                            46,    0.022,    0.075}]}.    
+
+{[{{mnesia_tm,apply_fun,3},                       0,  837.267,    0.479},      
+  {{mnesia_tm,execute_outer,6},                  48,   14.139,    0.140}],     
+ { {mnesia_tm,execute_transaction,5},            48,  851.406,    0.619},     %
+ [{{search_index,get_document_field_value,1},     0,  835.968,    0.077},      
+  {{mnesia_tm,apply_fun,3},                      48,   14.085,    0.128},      
+  {{mnesia_lib,incr_counter,1},                  48,    0.333,    0.156},      
+  {{erlang,unlink,1},                            48,    0.281,    0.281},      
+  {{mnesia_tm,flush_downs,0},                    48,    0.086,    0.086},      
+  {{erlang,whereis,1},                           48,    0.073,    0.073},      
+  {{erlang,erase,1},                             48,    0.004,    0.078}]}.    
+
+%% 1714 lines truncated </code></pre></noscript></div>
+</p>
+
+<h2>KCachegrind</h2>
+
+<p><a href="http://kcachegrind.sourceforge.net">KCachegrind</a> to the rescue! With this tool you can visually inspect the fprof
+analyse result with sorting, a fancy call graph view, callee map and
+more.</p>
+
+<p><img src="/images/qcachegrind.png" width="750" height="750" title="&lsquo;Qcachegrind screenshot&rsquo; &lsquo;images&rsquo;" ></p>
+
+<p>As KCachegrind can&rsquo;t read fprof analysis output directly, you need to
+convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>./erlgrind outfile.fprof callgrind.001
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>KCachegrind &amp; Erlgrind Installation</h2>
+
+<p>For installation of KCachegrind on my Mac I use
+<a href="http://mxcl.github.io/homebrew/">Homebrew</a>, a package manager for OSX. Notice that you
+install <em>qcachegrind</em>, the <a href="http://qt-project.org">QT</a> version of
+KCachegrind.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>brew install qcachegrind
+</span><span class='line'><span class="nv">$ </span>brew instal graphviz
+</span><span class='line'><span class="nv">$ </span>sudo ln -s /usr/local/bin/dot /usr/bin/dot
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Installing the Erlgrind (<a href="https://github.com/isacssouza/erlgrind">Github</a>) script:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>curl -O &amp;ldquo;&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&quot;https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind&quot;</span>&gt;https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind&lt;/a&gt;&amp;rdquo;
+</span><span class='line'><span class="nv">$ </span>chmod +x erlgrind
+</span><span class='line'><span class="nv">$ </span>mv erlgrind /usr/local/bin/
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>And open qcachegrind:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>open ~/Applications/qcachegrind.app
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Enjoy!</p>
+
   </p>
   <span class="meta">
     written 
@@ -541,8 +1627,6 @@ in
 
   </span>
 
-  
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/04/24/fprof-kcachegrind/">Read on &rarr;</a>
   
 </article>
 
@@ -575,6 +1659,394 @@ in
 
 
 
+<p>Familiarity with the <a href="http://www.erlang.org/doc/design_principles/des_princ.html">OTP design principles</a> is recommended.</p>
+
+
+
+
+<p>The sample application (build with help from my colleague Michel Rijnders <code>mies@tty.nl</code>) uses the <a href="http://blog.stackoverflow.com/category/cc-wiki-dump/">Creative Commons Data Dump from StackExchange</a> as demo data.</p>
+
+
+
+
+<p>We cover the following subjects:</p>
+
+
+
+
+<ul>
+<li><a href="#sample_application">running the sample application</a></li>
+<li><a href="#otp_tree">OTP supervision tree</a></li>
+<li><a href="#data_import">importing demo data</a></li>
+<li><a href="#indexing">indexing</a></li>
+<li><a href="#stemming">stemming</a></li>
+<li><a href="#faceting">faceting</a></li>
+<li><a href="#query_and_ranking">querying and relevance ranking</a></li>
+<li><a href="#display_search">displaying search results</a></li>
+<li><a href="#improvements">improvements</a></li>
+</ul>
+
+
+
+
+<p><a name="sample_application"></a></p>
+
+
+
+
+<h2>Running the Sample Application</h2>
+
+
+
+
+<p>Clone the source from GitHub:</p>
+
+
+
+
+<pre><code> git clone git://github.com/tty/async_search.git
+</code></pre>
+
+
+
+
+<p>And start the application:</p>
+
+
+
+
+<pre><code>$ rebar get-deps compile &amp;&amp; erl -pa `pwd`/ebin `pwd`/deps/*/ebin +P 134217727
+Eshell&gt; application:start(async).
+Eshell&gt; stackoverflow_importer_ser:import().
+</code></pre>
+
+
+
+
+<p>Visit <a href="http://localhost:3000">http://localhost:3000</a>, you should see the following page:</p>
+
+
+
+
+<p><img src="https://img.skitch.com/20110909-f3i2aiuby9ht1sjh1j5yt42f7x.jpg" alt="http://localhost:3000/" /></p>
+
+
+
+
+<p>Sample ranked search output for the query <code>erlang armstrong</code>:</p>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/fas4h/http-localhost-3000"><img src="https://img.skitch.com/20110909-efekgnjk3hwuuhpea5dq5gi48m.preview.jpg" alt="http://localhost:3000/" /></a></div>
+
+
+
+
+<p>Sample tags facets output for the query <code>java</code>:</p>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/fas51/http-localhost-3000"><img src="https://img.skitch.com/20110909-ed4e8kcaenbn4bkh6ddt342ig2.preview.jpg" alt="http://localhost:3000/" /></a></div>
+
+
+
+
+<p><a name="otp_tree"></a></p>
+
+
+
+
+<h2>OTP Supervision Tree</h2>
+
+
+
+
+<div class="thumbnail"><a href="https://skitch.com/wardbekker/f2rki/supervisor-tree"><img src="https://img.skitch.com/20110911-kcd3i2gexishp7e92m3mcxpurn.medium.jpg" alt="supervisor tree" /></a></div>
+
+
+
+
+<p>Looking at the OTP application supervision tree is a good way to understand the architecture of an OTP application.</p>
+
+
+
+
+<p>The application supervisor <code>async_sup</code> starts up the following supervisors:</p>
+
+
+
+
+<ul>
+<li><code>keyword_sup</code>. A <code>keyword_ser</code> process is created for every unique word in the StackExchange posts. This <code>keyword_ser</code> is linked to the <code>keyword_sup</code> supervisor (a <code>simple_one_for_one</code> supervisor). The <code>keyword_ser</code> child process maintains a list of document positions of a keyword  (an <a href="http://en.wikipedia.org/wiki/Inverted_index">inverted index</a>).</li>
+<li><code>facet_sup</code>. A <code>keyword_ser</code> process is also created for every unique facet category in the StackExchange posts. This <code>keyword_ser</code> process is linked to the <code>facet_sup</code> supervisor (a <code>simple_one_for_one</code> supervisor as well). The <code>keyword_ser</code> child process maintains a list of facet values with the IDs of the documents the facets appear in.</li>
+</ul>
+
+
+
+
+<p>The application supervisor also start the following <code>gen_server</code> singleton processes:</p>
+
+
+
+
+<ul>
+<li><code>stackoverflow_importer_ser</code>. This server imports the demo Stack Overflow data.</li>
+<li><code>document_ser</code>. This server holds a copy of all documents, so it can return the original title and body of matching Stack Overflow posts in the results.</li>
+<li><code>query_ser</code>. This server's task is to run the actual query and return results.</li>
+<li><code>websocket_ser</code>. This server provides a HTTP frontend for the search engine.</li>
+</ul>
+
+
+
+
+<p>No attention is given to fault tolerance (apart from the basic restart strategies), thus parts of the search index are lost if a <code>keyword_ser</code> process terminates.</p>
+
+
+
+
+<p><a name="data_import"></a></p>
+
+
+
+
+<h2>Demo Data Import</h2>
+
+
+
+
+<p>The StackExchange data is provided as XML. Since some of the documents are quite large, it's not recommended to load the full XML documents in memory. The solution is to use a <a href="http://nl.wikipedia.org/wiki/Simple_API_for_XML">SAX parser</a> which treats a XML file as a stream, and triggers events when new elements are discovered. The search server uses the excellent SAX parser from the <a href="http://erlsom.sourceforge.net">Erlsom</a> library by Willem de Jong.</p>
+
+
+
+
+<p>In the example below <code>erlsom:parse_sax</code> reads the XML file from <code>FilePath</code> and calls the function <code>sax_event</code> if an XML element is found.</p>
+
+
+
+
+<p>When the element is a <code>row</code> element (i.e. a post element), attributes like <code>Id</code>, <code>Title</code> and <code>Body</code> are stored in a dictionary. For every post a copy of all the attributes in <code>document_ser</code> is saved. This is used for returning the actual posts for a query match.  After that the <code>add_attribute_tokens</code> function is called:</p>
+
+
+
+
+<p>The <code>add_attribute_tokens</code> function does two things. It calls <code>add_facet</code> (discussed later) and it creates a list of tuples with all the words and their position in the document. This process is called <a href="http://en.wikipedia.org/wiki/Tokenization">tokenization</a>. Each token/position tuple is then submitted to the <code>add_keyword_position</code> function of the <code>keyword_ser</code> for indexing.</p>
+
+
+
+
+<p><a name="indexing"></a></p>
+
+
+
+
+<h2>Indexing</h2>
+
+
+
+
+<p>Indexing of the tuples, or keywords, is handled by the <code>keyword_ser</code>. For every unique word a <code>keyword_ser</code> process is started if not already present. The state of a <code>keyword_ser</code> process is a dictionary with the document ID as key and a list of positions as value.  The document ID corresponds to the ID of the Stack Overflow post.</p>
+
+
+
+
+<p>The <code>keyword_server_name</code> function generates a unique name under which the <code>keyword_ser</code> process is registered, so the module can check if a keyword already has a process or a new process needs to be created.</p>
+
+
+
+
+<p><a name="stemming"></a></p>
+
+
+
+
+<h2>Stemming</h2>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Stemming">Stemming</a> is the process for reducing inflected words to their base form. <code>Computing</code> and <code>computer</code> both are stemmed to <code>comput</code>. So when a user searches on <code>computing</code>, it also matches text that contains <code>computer</code>.  This makes it possible to return results that are relevant, but do not exactly match the query.</p>
+
+
+
+
+<p>In our sample application all keywords are stemmed using the popular <a href="http://tartarus.org/~martin/PorterStemmer/">Porter Algorithm</a>. The <a href="http://tartarus.org/~martin/PorterStemmer/porter.erl">Erlang implementation</a> by Alden Dima is used in the application.</p>
+
+
+
+
+<p><code>erlang:phash2</code> is used to transform the stemmed name to a hash, to make sure the registered process name is valid.</p>
+
+
+
+
+<p><a name="faceting"></a></p>
+
+
+
+
+<h2>Faceting</h2>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Faceted_search">Faceted search</a> is an important navigation feature for search engines. A user can drill down the search results by filtering on pre-defined attributes, like in this example of a digital camera search on CNET:</p>
+
+
+
+
+<p><img src="http://weblogs.asp.net/blogs/drnetjes/CNET_faceted_search.jpg" alt="Faceted search example" /></p>
+
+
+
+
+<p>As mentioned above, the data import the function <code>add_attribute_tokens</code> also calls the <code>add_facet</code> function. Using pattern matching the <code>Tags</code> and the <code>Creationdate</code> attributes are selected for faceting. <code>Tags</code> is a so called multivalue facet, as a Stack Overflow post can have one or more tags assigned. For every tag and creation date the <code>facet_ser:add_facet_value</code> function is called.</p>
+
+
+
+
+<p><code>facet_ser</code> works very similar to <code>keyword_ser</code>. For every facet category, <code>Tag</code> or <code>Creationdate</code> in our case, a <code>facet_ser</code> processes is started. The state of a <code>facet_ser</code> is a dictionary with the <code>Tag</code> or <code>Creationdate</code> values as key and their document IDs as dictionary values.</p>
+
+
+
+
+<p><a name="query_and_ranking"></a></p>
+
+
+
+
+<h2>Querying and Relevance Ranking</h2>
+
+
+
+
+<p>In previous sections is shown:</p>
+
+
+
+
+<ul>
+<li>how the XML demo data is parsed.</li>
+<li>how this data is stemmed and indexed by creating a <code>keyword_ser</code> process for every unique keyword.</li>
+<li>how this data is indexed for faceted search by creating a <code>facet_ser</code> process for every facet category.</li>
+</ul>
+
+
+
+
+<p>With the function <code>stackoverflow_importer_ser:import()</code> these steps are executed, and your Erlang node is now ready for querying. So how does that work?</p>
+
+
+
+
+<h3>Querying</h3>
+
+
+
+
+<p>Querying is handled by passing the user's query terms to the function <code>do_async_query</code> of the singleton <code>query_ser</code> server.  When calling this function you need to specify the module, function and optional reference attribute which will be called when query results are available.</p>
+
+
+
+
+<p>In the <code>handle_cast</code> the following steps are executed:</p>
+
+
+
+
+<ul>
+<li><code>keyword_ser:do_query</code> return all document ids that contain one or more of the user's query terms, including the relevance ranking score, which will be discussed below.</li>
+<li>All original documents are stored during indexing in a <code>document_ser</code> process. All matching documents are collected.</li>
+<li>The callback function is invoked with the matching documents and their ranking scores as arguments.</li>
+<li>Facet results are retrieved for any <code>FacetCategories</code> that are specified by calling <code>facet_ser:get_facets</code>.</li>
+<li>And the callback function is invoked a second time with the facet results as arguments.</li>
+</ul>
+
+
+
+
+<h3>Relevance Ranking</h3>
+
+
+
+
+<p><a href="http://en.wikipedia.org/wiki/Relevance_(information_retrieval)">Relevance</a> in this context denotes how well a retrieved document matches the user's search query. Most fulltext search-engines use the <a href="http://en.wikipedia.org/wiki/Okapi_BM25">BM25</a> algorithm to determine the ranking score of each document, so let's use that too.</p>
+
+
+
+
+<p>BM25 calculates a ranking score based on the query term frequency in each documents.</p>
+
+
+
+
+<p>See the <a href="https://github.com/tty/async_search/blob/master/src/async_bm25.erl">async_bm25.erl</a> for the implementation.</p>
+
+
+
+
+<p><a name="display_search"></a></p>
+
+
+
+
+<h2>Displaying the Search Results</h2>
+
+
+
+
+<p>As discussed, the <code>query_ser:do_async_query</code> can be called to query our full-text search engine. To allow users to send queries and see the result the <code>websocket_ser</code> module is created. This singleton <code>gen_server</code>starts up a <a href="https://github.com/ostinelli/misultin">Misultin HTTP server</a> on Port 3000. If you browse to <a href="http://localhost:3000">http://localhost:3000</a> you will see a search box. Communication with the search engine is done through websockets.</p>
+
+
+
+
+<p>So, when a user posts a query, this message is received by the <code>websockets_ser:handle_websocket</code> receive block.  The <code>query_ser:do_async_query</code> function is called and query results are expected on <code>websockets_ser:query_results</code> function.</p>
+
+
+
+
+<p>The <code>query_results</code> function formats the results as HTML and sends this through the websocket. When received, the HTML is appended to the user's page.</p>
+
+
+
+
+<p>A similar process is executed when the facet results are received:</p>
+
+
+
+
+<p><a name="improvements"></a></p>
+
+
+
+
+<h2>Improvements</h2>
+
+
+
+
+<p>Some obvious features that are lacking from this sample application:</p>
+
+
+
+
+<ul>
+<li>The author of this post is an Erlang newbie. Corrections/suggestions to the code are most welcome. You can send them to <code>&lt;ward@tty.nl&gt;</code></li>
+<li>Pretty much no attention is given to performance / memory usage.</li>
+<li>Fault tolerence for the index data. When a server containing index state dies, it will not be revived.</li>
+<li>Tuple structures passed between modules are not specified. Would be nice to use record syntax for it.</li>
+<li>No unit/quickcheck/common test added.</li>
+<li>No function/type specifications.</li>
+<li>etc..</li>
+</ul>
+
+
+
+
+<p>So, that why it's called a <em>sample</em> application ;-)</p>
+
+
   </p>
   <span class="meta">
     written 
@@ -603,8 +2075,6 @@ in
 
   </span>
 
-  
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2011/10/07/a-basic-full-text-search-server-in-erlang/">Read on &rarr;</a>
   
 </article>
 

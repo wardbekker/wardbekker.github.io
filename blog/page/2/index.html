@@ -14,7 +14,7 @@
 
   
   <meta name="description" content="Ward Bekker
-A technical lead & product owner in Amsterdam about me Hi there! I am a technical lead and product owner with over 14 years experience &hellip;">
+A solution engineer based in Amsterdam about me Hi there! I am a solution engineer with 17+ years experience in software development. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -55,7 +55,7 @@ A technical lead & product owner in Amsterdam about me Hi there! I am a technica
     <div class="home-page">
   <div class="hero">
     <h1 style="text-shadow:1px 1px 3px rgba(0, 0, 0, 1);">Ward Bekker</h1>
-<p style="text-shadow:1px 1px 3px rgba(0, 0, 0, 1);">A technical lead & product owner in Amsterdam</p>
+<p style="text-shadow:1px 1px 3px rgba(0, 0, 0, 1);">A solution engineer based in Amsterdam</p>
 
   </div>
 
@@ -67,7 +67,7 @@ A technical lead & product owner in Amsterdam about me Hi there! I am a technica
   <h4>about me</h4>
   <img align="left" src="/images/portrait.jpg" width="120" height="120" title="Ward Bekker" style="margin-right:15px" alt="images">
   <p>
-    Hi there! I am a technical lead and product owner with over 14 years experience in web- and mobile application development. Let’s talk about product development, Erlang and running over a nice cup of coffee. <a href="/about/">More about me</a></p>
+    Hi there! I am a solution engineer with 17+ years experience in software development. Let&#8217;s talk about big data, hadoop, software engineering, Erlang, Running and more over a nice cup of coffee. <a href="/about/">More about me</a></p>
   <div class="social-icon-list">
   	
     <a title="Twitter" href="https://twitter.com/wardbekker"><img src="/images/glyphicons_social_31_twitter.png"/></a>
@@ -109,6 +109,132 @@ A technical lead & product owner in Amsterdam about me Hi there! I am a technica
 
 
 
+<p>Erlang R17-rc1 is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Maps and named arguments in funs</a>.</p>
+
+
+
+
+<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-R17, especially for 64-bit Erlang. However, R17 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
+
+
+
+
+<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
+
+
+
+
+<h2>Set correct Xcode path for compilation</h2>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select -s /Applications/Xcode.app/Contents/Developer
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>or if you installed a beta version (in my case <code>51-Beta5</code>):</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select -s /Applications/Xcode51-Beta5.app/Contents/Developer
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Install wxWidgets</h2>
+
+
+
+
+<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
+
+
+
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O <a href="http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2">http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2</a>
+</span><span class='line'><span class="nv">$ </span>tar xvjf wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span>./configure &mdash;with-cocoa &mdash;prefix<span class="o">=</span>/usr/local
+</span><span class='line'><span class="nv">$ </span>make <span class="o">&amp;&amp;</span> sudo make install
+</span><span class='line'><span class="nv">$ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Check that you got the correct wx-config</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>which wx-config
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Install kerl</h2>
+
+
+
+
+<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O <a href="https://raw.github.com/spawngrid/kerl/master/kerl">https://raw.github.com/spawngrid/kerl/master/kerl</a>
+</span><span class='line'><span class="nv">$ </span>chmod a+x kerl
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+
+
+
+<p>Add these lines:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">KERL_CONFIGURE_OPTIONS</span><span class="o">=</span><span class="s2">&quot;&mdash;disable-debug &mdash;without-javac &mdash;enable-shared-zlib &mdash;enable-dynamic-ssl-lib &mdash;enable-hipe &mdash;enable-smp-support &mdash;enable-threads &mdash;enable-kernel-poll &mdash;with-wx&quot;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Build &amp; Install Erlang with kerl</h2>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl update releases
+</span><span class='line'><span class="nv">$ </span>kerl build 17.0-rc1 17rc1
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;-arch i386&quot;</span> kerl build 17.0-rc1 17rc1
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Install:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl install 17rc1 ~/17rc1
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Activate:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>. ~/17rc1/activate
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>erl -s observer start
+</span></code></pre></td></tr></table></div></figure></p>
+
   </p>
   <span class="meta">
     written 
@@ -138,8 +264,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/02/09/erlang-r17-rc1-on-osx-with-wx-and-a-working-observer/">Read on &rarr;</a>
-  
 </article>
 
             </div>
@@ -155,6 +279,37 @@ in
     <p>The hot new rumor is that Apple is going for the mobile payment business. Sources of Re/Code <a href="http://recode.net/2014/01/30/paypal-wants-in-on-apples-mobile-payments-dreams/">claim</a> that Apple and Paypal are in talks about a partnership, perhaps Apple using a whitelabel version of Paypal as a backoffice for their new service.</p>
 
 
+
+
+<p>If Paypal and Apple are going to partner, my best guess is that this will NOT be using a whitelabel, but a much more lightweight integration like this:</p>
+
+
+
+
+<ul>
+<li>Apple will partner with Visa, Mastercard, Venmo, Paypal and such.</li>
+<li>Apple will allows their users to hook up their phone&rsquo;s with those payment providers in a similar way as now done with Facebook, Flickr, Vimeo etc. Like this: <div class="thumbnail"><a href="https://www.evernote.com/shard/s48/sh/552cb35f-6281-47b0-a305-209343a68835/1b0edc98ae52d4eff296ef9c4b856d71"><img style="max-width:400px" src="https://www.evernote.com/shard/s48/sh/552cb35f-6281-47b0-a305-209343a68835/1b0edc98ae52d4eff296ef9c4b856d71/deep/0/setting_example.png" alt="setting_example" /></a></div></li>
+<li>Apple will provider app developers with a Mobile Payment framework, similar to the <a href="https://developer.apple.com/library/ios/documentation/Social/Reference/Social_Framework/_index.html">Social Framework</a> that will provide developers an abstracted way to accept mobile payments. Likely with TouchID confirmation for easy of use. Possibly with a way to let the user to configure a standard shipping and/or billing address.</li>
+<li>So, when the user is checking out a physical good, a dialog will be shown where the user will select the desired payment method. Like this: <div class="thumbnail"><a href="https://www.evernote.com/shard/s48/sh/df67389b-6fca-4aae-adbc-334785750aa7/c65a9b1bec941d83bcb4326131ad4b1e"><img src="https://www.evernote.com/shard/s48/sh/df67389b-6fca-4aae-adbc-334785750aa7/c65a9b1bec941d83bcb4326131ad4b1e/deep/0/payment_selection.png" alt="payment_selection" style="max-width:400px" /></a></div></li>
+</ul>
+
+
+
+
+<p>Some reasons why I think a deep level partnering will not happen:</p>
+
+
+
+
+<ul>
+<li>Apple does not have a track record partnering with third parties on such a deep level. They want to be able to call the shots. Control is the keyword.</li>
+<li>Apple probably doesn&rsquo;t want to deal with the support effort of chargebacks for goods they don&rsquo;t deliver. (see also the physical good restriction for the current in app purchase stuff). It&rsquo;s a totally different business.</li>
+</ul>
+
+
+
+
+<p><a href="https://news.ycombinator.com/item?id=7151592">Upvote this story on Hacker News</a></p>
 
 
   </p>
@@ -178,8 +333,6 @@ in
 
   </span>
 
-  
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/01/30/how-apple-will-implement-mobile-payment/">Read on &rarr;</a>
   
 </article>
 
@@ -262,6 +415,384 @@ scalable, soft-realtime systems with high availability. Testing such systems is 
 
 
 
+<p>The three most important methods are explained here by a few simple examples:</p>
+
+
+
+
+<ul>
+<li>Unit testing</li>
+<li>Quickcheck</li>
+<li>Common test</li>
+</ul>
+
+
+
+
+<p>First <em>clone</em>  the project from Github using the command:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git@github.com:wardbekker/ci_quickstart.git
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>For compiling and executing the project we use <a href="https://github.com/basho/rebar">Rebar</a>, a <em>sophisticated build-tool for Erlang projects that follows OTP principles</em>.  Steps to build rebar:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/basho/rebar.git
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>rebar
+</span><span class='line'><span class="nv">$ </span>./bootstrap
+</span><span class='line'>Recompile: src/getopt
+</span><span class='line'>&hellip;
+</span><span class='line'>Recompile: src/rebar_utils
+</span><span class='line'><span class="o">==</span>&gt; rebar <span class="o">(</span>compile<span class="o">)</span>
+</span><span class='line'>Congratulations! You now have a self-contained script called <span class="s2">&quot;rebar&quot;</span> in
+</span><span class='line'>your current working directory. Place this script anywhere in your path
+</span><span class='line'>and you can use rebar to build OTP-compliant apps.
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Unit testing with EUnit</h2>
+
+
+
+
+<p>Let&rsquo;s start with the most simple test method; <a href="http://www.erlang.org/doc/apps/eunit/chapter.html">EUnit</a>. It&rsquo;s Erlang unit testing library. A unit test check if a function returns the expected result for a given input. In the example below the function <code>addition</code> is defined in the module <code>ci_quickstart_math</code> and two <em>assertions</em> are used:</p>
+
+
+
+
+<ul>
+<li><code>?assertEqual(expected, actual)</code></li>
+<li><code>?assertNotEqual(expected, actual)</code>.</li>
+</ul>
+
+
+
+
+<p>Try it our yourself with executing EUnit from the command line: <code>rebar get-deps compile eunit</code>:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">&ndash;</span><span class="ni">module</span><span class="p">(</span><span class="n">ci_quickstart_math</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">export</span><span class="p">([</span><span class="n">addition</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">ifdef</span><span class="p">(</span><span class="nv">TEST</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;eunit/include/eunit.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">endif</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="nv">X</span> <span class="o">+</span> <span class="nv">Y</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">ifdef</span><span class="p">(</span><span class="nv">TEST</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">simple_test</span><span class="p">()</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="o">?</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">addition</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
+</span><span class='line'>    <span class="o">?</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">endif</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Did all test pass? Excellent! Now the bad news. The actual value of this type of test if quite low. Are we sure the addition function works correct for all possible input?  We are now only certain of these cases:</p>
+
+
+
+
+<ul>
+<li><code>addition(2,2) == 4</code></li>
+<li><code>addition(1,1) /= 3</code></li>
+</ul>
+
+
+
+
+<p>And even then, when I change the body of the <code>addition</code> function in obviously something totally wrong:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'> <span class="n">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="mi">4</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>The tests will still pass!</p>
+
+
+
+
+<p>So, with unit tests our assertions may be correct, but the function body of <code>addition</code> can be a steaming pile of canis faeces.</p>
+
+
+
+
+<p>It&rsquo;s even worse; As in this case, the arguments of addition are <a href="http://www.erlang.org/doc/efficiency_guide/advanced.html">64-bit small integers</a>, which have a range of -576460752303423489 &ndash; 576460752303423488. With two arguments, that is a humongous amount of inputs we should test to be really sure our function works correctly.  In the example unit test we only check two? Even adding twenty more cases, the hard worker that you are, effectively have very little value.</p>
+
+
+
+
+<p>Depressed already?  On to the good stuff.</p>
+
+
+
+
+<h2>QuickCheck</h2>
+
+
+
+
+<p>Continuing with the addition example; what we actually want is a test method that generated all possible inputs, and checks the result. Erlang has this, and the method is called <a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a>. Erlang even has multiple QuickCheck-style libraries available:</p>
+
+
+
+
+<ul>
+<li><a href="http://www.quviq.com">Quvic QuickCheck</a></li>
+<li><a href="https://github.com/manopapad/proper">ProPEr</a></li>
+<li><a href="https://github.com/krestenkrab/triq">Triq</a></li>
+</ul>
+
+
+
+
+<p>A QuickCheck test, also called a <em>property</em>  for <code>addition</code> function looks like this:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">prop_sum</span><span class="p">()</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="o">?</span><span class="nv">FORALL</span><span class="p">(</span>
+</span><span class='line'>        <span class="p">{</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">int</span><span class="p">(),</span> <span class="n">int</span><span class="p">()},</span>
+</span><span class='line'>        <span class="n">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">)</span> <span class="o">&ndash;</span> <span class="nv">Y</span> <span class="o">==</span> <span class="nv">X</span>
+</span><span class='line'>    <span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Test this example from the command line by executing <code>./shell.sh</code>. You will enter the Erlang shell. Then execute <code>proper:quickcheck(ci_quickstart_math:prop_sum()).</code>.</p>
+
+
+
+
+<p>If we look at the implementation of the QuickCheck test, notice that we are not testing specific numbers. We are testing a <em>property</em>  of the addition function, namely when we add int <em>X</em> and <em>Y</em>, and subtract <em>Y</em>  from the result of the addition, we should be left with <em>X</em> again.</p>
+
+
+
+
+<p>The code <code>{int(), int()}</code> specifies that the QuickCheck should generate <em>tuples</em> with two random integers. Each generated <em>tuple</em>  is bound to the pattern <code>{X, Y}</code> by <a href="http://erlang.org/doc/reference_manual/patterns.html">Erlang pattern matching</a>.  Quickcheck will generate 100 combinations by default.  With the <code>numtests</code> option we can increase this considerably: <code>proper:quickcheck(ci_quickstart_math:prop_sum(),[{numtests,10000}]).</code>.</p>
+
+
+
+
+<p>The challenge when using Quickcheck style testing, is to come up with good function properties. This is much harder than writing unit tests. It&rsquo;s even more difficult to reason about function properties than actually writing the actual function. So why bother?</p>
+
+
+
+
+<p>Reasons to use QuickCheck:</p>
+
+
+
+
+<ul>
+<li>Test correct functioning for all inputs.</li>
+<li>Compared to unit tests, QuickCheck test tend to find more bugs than unit tests.</li>
+<li>You need to reason about your code on a deeper level which improves your understanding of the problem you are solving, which tends to result in better code.</li>
+</ul>
+
+
+
+
+<h2>Common Test</h2>
+
+
+
+
+<p>As you might know, Erlang is a very good fit for building concurrent, distributed and fault tolerant systems. Testing if what you build is actually has those properties, is quite complex.</p>
+
+
+
+
+<p>For that, Erlang offers <a href="http://www.erlang.org/doc/apps/common_test/basics_chapter.html">Common Test</a>. This test frameworks can do the heavy lifting required for meaningful <a href="http://en.wikipedia.org/wiki/System_testing">system tests</a>.  The inherent complexity of concurrent, distributed en fault tolerant systems is reflected in Common Test. So, in this introduction we only take a very quick glance. In this example we mimic the initial unit test using pattern matching for assertions.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">&ndash;</span><span class="ni">module</span><span class="p">(</span><span class="n">basic_SUITE</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;common_test/include/ct.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">export</span><span class="p">([</span><span class="n">all</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">export</span><span class="p">([</span><span class="n">test1</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">test2</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">all</span><span class="p">()</span> <span class="o">&ndash;&gt;</span> <span class="p">[</span><span class="n">test1</span><span class="p">,</span><span class="n">test2</span><span class="p">].</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test1</span><span class="p">(<em></span><span class="nv">Config</span><span class="p">)</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="mi">3</span> <span class="o">=</span> <span class="nn">ci_quickstart_math</span><span class="p">:</span><span class="nf">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">).</span> <span class="c">%% validated using pattern matching</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test2</span><span class="p">(</em></span><span class="nv">Config</span><span class="p">)</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="mi">2</span> <span class="o">=</span> <span class="nn">ci_quickstart_math</span><span class="p">:</span><span class="nf">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">).</span>  <span class="c">%% validated using pattern matching</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Continuous integration with Travis-CI</h2>
+
+
+
+
+<p>During development, you run your Erlang automated tests on your own workstation. But there comes a point where that&rsquo;s no longer feasible because of the long duration or high load. Or you work in a team setting where it&rsquo;s important that only working code is integrated. In those cases and  <a href="http://en.wikipedia.org/wiki/Continuous_integration#Advantages_and_disadvantages">for several other good reasons</a>, you need to use a <a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a> system.</p>
+
+
+
+
+<p>There are several continuous integration systems that allow you to run automated tests for Erlang. In this example we use <a href="http://travis-ci.org">Travis-CI</a>. It&rsquo;s a free hosted continuous integration service for the open source community. Travis-CI integrates with the popular <a href="http://www.github.com">Github</a>.</p>
+
+
+
+
+<p>Let&rsquo;s add our example project to Travis-CI.</p>
+
+
+
+
+<h3>Preparation</h3>
+
+
+
+
+<p>The build process of Travis-CI is configured with a <code>.travis.yml</code> file in the <em>root</em>  of our repository:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erlang // This project is an Erlang project</span>
+</span><span class='line'><span class="l-Scalar-Plain">notifications</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#121;&#111;&#117;&#x40;&#101;&#x78;&#x61;&#109;&#x70;&#108;&#101;&#46;&#111;&#114;&#x67;">&#x79;&#x6f;&#x75;&#x40;&#101;&#120;&#x61;&#109;&#x70;&#x6c;&#101;&#46;&#x6f;&#114;&#x67;</a> // Notify this e-mail address on build failures</span>
+</span><span class='line'><span class="l-Scalar-Plain">otp_release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">// The Erlang/OTP versions to run your test against.</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B01</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R14B04</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h3>Travis-CI Setup</h3>
+
+
+
+
+<p>This video shows how to register with Travis-CI:</p>
+
+
+
+
+<ul>
+<li>Log in with your Github account.</li>
+<li>Open the Travis-CI <em>profile</em> page.</li>
+<li>Enable the <em>repository</em>  that you want to test.</li>
+</ul>
+
+
+
+
+<p>That&rsquo;s it!</p>
+
+
+
+
+<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/aRQswLPaplg "></iframe></div>
+
+
+
+
+<h3>Travis-CI Success Run</h3>
+
+
+
+
+<p>This video shows how Travis-CI will report an successful <em>integration build</em></p>
+
+
+
+
+<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/VibylfHMCrg "></iframe></div>
+
+
+
+
+<h3>Travis-CI Failure Run</h3>
+
+
+
+
+<p>This video shows how Travis-CI will report an failed <em>integration
+build</em></p>
+
+
+
+
+<div class="embed-video-container"><iframe src="http://www.youtube.com/embed/3AlNH1CrIro "></iframe></div>
+
+
+
+
+<p>If you entered your e-mail address in <code>.travis.yml</code>, you will receive a mail about which <em>commit</em>  broke the build:</p>
+
+
+
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/broken_email.png" width="400" height="200" alt="Broken build e-mail notification" /></p>
+
+
+
+
+<p>When your colleague fixed the build (you would never commit broken code, right?), you will receive a mail that the build is fixed by a new <em>commit</em>.</p>
+
+
+
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
+
+
   </p>
   <span class="meta">
     written 
@@ -291,8 +822,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Read on &rarr;</a>
-  
 </article>
 
             </div>
@@ -313,6 +842,242 @@ in
 <p>These starting points helped me getting up to speed with <a href="http://www.erlang.org/">Erlang</a>. I hope this information helps you too.</p>
 
 
+
+
+<h3>How install Erlang/OTP</h3>
+
+
+
+
+<p>You can install Erlang/OTP from <a href="http://www.erlang.org/download.html">source</a>, but I like the <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">ready-to-go packages</a> provided by Erlang Solutions.</p>
+
+
+
+
+<h3>Writing Erlang</h3>
+
+
+
+
+<p>I use <a href="http://aquamacs.org/">Aquamacs</a>, An Emacs for mac users, with the <a href="http://www.erlang.org/doc/apps/tools/erlang_mode_chapter.html">Erlang mode</a> provided by Erlang/OTP.  Combined with Eric B Merritt&rsquo;s <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a> and Mochiweb <a href="https://github.com/oinksoft/reloader">reloader</a> this makes for a productive development environment.</p>
+
+
+
+
+<h3>Documentation</h3>
+
+
+
+
+<ul>
+<li>The <a href="http://www.erlang.org/doc/">official Erlang documentation</a> is pretty good, but the writing style / structure takes a while to get used to. But the info is certainly there.</li>
+<li>I keep a local copy of <a href="http://erldocs.com/">Erldocs</a> on my development machine for quick access. Unfortunatly it doesn&rsquo;t have an R16 copy and function signatures are not shown fully correct, but it works for me.</li>
+<li><a href="http://learnyousomeerlang.com/">Learn you some erlang</a> is a free online guide (and available as a dead tree version). It&rsquo;s a very good intro for learning Erlang.</li>
+</ul>
+
+
+
+
+<h3>Best places to ask for help</h3>
+
+
+
+
+<p>The <a href="http://erlang.org/mailman/listinfo/erlang-questions">Erlang Questions Mailinglist</a> is the best place to ask your Erlang questions. Don&rsquo;t be surprised if you question is answered by Erlang inventors themselves!</p>
+
+
+
+
+<p>As with other programming languages <a href="http://stackoverflow.com/questions/tagged/erlang">Stack overflow</a> is also a great place to get answers to your pressing Erlang questions.</p>
+
+
+
+
+<h3>Erlang books</h3>
+
+
+
+
+<p>Compared to Java, the quantity of Erlang books is low. But the quality is pretty good! And a little birdy told me that some great new books will be published in the near future. <em>Warning: affiliate links to Amazon ahead. You will be sponsoring my caffeine intake. Thank you.</em></p>
+
+
+
+
+<table>
+            <tr>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/0596518188/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0596518188&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=0596518188&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0596518188" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/0596518188/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0596518188&linkCode=as2&tag=dotnettaxi-20">Erlang Programming by Francesco Cesarini</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0596518188" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+                <td>
+                    <a href="http://learnyousomeerlang.com"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1593274351&Format=_SL110_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1593274351" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://learnyousomeerlang.com/">Learn you some Erlang by Fred Hebert</a><br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449309968&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1449309968&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449309968" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/1449309968/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449309968&linkCode=as2&tag=dotnettaxi-20">Building Web Applications with Erlang: Working with REST and Web Sockets on Yaws</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449309968" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/193435600X/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=193435600X&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=193435600X&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=193435600X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/193435600X/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=193435600X&linkCode=as2&tag=dotnettaxi-20">Programming Erlang: Software for a Concurrent World</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=193435600X" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/1933988789/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1933988789&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1933988789&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1933988789" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/1933988789/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1933988789&linkCode=as2&tag=dotnettaxi-20">Erlang and OTP in Action</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1933988789" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/0321636465/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321636465&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=0321636465&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0321636465" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/0321636465/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=0321636465&linkCode=as2&tag=dotnettaxi-20">Building Scalable Applications with Erlang (Developer&#8217;s Library)</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=0321636465" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/1449331769/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449331769&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=1449331769&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449331769" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/1449331769/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=1449331769&linkCode=as2&tag=dotnettaxi-20">Introducing Erlang</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=1449331769" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+                <td>
+                    <a href="http://www.amazon.com/gp/product/3941841459/ref=as_li_ss_il?ie=UTF8&camp=1789&creative=390957&creativeASIN=3941841459&linkCode=as2&tag=dotnettaxi-20"><img border="0" src="http://ws.assoc-amazon.com/widgets/q?_encoding=UTF8&ASIN=3941841459&Format=_SL160_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=dotnettaxi-20" ></a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=3941841459" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                    <br />
+                    <a href="http://www.amazon.com/gp/product/3941841459/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=3941841459&linkCode=as2&tag=dotnettaxi-20">Erlang/OTP</a><img src="http://www.assoc-amazon.com/e/ir?t=dotnettaxi-20&l=as2&o=1&a=3941841459" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+                </td>
+            </tr>
+</table>
+
+
+
+
+<br /><br />
+
+
+
+
+<h3>Testing and Continuous integration</h3>
+
+
+
+
+<p>I recently gave a talk introducing the great automated testing facilities of Erlang. Check out the <a href="/blog/2013/04/25/erlang-testing/">video and slides</a></p>
+
+
+
+
+<p>With help from former collegue &amp; friend <a href="https://twitter.com/j2h">Josh Kalderimis</a> I&rsquo;ve added the first iteration of Erlang support to <a href="https://travis-ci.org/">Travis-CI</a>. It&rsquo;s a free continuous integration service for open source projects. It&rsquo;s used by well known Erlang projects like <a href="http://basho.com/riak/">Basho Riak</a>, <a href="http://elixir-lang.org/">Elixir</a> and <a href="https://github.com/mochi/mochiweb">Mochiweb</a>.
+<a href="http://about.travis-ci.org/docs/user/languages/erlang/">See the documentation how to add your project</a>.</p>
+
+
+
+
+<p>If you can read Dutch, you can also read my blog post about <a href="blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Geautomatiseerd testen met Erlang/OTP en Travis-CI</a> which covers the same ground.</p>
+
+
+
+
+<h3>Who to follow on twitter</h3>
+
+
+
+
+<p>Two of the three Erlang inventors are active tweeps:</p>
+
+
+
+
+<ul>
+<li><a href="https://twitter.com/joeerl">Joe Armstrong</a></li>
+<li><a href="https://twitter.com/rvirding">Robert Virding</a></li>
+</ul>
+
+
+
+
+<p>Want more?  <a href="https://twitter.com/bryan_hunter">Bryan Hunter</a> maintains <a href="https://twitter.com/bryan_hunter/erlang/members">a list of Erlang folks on twitter</a> .</p>
+
+
+
+
+<p><a href="https://twitter.com/wardbekker">I&rsquo;m also on twitter</a></p>
+
+
+
+
+<h3>Popular Erlang projects</h3>
+
+
+
+
+<p>Want to learn Erlang from the absolute best? Most popular Erlang projects are open source. Make some coffee, clone the repositories and learn from the code of the Erlang gods. Below a selection:</p>
+
+
+
+
+<ul>
+<li><a href="https://github.com/erlang/otp">Erlang OTP</a> &ndash; The full Erlang/OTP sourcecode.</li>
+<li><a href="https://github.com/basho/riak">Basho Riak</a> &ndash; A decentralized datastore.</li>
+<li><a href="https://github.com/extend/cowboy">Cowboy</a> &ndash; Small, fast, modular HTTP server written in Erlang.</li>
+<li><a href="https://github.com/rebar/rebar">Rebar</a> &ndash; A sophisticated build-tool for Erlang projects that follows OTP principles.</li>
+<li><a href="https://github.com/mochi/mochiweb">Mochiweb</a> &ndash; MochiWeb is an Erlang library for building lightweight HTTP servers.</li>
+<li><a href="https://github.com/basho/webmachine">Webmachine</a> &ndash; A REST-based system for building web applications.</li>
+</ul>
+
+
+
+
+<p>Explore more popular Erlang projects on <a href="https://github.com/languages/Erlang">Github&rsquo;s Erlang page</a></p>
+
+
+
+
+<h3>Conferences &amp; User groups</h3>
+
+
+
+
+<p>The <a href="http://www.erlang-factory.com/">Erlang Factory</a> conferences are the best places to meet professional Erlang developers. I&rsquo;ve attended a few of them, and I am always amazed by the quality of the speakers and the <em>hallway</em> discussions. Pro tip: make sure you have a substantial lunch and then stay for the drinks.</p>
+
+
+
+
+<p>A few local active user groups that I&rsquo;m aware of:</p>
+
+
+
+
+<ul>
+<li><a href="http://www.meetup.com/ErlangChicago/">Chicago Erlang User Group</a></li>
+<li><a href="http://www.meetup.com/funadam/">Cross Functional Amsterdam</a> &ndash; I help organize this one. We have frequent Erlang focused talks.</li>
+<li><a href="http://www.meetup.com/erlangusergroup/">London Erlang User Group</a> &ndash;</li>
+</ul>
+
+
+
+
+<p>Explore more Erlang user groups on <a href="http://www.meetup.com/find/?offset=0&amp;psize=64&amp;currentpage=1&amp;allMeetups=true&amp;categories=&amp;keywords=erlang&amp;radius=Infinity&amp;userFreeform=&amp;mcId=&amp;mcName=&amp;lat=52.083298&amp;lon=4.300003&amp;sort=default">Meetup</a></p>
+
+
+
+
+<h3>Training</h3>
+
+
+
+
+<p>I attended the three day Erlang/OTP express course from <a href="https://www.erlang-solutions.com/services/training">Erlang Solutions</a> and got a much better understanding of OTP. Erlang Solutions also provide E-learning training.</p>
+
+
+
+
+<p>I also heard some good things from the <a href="http://erlangcamp.com/">Erlang Camp by Erlware</a>. This is a intensive two day trainings for beginners and intermediate Erlang programmers.</p>
 
 
   </p>
@@ -344,8 +1109,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/05/29/a-beginners-guide-to-erlang/">Read on &rarr;</a>
-  
 </article>
 
             </div>
@@ -361,6 +1124,62 @@ in
     <p>Tijdens de recent bezochte Scrum Product Owner cursus werd duidelijk dat Scrum is veranderd. Mijn begrip van Scrum, zoals geleerd tijdens de Scrum Master training van <a href="http://en.wikipedia.org/wiki/Jeff_Sutherland">Jeff Sutherland</a> in 2009, was aan herziening toe. Hieronder mijn bevindingen:</p>
 
 
+
+
+<h2>Scrum in 2009</h2>
+
+
+
+
+<p>Jeff Sutherland, één van de bedenkers van scrum, legde in de 2009 training de nadruk op de volgende concepten:</p>
+
+
+
+
+<ul>
+<li><em>Hyperproductive teams.</em> Dit zijn teams met een hoge mate van plichtsbesef, samenwerking en eigenaarschap (ownership), met een enorme productiviteit tot gevolg.</li>
+<li><em>Velocity.</em> Velocity druk uit hoeveel functionaliteit, eventueel in abstracte story points, er ontwikkeld is per sprint. Naast feedback voor voor het team werd velocity gebracht als een belangrijke metriek voor performance en planning rapportage voor het management.</li>
+<li><em>Definition of done.</em> Bij voorkeur gehanteerd als een Oost-Duitste grensovergang ten tijde van de DDR. Vanaf de eerste sprint dient de product increment production-ready opgeleverd te worden.</li>
+</ul>
+
+
+
+
+<h2>Scrum in 2012</h2>
+
+
+
+
+<p>In de recente Scrum Product Owner cursus door <a href="http://www.romanpichler.com/">Roman Pichler</a>, bleek dat in de afgelopen drie jaar het belang en toepassing van deze concepten sterk zijn veranderd:</p>
+
+
+
+
+<ul>
+<li><em>Hyperproductivity</em> is niet één maal genoemd in de Product Owner cursus. Productiviteit is niet (meer?) het doel van Scrum. Het doel van Scrum is de effectieve realisatie van nieuwe, succesvolle en innovatieve producten met enthousiaste eindgebruikers.</li>
+<li><em>Velocity als rapportagemiddel</em> wordt sterk afgeraden. Het is één van de hulpmiddel voor de product owner om de verwachte release planning bij te werken, maar niet meer. De echte waarde van product increments is het verifiëren van aannamens en het ontdekken van belangrijke functionaliteit. Negatieve feedback en sprint/story mislukkingen zijn net zo waardevol. Een sprint met zero velocity geeft derhalve zéér waardevolle feedback. Ik kan uit ervaring spreken dat het zeer verleidelijk is voor management om velocity te misbruiken als rapportagemetriek van de team prestaties.</li>
+<li><em>Definition of Done (DoD).</em> Uiteraard moet er in de loop van de ontwikkeling production-ready software worden opgeleverd, maar in de eerste fase van het project is experimenteren veel belangrijker. Uitvinden wat werkt, en wat niet werkt. Hierdoor is de mate van verandering hoog. Een veeleisende DoD werkt dan als een verlammende bureaucratie. Pas wanneer de basis functionaliteit van het product stabiliseert, is het aan te raden om de DoD aan te scherpen.</li>
+</ul>
+
+
+
+
+<h2>Niet efficient</h2>
+
+
+
+
+<p>In mijn optiek benadrukken de veranderingen de sweet spot van Scrum; ontwikkeling van nieuwe features of geheel nieuwe producten met een hoge mate van innovatie. Innovatie is een proces van vallen en opstaan. Ontdekken wat werkt, en vooral ook wat niet werkt. Dit leerproces is derhalve per definitie niet efficient. Scrum is wel een heel erg effectieve manier van innoveren. Veel ruimte voor waardevolle feedback en multidisciplinaire samenwerking waardoor het team snel leert. In <a href="http://www.romanpichler.com/blog/agile-product-innovation/choosing-the-right-lean-and-agile-innovation-practices/">deze blog post</a> gaat Roman Pichler dieper in op de toepasbaarheid van Scrum in de verschillende fases van product innovatie</p>
+
+
+
+
+<h2>Waar is het changelog?</h2>
+
+
+
+
+<p>Gezien de grote veranderingen was ik benieuwd of er een officiële Scrum changelog is. Zijn de veranderingen een verschil in interpretatie tussen de verschillende trainers, of zijn de spelregels veranderd. Helaas, er is geen changelog. Wel de Scrum Guide, de officiële gids met de actuele spelregels van Scrum. <a href="http://www.scrum.org/scrumguides/">De meest recente versie is uit october 2011</a>. Ik ga deze uitpluizen of er nog andere belangrijke veranderingen zijn. Wie weet materiaal voor een volgende blog post. Renee Troughton van het Agile Forest blog heeft reeds voorwerk gedaan in zijn serie artikelen <a href="http://agileforest.com/2012/02/19/scrum-evolution-over-time-part-1/">Scrum Evolution over Time</a>.</p>
 
 
   </p>
@@ -385,8 +1204,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/04/25/scrum-2009-not-scrum-2012/">Read on &rarr;</a>
-  
 </article>
 
             </div>
@@ -407,6 +1224,258 @@ in
 <p>Below is a quick writeup of the steps needed.</p>
 
 
+
+
+<p><em>Assumptions:</em></p>
+
+
+
+
+<ul>
+<li>Your Erlang powered website is running on port 3000 (Substitute this with your own magic value) on HTTP.</li>
+<li>You are running a recent version of Ubuntu (I&rsquo;m running 12.04 LTS).</li>
+<li>Your domain is <code>www.example.org</code>.</li>
+</ul>
+
+
+
+
+<p><em>The steps in summary</em>:</p>
+
+
+
+
+<ul>
+<li>Reverse proxy setup with Apache 2</li>
+<li>SSL Setup with Apache 2</li>
+<li>Installation of <code>mod_spdy</code></li>
+<li><code>$ sudo service apache restart</code>, and you&rsquo;re done!</li>
+</ul>
+
+
+
+
+<h2>Reverse proxy setup with Apache 2</h2>
+
+
+
+
+<p>First install Apache 2 if not already present:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo apt-get install apache2
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Enable the <code>proxy_http</code> Apache module to get reverse proxy support:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo a2enmod proxy_http
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Add a new site to Apache&rsquo;s <code>available-sites</code></p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/sites-available/reverse_proxy
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And past in the following contents (and replace the domain name and ports if needed):</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'><span class="nt">&lt;VirtualHost</span> <span class="s">*:80</span><span class="nt">&gt;</span>
+</span><span class='line'>     <span class="nb">ServerName</span> www.example.org
+</span><span class='line'>
+</span><span class='line'>     <span class="nb">ProxyPreserveHost</span> <span class="k">On</span>
+</span><span class='line'>     <span class="nb">ProxyRequests</span> <span class="k">Off</span>
+</span><span class='line'>     <span class="nb">ProxyPass</span> / <a href="http://localhost:3000/">http://localhost:3000/</a>
+</span><span class='line'>     <span class="nb">ProxyPassReverse</span> / <a href="http://localhost:3000/">http://localhost:3000/</a>
+</span><span class='line'><span class="nt">&lt;/VirtualHost&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Enable the site by executing:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo a2ensite reverse_proxy
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Next up; SSL support!</p>
+
+
+
+
+<h2>SSL Setup with Apache 2</h2>
+
+
+
+
+<p>Enable the <code>ssl</code> Apache module to enable SSL:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo a2enmod ssl
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>SSL certificates are not free, so in this article we generate a self signed SSL certificate to keep moving:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo mkdir /etc/apache2/ssl
+</span><span class='line'><span class="nv">$ </span>sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/apache2/ssl/apache.key -out /etc/apache2/ssl/apache.crt
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p><em>Important!</em> When generating the key, make sure the FQDN matches your domain name:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>You are about to be asked to enter information that will be incorporated
+</span><span class='line'>into your certificate request.
+</span><span class='line'>What you are about to enter is what is called a Distinguished Name or a DN.
+</span><span class='line'>There are quite a few fields but you can leave some blank
+</span><span class='line'>For some fields there will be a default value,
+</span><span class='line'>If you enter <span class="s1">&#39;.&#39;</span>, the field will be left blank.
+</span><span class='line'>&mdash;&mdash;&ndash;
+</span><span class='line'>Country Name <span class="o">(</span>2 letter code<span class="o">)</span> <span class="o">[</span>AU<span class="o">]</span>:US
+</span><span class='line'>State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:New York
+</span><span class='line'>Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:NYC
+</span><span class='line'>Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty Ltd<span class="o">]</span>:Awesome Inc
+</span><span class='line'>Organizational Unit Name <span class="o">(</span>eg, section<span class="o">)</span> <span class="o">[]</span>:Dept of Merriment
+</span><span class='line'>Common Name <span class="o">(</span>e.g. server FQDN or YOUR name<span class="o">)</span> <span class="o">[]</span>:example.org
+</span><span class='line'>Email Address <span class="o">[]</span>:<a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#x77;&#x65;&#x62;&#x6d;&#x61;&#x73;&#x74;&#x65;&#114;&#64;&#x65;&#120;&#97;&#x6d;&#112;&#x6c;&#x65;&#46;&#111;&#x72;&#103;">&#119;&#101;&#98;&#109;&#x61;&#x73;&#x74;&#x65;&#x72;&#x40;&#x65;&#120;&#97;&#109;&#112;&#x6c;&#101;&#x2e;&#x6f;&#114;&#103;</a>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>After generating the required encryption keys, we re-edit the <code>reverse_proxy</code> site:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo vim /etc/apache2/sites-available/reverse_proxy
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And append the following configuration code:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'><span class="nt">&lt;VirtualHost</span> <span class="s">*:443</span><span class="nt">&gt;</span>
+</span><span class='line'>     <span class="nb">ServerName</span> www.example.org
+</span><span class='line'>
+</span><span class='line'>     <span class="nb">SSLEngine</span> <span class="k">on</span>
+</span><span class='line'>     <span class="nb">SSLCertificateFile</span> <span class="sx">/etc/apache2/ssl/apache.crt</span>
+</span><span class='line'>     <span class="nb">SSLCertificateKeyFile</span> <span class="sx">/etc/apache2/ssl/apache.key</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="nb">SSLProxyEngine</span> <span class="k">on</span>
+</span><span class='line'>     <span class="nb">ProxyPreserveHost</span> <span class="k">On</span>
+</span><span class='line'>     <span class="nb">ProxyRequests</span> <span class="k">Off</span>
+</span><span class='line'>     <span class="nb">ProxyPass</span> / <a href="http://localhost:3000/">http://localhost:3000/</a>
+</span><span class='line'>     <span class="nb">ProxyPassReverse</span> / <a href="http://localhost:3000/">http://localhost:3000/</a>
+</span><span class='line'><span class="nt">&lt;/VirtualHost&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Important! We need to check if Apache is listening on port 443 (SSL) and virtualhost support is enabled for this. <code>/etc/apache2/ports.conf</code> should have the following lines enabled:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='apache'><span class='line'><span class="nt">&lt;IfModule</span> <span class="s">mod_ssl.c</span><span class="nt">&gt;</span>
+</span><span class='line'>    <span class="nb">NameVirtualHost</span> *:443
+</span><span class='line'>    <span class="nb">Listen</span> <span class="m">443</span>
+</span><span class='line'><span class="nt">&lt;/IfModule&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Now we&rsquo;re in a good shape to add SPDY support</p>
+
+
+
+
+<h2>Installation of <code>mod_spdy</code></h2>
+
+
+
+
+<p>You need to fetch the latest <code>mod_spdy</code> package from Google:</p>
+
+
+
+
+<ul>
+<li><a href="https://dl-ssl.google.com/dl/linux/direct/mod-spdy-beta_current_i386.deb">mod_spdy 32-bit .deb (Debian/Ubuntu)</a></li>
+<li><a href="https://dl-ssl.google.com/dl/linux/direct/mod-spdy-beta_current_amd64.deb">mod_spdy 64-bit .deb (Debian/Ubuntu)</a></li>
+</ul>
+
+
+
+
+<p>Check the architecture of your system by running <code>uname -m</code>.</p>
+
+
+
+
+<p>Install the package by running the following commands:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo dpkg -i mod-spdy-*.deb
+</span><span class='line'><span class="nv">$ </span>sudo apt-get -f install
+</span><span class='line'><span class="nv">$ </span>sudo a2enmod spdy
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Le moment suprême</h2>
+
+
+
+
+<p>Restart Apache to power up the new configuration:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>sudo service apache2 restart
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And browse to your website <code>https://www.example.org</code> in <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a>.</p>
+
+
+
+
+<p>To verify <code>mod_spdy</code> is working, open <code>chrome://net-internals/#spd</code> just after the first page load. Your server&rsquo;s domain should be listed in the table under the <em>SPDY sessions</em> heading.gs</p>
 
 
   </p>
@@ -430,8 +1499,6 @@ in
 
   </span>
 
-  
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/04/25/enable-spdy-for-your-erlang-website/">Read on &rarr;</a>
   
 </article>
 
@@ -464,6 +1531,341 @@ in
 
 
 
+<p>Je <em>cloned</em> het project van Github met het volgende commando:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git@github.com:wardbekker/ci_quickstart.git
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Voor het compileren van het project en uitvoeren van de testen gebruik je <a href="https://github.com/basho/rebar">Rebar</a>, een <em>sophisticated build-tool for Erlang projects that follows OTP principles</em>.  Je bouwt Rebar als volgt:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/basho/rebar.git
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>rebar
+</span><span class='line'><span class="nv">$ </span>./bootstrap
+</span><span class='line'>Recompile: src/getopt
+</span><span class='line'>&hellip;
+</span><span class='line'>Recompile: src/rebar_utils
+</span><span class='line'><span class="o">==</span>&gt; rebar <span class="o">(</span>compile<span class="o">)</span>
+</span><span class='line'>Congratulations! You now have a self-contained script called <span class="s2">&quot;rebar&quot;</span> in
+</span><span class='line'>your current working directory. Place this script anywhere in your path
+</span><span class='line'>and you can use rebar to build OTP-compliant apps.
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Unit testing met EUnit</h2>
+
+
+
+
+<p>Je begint met de eenvoudigste test methode; <a href="http://www.erlang.org/doc/apps/eunit/chapter.html">EUnit</a>. Dit is een unit testing bibliotheek voor Erlang. In een unit test controleer je of de functie goed werkt bij bekende input en resultaat. In dit voorbeeld heb je de functie <code>addition</code> geimplementeerd in de module <code>ci_quickstart_math</code> en twee <em>assertions</em>. (Je voert deze test uit op de commandline met: <code>rebar get-deps compile eunit</code>):</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">&ndash;</span><span class="ni">module</span><span class="p">(</span><span class="n">ci_quickstart_math</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">export</span><span class="p">([</span><span class="n">addition</span><span class="o">/</span><span class="mi">2</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">ifdef</span><span class="p">(</span><span class="nv">TEST</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;eunit/include/eunit.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">endif</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="nv">X</span> <span class="o">+</span> <span class="nv">Y</span><span class="p">.</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">ifdef</span><span class="p">(</span><span class="nv">TEST</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">simple_test</span><span class="p">()</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="o">?</span><span class="n">assertEqual</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">addition</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)),</span>
+</span><span class='line'>    <span class="o">?</span><span class="n">assertNotEqual</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">endif</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Het slechte nieuws is dat de waarde van deze test zeer laag is. Weet je nu zeker dat optelling goed gaat in alle gevallen? Het enige wat de test nu aantoont is dat:</p>
+
+
+
+
+<ul>
+<li><code>addition(2,2) == 4</code></li>
+<li><code>addition(1,1) /= 3</code></li>
+</ul>
+
+
+
+
+<p>Stel, je verandert de implementatie van de function <code>addition</code> in:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'> <span class="n">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">)</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="mi">4</span><span class="p">.</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>De testen slagen in dit geval, maar dit betekend niet dat de implementatie van <code>addition</code> correct is.</p>
+
+
+
+
+<p>Sterker nog; De argumenten zijn in dit geval <a href="http://www.erlang.org/doc/efficiency_guide/advanced.html">64-bit small integers</a>, en die hebben een bereik van -576460752303423489 t/m 576460752303423488. Met twee argumenten, betekend dit dat er enorm veel verschillende input mogelijk is. En in de unit test controleer je er maar 3!?!?  Ook al ben je een harde werker en test je wel 10! addities, in feite is de waarde van de unit test niet verbeterd en nog steeds erg laag.</p>
+
+
+
+
+<p>Wat nu?</p>
+
+
+
+
+<h2>QuickCheck</h2>
+
+
+
+
+<p>Wat je eigenlijk wil is een test methode dat alle mogelijke input variaties genereerd en de bijbehorende output controleert. Deze methode heet <a href="http://en.wikipedia.org/wiki/QuickCheck">QuickCheck</a>. Voor Erlang zijn er een aantal QuickCheck frameworks beschikbaar:</p>
+
+
+
+
+<ul>
+<li><a href="http://www.quviq.com">Quvic QuickCheck</a></li>
+<li><a href="https://github.com/manopapad/proper">ProPEr</a></li>
+<li><a href="https://github.com/krestenkrab/triq">Triq</a></li>
+</ul>
+
+
+
+
+<p>Een Quickcheck test voor de <code>addition</code> functie:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="nf">prop_sum</span><span class="p">()</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="o">?</span><span class="nv">FORALL</span><span class="p">(</span>
+</span><span class='line'>        <span class="p">{</span><span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span><span class="p">},</span>
+</span><span class='line'>        <span class="p">{</span><span class="n">int</span><span class="p">(),</span> <span class="n">int</span><span class="p">()},</span>
+</span><span class='line'>        <span class="n">addition</span><span class="p">(</span><span class="nv">X</span><span class="p">,</span><span class="nv">Y</span><span class="p">)</span> <span class="o">&ndash;</span> <span class="nv">Y</span> <span class="o">==</span> <span class="nv">X</span>
+</span><span class='line'>    <span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Voer de test uit door de Erlang Shell op te starten met <code>./shell.sh</code> en de volgende functie aanroep <code>proper:quickcheck(ci_quickstart_math:prop_sum()).</code></p>
+
+
+
+
+<p>Specifieke nummers worden niet getest. Je gaat nu controleren of de functie voldoet aan de eigenschap dat als je Y weer er afhaalt, je X overhoud.</p>
+
+
+
+
+<p><code>{int(), int()}</code> genereerd <em>tuples</em> met twee random integers. De <em>tuple</em> wordt gebonden aan <code>{X, Y}</code> door <em>pattern matching</em>.  Standaard worden er 100 combinaties getest, en dit aantal voer je op met de <code>numtests</code> optie: <code>proper:quickcheck(ci_quickstart_math:prop_sum(),[{numtests,10000}]).</code>.</p>
+
+
+
+
+<p>De uitdaging bij het werken met QuickCheck is het bedenken van de eigenschappen van de functie. Dit is lastiger dan het maken van een unit test. Sterker nog, het schrijven van de functie is vaak nog eenvoudiger dan het redeneren over de eigenschappen. Het positieve effect van QuickCheck op de kwaliteit van je code, en de manier waarop je als developer over je code nadenkt maakt deze tool een zeer waardevol onderdeel van je test gereedschapskist.</p>
+
+
+
+
+<!---
+[[Naast testen van functie eigenschappen is Quickcheck erg goed in het testen van zgn .State Machine. Een goed voorbeeld hiervan is de controle van de beloofde eventual consistency van Basho's Riak, een populair distribueerd database systeem gemaakt in Erlang. Zie hiervoor de slides van xxxxx. ]]
+-->
+
+
+
+
+<h2>Common Test</h2>
+
+
+
+
+<p>Zoals bekend is Erlang uitermate geschikt voor het bouwen van concurrent, distributed en fault tolerant systemen. Om te controleren of je systeem werkt zoals verwacht, is complex.</p>
+
+
+
+
+<p>Hiervoor is <a href="http://www.erlang.org/doc/apps/common_test/basics_chapter.html">Common Test</a> in het leven geroepen. Dit krachtige test framework is uitermate geschikt voor de ontwikkeling van pittige <a href="http://en.wikipedia.org/wiki/System_testing">systeem tests</a>. De inherente complexiteit van concurrent, distributed en fault tolerant systemen maakt Common Test complex. Hoe je een serieuze OTP applicatie op de pijnbank legt met CT valt derhalve buiten de scope van deze blogpost. Hier onder wel een minimaal Comment Test waarin de EUnit testen worden nagebootst door gebruik van pattern matching.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">&ndash;</span><span class="ni">module</span><span class="p">(</span><span class="n">basic_SUITE</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;common_test/include/ct.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">export</span><span class="p">([</span><span class="n">all</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">export</span><span class="p">([</span><span class="n">test1</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="n">test2</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">all</span><span class="p">()</span> <span class="o">&ndash;&gt;</span> <span class="p">[</span><span class="n">test1</span><span class="p">,</span><span class="n">test2</span><span class="p">].</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test1</span><span class="p">(<em></span><span class="nv">Config</span><span class="p">)</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="mi">3</span> <span class="o">=</span> <span class="nn">ci_quickstart_math</span><span class="p">:</span><span class="nf">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">).</span> <span class="c">%% validated using pattern matching</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test2</span><span class="p">(</em></span><span class="nv">Config</span><span class="p">)</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="mi">2</span> <span class="o">=</span> <span class="nn">ci_quickstart_math</span><span class="p">:</span><span class="nf">addition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">).</span>  <span class="c">%% validated using pattern matching</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Continuous integration met Travis-CI</h2>
+
+
+
+
+<p>Stel, je hebt een flinke hoeveelheid Eunit, Common Test en Quickcheck testen geïmplementeerd. Het uitvoeren van alle geavanceerde testen duurt lang en belast je systeem fors. Om deze, en <a href="http://en.wikipedia.org/wiki/Continuous_integration#Advantages_and_disadvantages">nog meer goede redenen</a>, is <a href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a> aan te raden.</p>
+
+
+
+
+<p>Er zijn legio systemen waarmee het mogelijk is om continuous integration voor Erlang op te zetten. In dit voorbeeld gebruik je het hosted systeem <a href="http://travis-ci.org">Travis-CI</a>. Deze dienst ondersteunt Erlang, integreert met het populaire Github en zorgt voor een vliegende start. En het is gratis voor open source projecten.</p>
+
+
+
+
+<h3>Voorbereiding</h3>
+
+
+
+
+<p>Het build proces van Travis-CI configureer je via het <code>.travis.yml</code>-bestand in de <em>root</em> van je repository. Een voorbeeld:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='yaml'><span class='line'><span class="l-Scalar-Plain">language</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erlang // De repository bevat een Erlang project</span>
+</span><span class='line'><span class="l-Scalar-Plain">notifications</span><span class="p-Indicator">:</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain"><a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#121;&#x6f;&#117;&#64;&#x65;&#120;&#x61;&#109;&#112;&#108;&#x65;&#x2e;&#x6f;&#114;&#x67;">&#x79;&#x6f;&#x75;&#64;&#x65;&#x78;&#x61;&#x6d;&#x70;&#x6c;&#101;&#x2e;&#x6f;&#114;&#x67;</a> // Build success en failures stuurt Travis-CI naar dit adres.</span>
+</span><span class='line'><span class="l-Scalar-Plain">otp_release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">// Travis-CI test/bouwt je project voor meerdere Erlang/OTP versies.</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B01</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R15B</span>
+</span><span class='line'>  <span class="l-Scalar-Plain">&ndash; R14B04</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h3>Travis-CI Setup</h3>
+
+
+
+
+<p>Deze video toont hoe je start met Travis-CI:</p>
+
+
+
+
+<ul>
+<li>Log in met je Github account.</li>
+<li>Ga naar de Travis-CI <em>profile</em> pagina.</li>
+<li>Schakel de gewenste Github <em>repository</em> in.</li>
+</ul>
+
+
+
+
+<p>That&rsquo;s it!</p>
+
+
+
+
+<p><a href="http://www.youtube.com/watch?v=YxJJu6mShiA&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/signing_and_switch.png" alt="Setup" /></a></p>
+
+
+
+
+<h3>Travis-CI Success Run</h3>
+
+
+
+
+<p>Deze video toont hoe Travis-CI een geslaagde <em>integration build</em>
+rapporteerd:</p>
+
+
+
+
+<p><a href="http://www.youtube.com/watch?v=rJWRY1Uf_qg&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/success.png" alt="Success" /></a></p>
+
+
+
+
+<h3>Travis-CI Failure Run</h3>
+
+
+
+
+<p>Deze video toont hoe Travis-CI een mislukte <em>integration build</em>
+rapporteerd:</p>
+
+
+
+
+<p><a href="http://www.youtube.com/watch?v=5u8Kpz3m8ho&hd=1" target="_blank"><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fail.png" alt="Fail" /></a></p>
+
+
+
+
+<p>Als je e-mail adres in <code>.travis.yml</code> staat, krijg je ook een e-mail notificatie dat de laatste <em>commit</em> de build gebroken heeft:</p>
+
+
+
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/broken_email.png" width="400" height="200" alt="Broken build e-mail notification" /></p>
+
+
+
+
+<p>Als de fout verholpen is, krijg je de volgende e-mail als de build weer slaagt:</p>
+
+
+
+
+<p><img src="https://raw.github.com/wardbekker/ci_quickstart/master/images/fixed_email.png " width="400" height="200" alt="Fixed build e-mail notification" /></p>
+
+
   </p>
   <span class="meta">
     written 
@@ -492,8 +1894,6 @@ in
 
   </span>
 
-  
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/04/25/geautomatiseerd-testen-met-erlang/">Read on &rarr;</a>
   
 </article>
 
@@ -574,6 +1974,131 @@ code runs dog slow you probably profile the code with <a href="http://www.erlang
 </span><span class='line'>(node@host)1> fprof:profile().
 </span><span class='line'>(node@host)1> fprof:analyse({dest, &ldquo;outfile.fprof&rdquo;}).</span></code></pre></td></tr></table></div></figure></p>
 
+<p>The printout of fprof analyse is a text dump of the result, which can
+grow over 1000 lines and contains a lot of noise which makes it hard
+to locate the bottlenecks. Below a truncated
+sample of an actual fprof trace.</p>
+
+
+
+
+<div><script src='https://gist.github.com/5458222.js'></script>
+<noscript><pre><code>%% Analysis results:
+{  analysis_options,
+ [{callers, true},
+  {sort, acc},
+  {totals, false},
+  {details, true}]}.
+
+%                                               CNT       ACC       OWN        
+[{ totals,                                     275978,  888.505,  872.193}].  %%%
+
+
+%                                               CNT       ACC       OWN        
+[{ &quot;&lt;7082.15229.0&gt;&quot;,                           275978,undefined,  872.193}].   %%
+
+{[{{qlc,eval,2},                                  0,  843.539,    0.148},      
+  {{mnesia_tm,execute_transaction,5},            48,   14.085,    0.128}],     
+ { {mnesia_tm,apply_fun,3},                      48,  857.624,    0.276},     %
+ [{{mnesia_tm,execute_transaction,5},             0,  837.267,    0.479},      
+  {{search_index,&#39;-get_document_field_value/1-fun-13-&#39;,1},  46,  689.082,    0.259},      
+  {{mnesia_tm,t_commit,1},                       48,    6.327,    0.361},      
+  {{search_index,&#39;-get_field_facet_document/2-fun-1-&#39;,1},   1,    1.397,    0.002},      
+  {{search_index,&#39;-get_term_document_field_frequencies/1-fun-0-&#39;,1},   1,    0.114,    0.002}]}.    
+
+{[{{qlc,post_funs,1},                            46,  844.225,    0.083},      
+  {{qlc,eval,1},                                 46,   12.254,    0.963}],     
+ { {qlc,eval,2},                                 92,  856.479,    1.046},     %
+ [{{mnesia_tm,apply_fun,3},                       0,  843.539,    0.148},      
+  {{qlc,collect,1},                              46,  630.839,    0.176},      
+  {{qlc,prepare_qlc,7},                          46,   33.384,    0.399},      
+  {{qlc,setup_qlc,2},                            46,    5.028,    0.086},      
+  {{qlc,options,2},                              46,    4.862,    0.093},      
+  {{qlc,local_post,1},                           46,    0.603,    0.086},      
+  {{qlc,get_handle,1},                           46,    0.087,    0.087},      
+  {{qlc,post_funs,1},                            46,    0.022,    0.075}]}.    
+
+{[{{mnesia_tm,apply_fun,3},                       0,  837.267,    0.479},      
+  {{mnesia_tm,execute_outer,6},                  48,   14.139,    0.140}],     
+ { {mnesia_tm,execute_transaction,5},            48,  851.406,    0.619},     %
+ [{{search_index,get_document_field_value,1},     0,  835.968,    0.077},      
+  {{mnesia_tm,apply_fun,3},                      48,   14.085,    0.128},      
+  {{mnesia_lib,incr_counter,1},                  48,    0.333,    0.156},      
+  {{erlang,unlink,1},                            48,    0.281,    0.281},      
+  {{mnesia_tm,flush_downs,0},                    48,    0.086,    0.086},      
+  {{erlang,whereis,1},                           48,    0.073,    0.073},      
+  {{erlang,erase,1},                             48,    0.004,    0.078}]}.    
+
+%% 1714 lines truncated </code></pre></noscript></div>
+
+
+
+
+<h2>KCachegrind</h2>
+
+
+
+
+<p><a href="http://kcachegrind.sourceforge.net">KCachegrind</a> to the rescue! With this tool you can visually inspect the fprof
+analyse result with sorting, a fancy call graph view, callee map and
+more.</p>
+
+
+
+
+<p><img src="/images/qcachegrind.png" width="750" height="750" title="Qcachegrind screenshot" alt="images"></p>
+
+
+
+
+<p>As KCachegrind can&rsquo;t read fprof analysis output directly, you need to
+convert it first to the callgrind format with the <a href="https://github.com/isacssouza/erlgrind">Erlgrind</a> script by <a href="https://twitter.com/isacssouza">Isac Sacchi e Souza</a>.</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>./erlgrind outfile.fprof callgrind.001
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>KCachegrind &amp; Erlgrind Installation</h2>
+
+
+
+
+<p>For installation of KCachegrind on my Mac I use
+<a href="http://mxcl.github.io/homebrew/">Homebrew</a>, a package manager for OSX. Notice that you
+install <em>qcachegrind</em>, the <a href="http://qt-project.org">QT</a> version of
+KCachegrind.</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>brew install qcachegrind
+</span><span class='line'><span class="nv">$ </span>brew instal graphviz
+</span><span class='line'><span class="nv">$ </span>sudo ln -s /usr/local/bin/dot /usr/bin/dot
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Installing the Erlgrind (<a href="https://github.com/isacssouza/erlgrind">Github</a>) script:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>curl -O <span class="s2">&quot;<a href="https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind&amp;quot;">https://raw.github.com/isacssouza/erlgrind/master/src/erlgrind&amp;quot;</a></span>
+</span><span class='line'><span class="nv">$ </span>chmod +x erlgrind
+</span><span class='line'><span class="nv">$ </span>mv erlgrind /usr/local/bin/
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And open qcachegrind:</p>
+
+
+<p><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>open ~/Applications/qcachegrind.app
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Enjoy!</p>
+
+
   </p>
   <span class="meta">
     written 
@@ -602,8 +2127,6 @@ in
 
   </span>
 
-  
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2013/04/24/fprof-kcachegrind/">Read on &rarr;</a>
   
 </article>
 

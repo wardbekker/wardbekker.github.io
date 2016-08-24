@@ -14,7 +14,7 @@
 
   
   <meta name="description" content="Ward Bekker
-A technical lead & product owner in Amsterdam about me Hi there! I am a technical lead and product owner with over 14 years experience &hellip;">
+A solution engineer based in Amsterdam about me Hi there! I am a solution engineer with 17+ years experience in software development. &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -55,7 +55,7 @@ A technical lead & product owner in Amsterdam about me Hi there! I am a technica
     <div class="home-page">
   <div class="hero">
     <h1 style="text-shadow:1px 1px 3px rgba(0, 0, 0, 1);">Ward Bekker</h1>
-<p style="text-shadow:1px 1px 3px rgba(0, 0, 0, 1);">A technical lead & product owner in Amsterdam</p>
+<p style="text-shadow:1px 1px 3px rgba(0, 0, 0, 1);">A solution engineer based in Amsterdam</p>
 
   </div>
 
@@ -67,7 +67,7 @@ A technical lead & product owner in Amsterdam about me Hi there! I am a technica
   <h4>about me</h4>
   <img align="left" src="/images/portrait.jpg" width="120" height="120" title="Ward Bekker" style="margin-right:15px" alt="images">
   <p>
-    Hi there! I am a technical lead and product owner with over 14 years experience in web- and mobile application development. Let’s talk about product development, Erlang and running over a nice cup of coffee. <a href="/about/">More about me</a></p>
+    Hi there! I am a solution engineer with 17+ years experience in software development. Let&#8217;s talk about big data, hadoop, software engineering, Erlang, Running and more over a nice cup of coffee. <a href="/about/">More about me</a></p>
   <div class="social-icon-list">
   	
     <a title="Twitter" href="https://twitter.com/wardbekker"><img src="/images/glyphicons_social_31_twitter.png"/></a>
@@ -453,6 +453,152 @@ in
 
 
 
+<h2>The best Erlang yet</h2>
+
+
+
+
+<p>Today&rsquo;s Erlang/OTP 17.0 release is &lsquo;the best Erlang yet&rsquo; and contains two significant language changes: <a href="http://learnyousomeerlang.com/maps">Maps</a> and <a href="http://joearms.github.io/2014/02/01/big-changes-to-erlang.html">Named arguments in funs</a>.</p>
+
+
+
+
+<p>Erlang uses wxWidgets, a cross platform GUI library for it&rsquo;s GUI tools. This build dependency was hard to get working pre-17, especially for 64-bit Erlang. However, 17.0 brings double rainbows and care bears for everyone that reads this HOWTO. So Enjoy!</p>
+
+
+
+
+<p><img src="https://www.evernote.com/shard/s48/sh/452a5f9c-08b3-4153-9dfd-f9444f7484ce/4e0c4c8bb7d8726d3ab482e4330955c8/deep/0/nonode@nohost.png" alt="nonode@nohost" /></p>
+
+
+
+
+<h2>Set correct Xcode path for compilation</h2>
+
+
+
+
+<p>As far as I know you need have Xcode install to compile Erlang from source. You can <a href="https://itunes.apple.com/nl/app/xcode/id497799835?mt=12">download Xcode</a> via the Mac App Store</p>
+
+
+
+
+<p>If you have multiple versions of Xcode installed (beta&rsquo;s for example), make sure the <a href="http://osxdaily.com/2014/02/12/install-command-line-tools-mac-os-x/">Command Line Tools</a> are installed and are pointing to the correct Xcode version.</p>
+
+
+
+
+<p>Initiating an install of the Xcode Command Line Tools:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select &mdash;install
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And verify that the CL-tools point to the correct Xcode install</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>xcode-select -s /Applications/Xcode.app/Contents/Developer
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Install wxWidgets</h2>
+
+
+
+
+<p><a href="http://www.wxwidgets.org">wxWidgets</a> is a Cross Platform GUI library that&rsquo;s used by Erlang for applications like Observer.</p>
+
+
+
+
+<p>Execute this line and get some coffee, walk the dog, take out the trash and/or play with your kids. Compilation takes a while.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O <a href="http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2">http://optimate.dl.sourceforge.net/project/wxwindows/3.0.0/wxWidgets-3.0.0.tar.bz2</a>
+</span><span class='line'><span class="nv">$ </span>tar xvjf wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>wxWidgets-3.0.0.tar.bz2
+</span><span class='line'><span class="nv">$ </span>./configure &mdash;with-cocoa &mdash;prefix<span class="o">=</span>/usr/local
+</span><span class='line'><span class="nv">$ </span>make <span class="o">&amp;&amp;</span> sudo make install
+</span><span class='line'><span class="nv">$ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Check that you got the correct wx-config</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>which wx-config
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Install kerl</h2>
+
+
+
+
+<p><a href="https://github.com/spawngrid/kerl">Kerl</a> is a utility that helps you build and manage multiple instances of Erlang/OTP.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O <a href="https://raw.github.com/spawngrid/kerl/master/kerl">https://raw.github.com/spawngrid/kerl/master/kerl</a>
+</span><span class='line'><span class="nv">$ </span>chmod a+x kerl
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Create <code>~/.kerlrc</code>. I use <code>$ vim ~/.kerlrc</code>.</p>
+
+
+
+
+<p>Add these lines:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">KERL_CONFIGURE_OPTIONS</span><span class="o">=</span><span class="s2">&quot;&mdash;disable-debug &mdash;without-javac &mdash;enable-shared-zlib &mdash;enable-dynamic-ssl-lib &mdash;enable-hipe &mdash;enable-smp-support &mdash;enable-threads &mdash;enable-kernel-poll &mdash;with-wx&quot;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Build &amp; Install Erlang with kerl</h2>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl update releases
+</span><span class='line'><span class="nv">$ </span>kerl build 17.0 17.0
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>For a 32-bit Erlang prefix <code>kerl build</code> with <code>CPPFLAGS</code>:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;-arch i386&quot;</span> kerl build 17.0 17.0
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Install:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl install 17.0 ~/erlang_17_0
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Activate:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>. ~/erlang_17_0/activate
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And bliss out on your new wx-enabled Erlang:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>erl -s observer start
+</span></code></pre></td></tr></table></div></figure></p>
+
   </p>
   <span class="meta">
     written 
@@ -482,8 +628,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/04/09/erlang-r17-on-osx-with-wx-and-a-working-observer/">Read on &rarr;</a>
-  
 </article>
 
             </div>
@@ -504,6 +648,259 @@ in
 <p>In this HOWTO I&rsquo;ll show you how to setup a bleeding edge Erlang development VPS and how to run you first Erlang program.</p>
 
 
+
+
+<h1>Main ingredient: Cores</h1>
+
+
+
+
+<p>Erlang&rsquo;s main strength is it&rsquo;s concurrency support. It likes cores, so for our &lsquo;Hello World&rsquo; program we obviously need cores. Lot&rsquo;s! Not 4, not 8, 20!</p>
+
+
+
+
+<p>Create an account on <a href="https://www.digitalocean.com/?refcode=0d0404fa1c5c">Digital Ocean</a> if you don&rsquo;t have one yet (love them) and we&rsquo;re going to boot up their biggest instance. It&rsquo;s a steal at less than 1 dollar per hour. Just make sure you destroy it when done.</p>
+
+
+
+
+<p>64GB and 20 cores will make our Hello World so snappy!</p>
+
+
+
+
+<p><img src="https://www.evernote.com/shard/s48/sh/b5a389c7-cd10-4e3f-a099-7f87968e2ec3/211a356f730703fcad9d4c6eb16ba1c7/deep/0/Fullscreen-29-03-14-21-36.png" alt="Fullscreen%2029/03/14%2021:36" /></p>
+
+
+
+
+<ul>
+<li>Pick a datacenter location near you.</li>
+<li>Select the latest version of Ubuntu: 13.10 x64.</li>
+<li>Create the Droplet.</li>
+<li>And ssh to your Droplet with the credentials received from Digital Ocean: <code>ssh root@your_ip_address</code>.</li>
+</ul>
+
+
+
+
+<h1>Bleeding Edge Erlang</h1>
+
+
+
+
+<p>We&rsquo;re going to compile Erlang from it&rsquo;s github repository master branch, At the time of writing it&rsquo;s a few commits after R17 release candidate 2 which comes with a Hipe LLVM backend, maps and named funs. If that doesn&rsquo;t make any sense, no worries, just remember it&rsquo;s the fastest Erlang yet. And fast is good.</p>
+
+
+
+
+<p>Install the required Ubuntu packages:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>apt-get install tmux build-essential emacs24 git-core libncurses5-dev libssl-dev autconf htop
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Fire up <a href="http://tmux.sourceforge.net">Tmux</a>:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>tmux
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Install <a href="https://github.com/spawngrid/kerl">Kerl</a>, a tool which makes building and switching Erlang versions easy.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O <a href="https://raw.github.com/spawngrid/kerl/master/kerl">https://raw.github.com/spawngrid/kerl/master/kerl</a>
+</span><span class='line'><span class="nv">$ </span>chmod a+x kerl
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Let&rsquo;s add some good configuration options for our Erlang installation</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>emacs .kerlrc
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And add</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='text'><span class='line'>KERL_CONFIGURE_OPTIONS=&quot;&mdash;disable-debug &mdash;without-javac &mdash;enable-shared-zlib &mdash;enable-dynamic-ssl-lib &mdash;enable-hipe &mdash;enable-smp-support &mdash;enable-threads &mdash;enable-kernel-poll&quot;
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And because we can, we forge our Erlang installation on 20 cores. <strong>Muahahaha.</strong></p>
+
+
+
+
+<p>To see those cores sweat for you on compilation, create another tmux window <code>CTRL-b c</code> and run <code>htop</code>.</p>
+
+
+
+
+<p><img src="https://www.evernote.com/shard/s48/sh/49c6830d-6d0f-45e6-958a-6d262050b709/0b252a604ad067fa75f37345d8f59a84/deep/0/Fullscreen-29-03-14-21-52.png" alt="Fullscreen%2029/03/14%2021:52" /></p>
+
+
+
+
+<p>Besides the eye candy, compilation finishes under 5 minutes on a 20 core Digital Ocean Droplet. Whoop!</p>
+
+
+
+
+<p>To start compilation of Erlang:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">export </span><span class="nv">MAKEFLAGS</span><span class="o">=</span>-j20 <span class="o">&amp;&amp;</span> ./kerl build git git://github.com/erlang/otp.git master erlang_llvm
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>After compilation we need to install the build and activate it:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>kerl install erlang_llvm erlang_llvm
+</span><span class='line'><span class="nv">$ </span>. ~/erlang_llvm/activate
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Great! We are now ready for our Pièce de résistance.</p>
+
+
+
+
+<h1>Just say: Hello!</h1>
+
+
+
+
+<p>Real Erlang hacker use Emacs, so let&rsquo;s setup Emacs for Erlang development.</p>
+
+
+
+
+<p>Fetch a good base config for Emacs:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -o <a href="https://gist.githubusercontent.com/wardbekker/22a1bd79eb93af85fde0/raw/41eb32cbe1bc231c21fba8ec090e537805de2c58/.emacs">https://gist.githubusercontent.com/wardbekker/22a1bd79eb93af85fde0/raw/41eb32cbe1bc231c21fba8ec090e537805de2c58/.emacs</a>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Start up Emacs <code>emacs</code>. It will complain that it can&rsquo;t find <a href="https://github.com/ericbmerritt/projmake-mode">projmake-mode</a>. Let&rsquo;s fix that:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>ESC<span class="o">]</span>-x package-install <span class="o">[</span>Enter<span class="o">]</span> projmake-mode
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Exit emacs:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>CTRL<span class="o">]</span>-x <span class="o">[</span>CTRL<span class="o">]</span>-c
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Start up Emacs again <code>emacs</code>. Great! We can finally start writing our &ldquo;Hello World&rdquo; program. Oh, not, wait. First, we create a <code>projmake</code> file. The file is needed by <a href="https://github.com/ericbmerritt/projmake-mode">Projmake-mode</a>, a Flymake inspired mode that compiles your program on every save and shows build errors and warnings inline. Really useful!</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="o">[</span>CRTL<span class="o">]</span>-x f projmake <span class="o">[</span>Enter<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Add these line and save the file</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="p">(</span><span class="nv">projmake</span>
+</span><span class='line'> <span class="ss">:name</span>  <span class="s">&quot;Hello&quot;</span>
+</span><span class='line'> <span class="ss">:shell</span> <span class="s">&quot;erlc +native hello.erl&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Ok, now we can really start writing our &ldquo;Hello World&rdquo; program and put those 20 cores and 64GB RAM to good use.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='cl'><span class='line'><span class="nv">[CTRL]-x</span> <span class="nv">f</span> <span class="nv">hello.erl</span> <span class="nv">[Enter]</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And type or paste:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">&ndash;</span><span class="ni">module</span><span class="p">(</span><span class="n">hello</span><span class="p">).</span>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">export</span><span class="p">([</span><span class="n">just_say</span><span class="o">/</span><span class="mi">0</span><span class="p">]).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">just_say</span><span class="p">()</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="n">io_format</span><span class="p">(</span><span class="s">&quot;hello</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[]).</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And save with <code>[CTRL]-x [CTRL]-s</code>.</p>
+
+
+
+
+<p>Whoops. We made an error as projmake-mode shows:</p>
+
+
+
+
+<p><img src="https://www.evernote.com/shard/s48/sh/ef7fb886-9179-40ea-966e-cdffb8d5d303/b1b324c0e4021c9dac5b320f79f168ab/deep/0/Fullscreen-29-03-14-21-24.png" alt="Fullscreen%2029/03/14%2021:24" /></p>
+
+
+
+
+<p>Replace <code>io_format</code> with <code>io:format</code> and save again. That fixes our error!.</p>
+
+
+
+
+<p>Let&rsquo;s run our program. Fire up the Erlang shell with:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">[</span><span class="nv">ESC</span><span class="p">]</span><span class="o">&ndash;</span><span class="n">x</span> <span class="n">erlang</span><span class="o">&ndash;</span><span class="n">shell</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Load the <code>hello</code> module with:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">1</span><span class="o">&gt;</span> <span class="n">m</span><span class="p">(</span><span class="n">hello</span><span class="p">).</span> <span class="p">[</span><span class="nv">Enter</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>And run you first Erlang function&hellip;.</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="mi">2</span><span class="o">&gt;</span> <span class="nn">hello</span><span class="p">:</span><span class="nf">just_say</span><span class="p">().</span> <span class="p">[</span><span class="nv">Enter</span><span class="p">]</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Bliss!</p>
+
+
+
+
+<p><img src="http://i.imgur.com/1Sk0c.gif" /></p>
+
+
+
+
+<p>Congratulations. You now have a powerful Erlang development environment in your hands.</p>
+
+
+
+
+<p>Check out <a href="/blog/2013/05/29/a-beginners-guide-to-erlang/">A beginners guide to Erlang</a> to continue your Erlang binge.</p>
 
 
   </p>
@@ -535,8 +932,6 @@ in
   </span>
 
   
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/03/29/your-first-erlang-program/">Read on &rarr;</a>
-  
 </article>
 
             </div>
@@ -555,6 +950,157 @@ in
 
 
 <p>The great people of <a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">QuviQ</a>, creators of the unique <a href="/blog/2013/06/04/continuous-integration-for-erlang-with-travis-ci/">Quickcheck</a> test framework, created an Erlang Webdriver client implementation (<a href="https://github.com/Quviq/webdrv">Github repository</a>).</p>
+
+
+
+
+<p>It&rsquo;s trivial to get started with the following steps:</p>
+
+
+
+
+<h2>Step 1: Add webdrv to the rebar.config of your project</h2>
+
+
+
+
+<p>Open <code>rebar.config</code> in your favorite editor, and make sure webdrv is listed as dependency. I use a fork of the original repository that support rebar:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">{</span><span class="n">deps</span><span class="p">,</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">webdrv</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="p">{</span><span class="n">git</span><span class="p">,</span> <span class="s">&quot;<a href="https://github.com/ehedenst/webdrv.git&amp;quot;">https://github.com/ehedenst/webdrv.git&amp;quot;</a></span><span class="p">,</span> <span class="p">{</span><span class="n">branch</span><span class="p">,</span> <span class="s">&quot;master&quot;</span><span class="p">}}},</span>
+</span><span class='line'>       <span class="p">]}.</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Step 2: Get and compile webdrv</h2>
+
+
+
+
+<p>Go to the root of your Erlang project and execute:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rebar get-deps compile
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Step 3: Get &amp; start the Google chromedriver</h2>
+
+
+
+
+<p>For this quick start we will be using the <a href="https://sites.google.com/a/chromium.org/chromedriver/">Google Chromedriver</a>. Get the right package for your environment <a href="http://chromedriver.storage.googleapis.com/index.html?path=2.9/">here</a>. I&rsquo;m now on a Mac, so:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>curl -O <a href="http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip">http://chromedriver.storage.googleapis.com/2.9/chromedriver_mac32.zip</a>
+</span><span class='line'><span class="nv">$ </span>unzip chromedriver_mac32.zip
+</span><span class='line'><span class="nv">$ </span>./chromedriver
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>The last line starts up the Chromedriver server and if all went well, you should get the following output:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Starting ChromeDriver <span class="o">(</span>v2.9.248307<span class="o">)</span> on port 9515
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>Important! This server needs to be running during test execution.</p>
+
+
+
+
+<h2>Step 4:  Your first Erlang webdrvr test!</h2>
+
+
+
+
+<p>Save the following module in <code>src/random_org_test.erl</code>. In this test we open a page, fill in a form, submit the form, and check if an expected piece of text is indeed present in the response:</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='erlang'><span class='line'><span class="p">&ndash;</span><span class="ni">module</span><span class="p">(</span><span class="n">random_org_test</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">include_lib</span><span class="p">(</span><span class="s">&quot;webdrv/include/webdrv.hrl&quot;</span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">&ndash;</span><span class="ni">define</span><span class="p">(</span><span class="no">CHROMEDRIVER</span><span class="p">,</span> <span class="s">&quot;<a href="http://localhost:9515/&amp;quot;">http://localhost:9515/&amp;quot;</a></span><span class="p">).</span>
+</span><span class='line'>
+</span><span class='line'><span class="nf">test</span><span class="p">()</span> <span class="o">&ndash;&gt;</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="p">_</span><span class="nv">Pid</span><span class="p">}</span> <span class="o">=</span> <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">start_session</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="o">?</span><span class="nv">CHROMEDRIVER</span><span class="p">,</span>  <span class="nn">webdrv_cap</span><span class="p">:</span><span class="nf">default_chrome</span><span class="p">(),</span> <span class="mi">10000</span><span class="p">),</span>
+</span><span class='line'>    <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">set_url</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;<a href="http://www.random.org/integers/&amp;quot;">http://www.random.org/integers/&amp;quot;</a></span><span class="p">),</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Emin</span><span class="p">}</span> <span class="o">=</span> <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">find_element</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;min&quot;</span><span class="p">),</span>
+</span><span class='line'>    <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">clear_element</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="nv">Emin</span><span class="p">),</span>
+</span><span class='line'>    <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">send_value</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="nv">Emin</span><span class="p">,</span> <span class="s">&quot;5&quot;</span><span class="p">),</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">Emax</span><span class="p">}</span> <span class="o">=</span> <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">find_element</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;max&quot;</span><span class="p">),</span>
+</span><span class='line'>    <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">clear_element</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="nv">Emax</span><span class="p">),</span>
+</span><span class='line'>    <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">send_value</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="nv">Emax</span><span class="p">,</span> <span class="s">&quot;15&quot;</span><span class="p">),</span>
+</span><span class='line'>    <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">submit</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="nv">Emax</span><span class="p">),</span>
+</span><span class='line'>    <span class="p">{</span><span class="n">ok</span><span class="p">,</span> <span class="nv">PageSource</span><span class="p">}</span> <span class="o">=</span> <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">get_page_source</span><span class="p">(</span><span class="n">test</span><span class="p">),</span>
+</span><span class='line'>    <span class="nn">string</span><span class="p">:</span><span class="nf">str</span><span class="p">(</span><span class="nv">PageSource</span><span class="p">,</span> <span class="s">&quot;Here are your random numbers&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>    <span class="nn">webdrv_session</span><span class="p">:</span><span class="nf">stop_session</span><span class="p">(</span><span class="n">test</span><span class="p">).</span>
+</span></code></pre></td></tr></table></div></figure></p>
+
+<h2>Step 5: Run the test</h2>
+
+
+
+
+<p>Run your test by opening up the Erlang shell..</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>erl -pa ebin deps/*/ebin
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>..and execute the test function</p>
+
+
+<p><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>1&gt; random_org_test:test<span class="o">()</span>.
+</span></code></pre></td></tr></table></div></figure></p>
+
+<p>You should see the Chrome browser opening in the background, quickly flashing some pages, closing, and on the Erlang shell the anticlamatic output <code>ok</code>.</p>
+
+
+
+
+<h2>Further information</h2>
+
+
+
+
+<ul>
+<li><a href="http://www.youtube.com/watch?v=_RvIeEAn5P4">Watch the Erlang Factory presentation by Hans Svensson from Quviq</a></li>
+<li><a href="https://github.com/Quviq/webdrv">Erlang Webdrvr Github repository</a></li>
+<li><a href="http://docs.seleniumhq.org/docs/03_webdriver.jsp">Selenium Webdriver documentation</a></li>
+</ul>
 
 
 
@@ -587,8 +1133,6 @@ in
 
   </span>
 
-  
-    <a class="full-article-link pull-right" rel="full-article" href="/blog/2014/03/07/selenium-webdriver-for-erlang/">Read on &rarr;</a>
   
 </article>
 
